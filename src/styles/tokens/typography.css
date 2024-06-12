@@ -1,0 +1,94 @@
+@tailwind base;
+
+@layer base {
+  .typo--display-1--bold {
+    @apply text-display-1 font-bold;
+  }
+  .typo--display-1--medium {
+    @apply text-display-1 font-medium;
+  }
+  .typo--display-1--light {
+    @apply text-display-1 font-light;
+  }
+  .typo--display-2--bold {
+    @apply text-display-2 font-bold;
+  }
+  .typo--display-2--medium {
+    @apply text-display-2 font-medium;
+  }
+  .typo--display-2--light {
+    @apply text-display-2 font-light;
+  }
+  .typo--header-1--bold {
+    @apply text-header-1 font-bold;
+  }
+  .typo--header-1--medium {
+    @apply text-header-1 font-medium;
+  }
+  .typo--header-1--light {
+    @apply text-header-1 font-light;
+  }
+  .typo--header-2--bold {
+    @apply text-header-2 font-bold;
+  }
+  .typo--header-2--medium {
+    @apply text-header-2 font-medium;
+  }
+  .typo--header-2--light {
+    @apply text-header-2 font-light;
+  }
+  .typo--title-1--bold {
+    @apply text-title-1 font-bold;
+  }
+  .typo--title-1--medium {
+    @apply text-title-1 font-medium;
+  }
+  .typo--title-1--light {
+    @apply text-title-1 font-light;
+  }
+  .typo--title-2--bold {
+    @apply text-title-2 font-bold;
+  }
+  .typo--title-2--medium {
+    @apply text-title-2 font-medium;
+  }
+  .typo--title-2--light {
+    @apply text-title-2 font-light;
+  }
+  .typo--body-1--bold {
+    @apply text-body-1 font-bold;
+  }
+  .typo--body-1--medium {
+    @apply text-body-1 font-medium;
+  }
+  .typo--body-1--light {
+    @apply text-body-1 font-light;
+  }
+  .typo--body-2--bold {
+    @apply text-body-2 font-bold;
+  }
+  .typo--body-2--medium {
+    @apply text-body-2 font-medium;
+  }
+  .typo--body-2--light {
+    @apply text-body-2 font-light;
+  }
+  .typo--caption-1--bold {
+    @apply text-caption-1 font-bold;
+  }
+  .typo--caption-1--medium {
+    @apply text-caption-1 font-medium;
+  }
+  .typo--caption-1--light {
+    @apply text-caption-1 font-light;
+  }
+  .typo--caption-2--bold {
+    @apply text-caption-2 font-bold;
+  }
+  .typo--caption-2--medium {
+    @apply text-caption-2 font-medium;
+  }
+  .typo--caption-2--light {
+    @apply text-caption-2 font-light;
+  }
+}

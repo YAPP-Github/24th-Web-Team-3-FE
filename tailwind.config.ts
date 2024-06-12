@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config = {
   darkMode: ["class"],
@@ -15,6 +15,23 @@ const config = {
       screens: {
         "2xl": "1400px",
       },
+    },
+    fontSize: {
+      "display-1": ["40px", "130%"],
+      "display-2": ["36px", "130%"],
+      "header-1": ["28px", "130%"],
+      "header-2": ["24px", "130%"],
+      "title-1": ["28px", "140%"],
+      "title-2": ["24px", "140%"],
+      "body-1": ["16px", "150%"],
+      "body-2": ["14px", "150%"],
+      "caption-1": ["12px", "150%"],
+      "caption-2": ["10px", "150%"],
+    },
+    fontWeight: {
+      light: "200",
+      medium: "500",
+      bold: "700",
     },
     extend: {
       colors: {
@@ -74,6 +91,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+} satisfies Config
 
-export default config;
+export default config
