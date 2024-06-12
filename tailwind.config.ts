@@ -108,6 +108,21 @@ const config = {
         1000: "#113A72 ",
       },
     },
+    boxShadow: {
+      weak: "0px 6px 12px 0px rgba(101, 125, 159, 0.12), 0px 0px 4px 0px rgba(88, 100, 117, 0.08)",
+      normal:
+        "0px 2px 8px 0px rgba(101, 125, 159, 0.12), 0px 0px 1px 0px rgba(88, 100, 117, 0.08)",
+      medium:
+        "0px 6px 12px 0px rgba(101, 125, 159, 0.12), 0px 0px 4px 0px rgba(88, 100, 117, 0.08)",
+      strong:
+        "0px 16px 20px 0px rgba(101, 125, 159, 0.12), 0px 0px 8px 0px rgba(88, 100, 117, 0.08);",
+    },
+    backdropBlur: {
+      weak: "blur(2px)",
+      normal: "blur(4px)",
+      medium: "blur(8px)",
+      strong: "blur(12px)",
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
