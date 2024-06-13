@@ -47,7 +47,7 @@ const config = {
         900: "#181C23",
         1000: "#0E1117",
       },
-      "mf-green": {
+      green: {
         100: "#F3FAF6",
         200: "#E5F5ED ",
         300: "#C8EBD8",
@@ -59,7 +59,7 @@ const config = {
         900: "#228059",
         1000: "#185A3F",
       },
-      "mf-butter": {
+      butter: {
         100: "#FFF7E2",
         200: "#FFF4D6 ",
         300: "#FFECBB",
@@ -71,7 +71,7 @@ const config = {
         900: "#745402",
         1000: "#4C3906",
       },
-      "mf-sky-blue": {
+      "sky-blue": {
         100: "#EBF5FF",
         200: "#DEEEFF ",
         300: "#BCD9F5",
