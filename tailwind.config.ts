@@ -28,11 +28,6 @@ const config = {
       "caption-1": ["12px", "150%"],
       "caption-2": ["10px", "150%"],
     },
-    fontWeight: {
-      light: "200",
-      medium: "500",
-      bold: "700",
-    },
     colors: {
       gray: {
         50: "#F9F9FA",
