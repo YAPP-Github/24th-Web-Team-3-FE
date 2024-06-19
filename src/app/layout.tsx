@@ -1,22 +1,26 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from "next"
+import localFont from "next/font/local"
+import "@/styles/main.css"
 
-const inter = Inter({ subsets: ["latin"] });
+const pretendard = localFont({
+  src: "../font/PretendardVariable.woff2",
+  fallback: ["system-ui", "arial"],
+  variable: "--font-pretendard",
+})
 
 export const metadata: Metadata = {
   title: "Myframe",
   description: "Myframe client service.",
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="ko">
-      <body className={inter.className}>{children}</body>
+    <html lang="ko" className={`${pretendard.variable}`}>
+      <body className={pretendard.className}>{children}</body>
     </html>
-  );
+  )
 }
