@@ -7,7 +7,7 @@ const fetching = async () => {
 
   let res
   try {
-    res = await fetch("https://jsonplaceholder.typicode.com/todo/1")
+    res = await fetch("https://jsonplaceholder.typicode.com/todos/1")
   } catch (error) {
     throw error
   }
