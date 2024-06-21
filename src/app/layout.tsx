@@ -3,7 +3,7 @@ import "@/styles/main.css"
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 
-import Providers from "../components/providers"
+import Providers from "./_components/providers"
 
 const pretendard = localFont({
   src: "../font/PretendardVariable.woff2",
