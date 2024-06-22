@@ -12,13 +12,26 @@ const CrollPage = () => {
     const initCamera = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: {
+            facingMode: { exact: "environment" },
+          },
         })
         if (videoRef.current) {
           videoRef.current.srcObject = isCameraOn ? stream : null
         }
       } catch (error) {
-        console.error("Error accessing camera:", error)
+        // eslint-disable-next-line no-console
+        console.error("Error accessing rear camera: ", error)
+        // fallback to default camera or handle the error as needed
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          })
+          return stream
+        } catch (fallbackError) {
+          // eslint-disable-next-line no-console
+          console.error("Error accessing default camera: ", fallbackError)
+        }
       }
     }
 
