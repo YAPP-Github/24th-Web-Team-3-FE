@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 
-import Test from "@/components/Test"
+import Test from "../_components/Test"
 
 const TestPage = () => {
   return (
