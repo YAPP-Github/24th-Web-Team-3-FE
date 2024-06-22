@@ -139,6 +139,7 @@ const config = {
         1000: "#6F2E50",
       },
       kakao: "#FEE500",
+      white: "#FFFFFF",
     },
     boxShadow: {
       weak: "0px 6px 12px 0px rgba(101, 125, 159, 0.12), 0px 0px 4px 0px rgba(88, 100, 117, 0.08)",
@@ -217,6 +218,11 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  safelist: [
+    {
+      pattern: /fill-*/,
+    },
+  ],
 } satisfies Config
 
 export default config
