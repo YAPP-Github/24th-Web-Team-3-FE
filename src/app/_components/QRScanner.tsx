@@ -3,62 +3,78 @@ import { BrowserQRCodeReader } from "@zxing/browser"
 import React, { useEffect } from "react"
 
 const QRScanner: React.FC = () => {
-  useEffect(() => {
-    const codeReader = new BrowserQRCodeReader()
-    let videoInputDevice: MediaDeviceInfo | null = null
-    let stream: MediaStream | null = null
+  // 후방 카메라 찾기 시도
+  async function findBackCamera(): Promise<MediaDeviceInfo | null> {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices()
+      const videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      )
 
-    async function findBackCamera(): Promise<MediaDeviceInfo | null> {
-      try {
-        const devices = await navigator.mediaDevices.enumerateDevices()
-        const videoDevices = devices.filter(
-          (device) => device.kind === "videoinput"
-        )
-
-        for (const device of videoDevices) {
-          if (device.label.toLowerCase().includes("back")) {
-            return device
-          }
+      // 후방 카메라 찾기 (후면 카메라의 라벨을 확인하여 선택)
+      for (const device of videoDevices) {
+        if (device.label.toLowerCase().includes("back")) {
+          return device
         }
-
-        return videoDevices[0] || null
-      } catch (error) {
-        console.error("Error enumerating devices:", error)
-        return null
       }
-    }
 
-    async function setupCamera() {
+      // 후방 카메라가 없으면 null 반환
+      return null
+    } catch (error) {
+      console.error("Error enumerating devices:", error)
+      return null
+    }
+  }
+
+  useEffect(() => {
+    const setupCamera = async () => {
       try {
+        let stream: MediaStream | null = null
+        let videoInputDevice: MediaDeviceInfo | null = null
+
+        // 후방 카메라 사용 시도
         videoInputDevice = await findBackCamera()
 
         if (!videoInputDevice) {
-          console.error("No back camera found.")
-          return
+          console.warn("No back camera found, switching to front camera.")
+          // 후방 카메라가 없으면 전면 카메라로 대체
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              facingMode: "user", // 전면 카메라 사용
+            },
+          })
+        } else {
+          // 후방 카메라 사용
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              deviceId: { exact: videoInputDevice.deviceId },
+              facingMode: "environment", // 후방 카메라 사용
+            },
+          })
         }
 
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            deviceId: { exact: videoInputDevice.deviceId },
-            facingMode: "environment",
-          },
-        })
-
+        // 비디오 요소 설정
         const videoElement = document.createElement("video")
         videoElement.srcObject = stream
-        videoElement.autoplay = true
+        videoElement.setAttribute("playsinline", "true") // iOS Safari 지원을 위한 속성 추가
+        videoElement.setAttribute("autoplay", "true")
         document.body.appendChild(videoElement)
 
-        const result = await codeReader.decodeFromVideoElement(
-          videoElement,
-          async (result) => {
-            const text = result?.getText() // Result 클래스에서 text 가져오기
-            alert("Decoded: " + text)
-            // QR 코드의 내용을 처리하는 로직 추가
-          }
-        )
+        // ZXing 라이브러리 로드
+        const codeReader = new BrowserQRCodeReader()
 
-        console.log("QR Code scan result:", result)
+        // QR 코드 스캔 및 처리
+        codeReader.decodeFromVideoElement(videoElement, (result, error) => {
+          if (result) {
+            alert("Decoded URL: " + result.getText())
+          } else {
+            // 오류 처리: QR 코드가 발견되지 않음
+            console.warn(
+              "Error decoding QR code:",
+              error?.message || "Unknown error"
+            )
+          }
+        })
       } catch (error) {
         console.error("Error accessing camera:", error)
         alert("Error accessing camera: " + error)
@@ -68,18 +84,21 @@ const QRScanner: React.FC = () => {
     setupCamera()
 
     return () => {
-      if (stream) {
-        stream.getTracks().forEach((track) => {
-          track.stop()
-        })
+      // Clean up function
+      const videoElement = document.querySelector("video")
+      if (videoElement && videoElement.srcObject) {
+        const stream = videoElement.srcObject as MediaStream
+        const tracks = stream.getTracks()
+        tracks.forEach((track) => track.stop())
+        videoElement.srcObject = null
       }
     }
   }, [])
 
   return (
     <div>
-      <h1>QR Scanner</h1>
-      {/* QR 코드 스캔 관련 UI 및 기타 요소 추가 */}
+      <h1>QR Code Scanner</h1>
+      {/* 추가적인 UI 요소는 여기에 추가 */}
     </div>
   )
 }
