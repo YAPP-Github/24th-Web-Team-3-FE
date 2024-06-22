@@ -1,6 +1,5 @@
 import { ComponentProps } from "react"
 
-import * as Icons from "@/assets/solar-icons"
 import type { iconTypes } from "@/types"
 
 interface IconProps extends ComponentProps<"svg"> {
@@ -21,10 +20,10 @@ export default function Icon({
   color = "gray-600",
   ...props
 }: IconProps) {
-  const Icon = Icons[name]
+  const SvgIcon = require(`@/assets/solar-icons/${name}.svg`).default
 
   return (
-    <Icon
+    <SvgIcon
       width={size}
       height={size}
       className={color ? `fill-${color}` : "fill-gray-600"}
