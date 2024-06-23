@@ -1,5 +1,5 @@
-import ErrorHandlingWrapper from "./_components/ErrorHandlingWrapper"
-import Test from "./_components/Test"
+import ErrorHandlingWrapper from "@/common/ErrorHandlingWrapper"
+import Test from "@/common/Test"
 
 export default function Home() {
   return (

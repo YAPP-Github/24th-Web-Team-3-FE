@@ -2,7 +2,7 @@
 
 import { useSuspenseQuery } from "@tanstack/react-query"
 
-import { getJsonplaceholder } from "../api"
+import { getJsonplaceholder } from "@/app/api"
 
 const Test = () => {
   const { data } = useSuspenseQuery({

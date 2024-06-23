@@ -1,4 +1,4 @@
-import customFetch from "../_lib/customFetch"
+import customFetch from "./customFetch"
 
 const myFetch = customFetch({
   baseUrl: "",

@@ -3,7 +3,7 @@ import "@/styles/main.css"
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 
-import Providers from "./_components/providers"
+import QueryProviders from "./_components/QueryProviders"
 
 const pretendard = localFont({
   src: "../font/PretendardVariable.woff2",
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <Providers>{children}</Providers>
+        <QueryProviders>{children}</QueryProviders>
       </body>
     </html>
   )
