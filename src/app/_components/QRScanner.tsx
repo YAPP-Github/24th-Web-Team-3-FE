@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 "use client"
 import { BrowserQRCodeReader } from "@zxing/browser"
 import React, { useEffect } from "react"
+
+import { getCroll } from "../api"
 
 const QRScanner: React.FC = () => {
   // 후방 카메라 찾기 시도
@@ -23,6 +26,15 @@ const QRScanner: React.FC = () => {
     } catch (error) {
       console.error("Error enumerating devices:", error)
       return null
+    }
+  }
+
+  const getQRCode = async (url: string) => {
+    try {
+      const croll = await getCroll()
+      console.log(croll)
+    } catch (error) {
+      console.error("Error getting QR code:", error)
     }
   }
 
@@ -67,6 +79,9 @@ const QRScanner: React.FC = () => {
         codeReader.decodeFromVideoElement(videoElement, (result, error) => {
           if (result) {
             alert("Decoded URL: " + result.getText())
+            // QR 코드가 발견되면 처리
+
+            // getQRCode(result.getText())
           } else {
             // 오류 처리: QR 코드가 발견되지 않음
             console.warn(
