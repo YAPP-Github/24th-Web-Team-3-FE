@@ -14,12 +14,7 @@ interface IconProps extends ComponentProps<"svg"> {
  * @param size 아이콘 크기 ex) 16
  * @param color 아이콘에 적용할 컬러 ex) gray/600 -> gray-600 (기본값)
  */
-export default function Icon({
-  name,
-  size,
-  color = "gray-600",
-  ...props
-}: IconProps) {
+export function Icon({ name, size, color = "gray-600", ...props }: IconProps) {
   const SvgIcon = require(`@/assets/solar-icons/${name}.svg`).default
 
   return (

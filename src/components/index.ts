@@ -1,4 +1,2 @@
-import { Badge } from "./Badge"
-import Icon from "./Icon"
-
-export { Badge,Icon }
+export { Badge } from "./Badge"
+export { Icon } from "./Icon"
