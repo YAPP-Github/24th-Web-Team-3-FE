@@ -12,6 +12,12 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: "http",
+        hostname: "t1.kakaocdn.net",
+        port: "",
+        pathname: "/account_images/**",
+      },
+      {
         protocol: "https",
         // 테스트용. 추후 변경 예정
         hostname: "**",
