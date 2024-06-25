@@ -1,13 +1,38 @@
 "use client"
+import Image from "next/image"
+import { Session } from "next-auth"
 import { signIn, signOut, useSession } from "next-auth/react"
 
-export default function Component() {
-  const { data: session } = useSession()
+import { kakaoLogin } from "@/app/api"
 
-  if (session) {
+interface CustomSession extends Session {
+  user: {
+    name: string
+    image: string
+    picture: string
+    sub: string
+    accessToken: string
+    iat: number
+    exp: number
+    jti: string
+  }
+  expires: string
+}
+
+export default function Component() {
+  const { data: session } = useSession() as { data: CustomSession | null }
+  const user = session?.user
+
+  if (user) {
+    kakaoLogin(user.accessToken)
+  }
+
+  if (user) {
     return (
       <>
-        Signed in as {session?.user?.email} <br />
+        <p>Signed in as {user.name} </p>
+        <Image src={user.image} alt={user.name} width={500} height={500} />
+
         <button onClick={() => signOut()}>Sign out</button>
       </>
     )

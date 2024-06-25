@@ -1,7 +1,7 @@
 import customFetch from "./customFetch"
 
 const myFetch = customFetch({
-  baseUrl: "",
+  baseUrl: "https://gateway.mafoo.kr",
   headers: {
     "Content-Type": "application/json",
     Authorization: "Bearer token",
@@ -24,7 +24,18 @@ const myFetch = customFetch({
 
 export const getJsonplaceholder = async (url?: string) => {
   await new Promise((resolve) => setTimeout(resolve, 700))
-  return myFetch(`https://jsonplaceholder.typicode.com/todos/${url ?? ""}`, {
-    method: "GET",
-  })
+  return await myFetch(
+    `https://jsonplaceholder.typicode.com/todos/${url ?? ""}`,
+    {
+      method: "GET",
+    }
+  )
 }
+
+export const kakaoLogin = async (code: string) =>
+  await myFetch("/user/v1/auth/login/kakao", {
+    method: "POST",
+    headers: {
+      code,
+    },
+  })
