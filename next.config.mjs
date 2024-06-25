@@ -9,6 +9,16 @@ const nextConfig = {
     })
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "t1.kakaocdn.net",
+        port: "",
+        pathname: "/account_images/**",
+      },
+    ],
+  },
 }
 
 const isProd = process.env.NODE_ENV === "production" // 운영환경에서만 pwa 적용
