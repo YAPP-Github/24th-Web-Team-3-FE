@@ -110,7 +110,7 @@ function AlbumItem({ value, handleValue, ...props }: AlbumItemProps) {
       {isEditable && (
         <>
           <input
-            className="w-full text-[26.341px] font-bold bg-gray-100 mix-blend-multiply rounded-lg py-1 pl-3 pr-4 outline-none caret-green-600"
+            className="w-full text-header-1 font-bold bg-gray-100 mix-blend-multiply rounded-lg py-1 pl-3 pr-4 outline-none caret-green-600"
             value={name}
             onChange={handleName}
             maxLength={8}
