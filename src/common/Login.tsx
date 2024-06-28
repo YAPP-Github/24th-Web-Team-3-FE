@@ -2,6 +2,7 @@
 import Image from "next/image"
 import { Session } from "next-auth"
 import { signIn, signOut, useSession } from "next-auth/react"
+import { useEffect } from "react"
 
 import { kakaoLogin } from "@/app/api"
 
@@ -19,13 +20,15 @@ interface CustomSession extends Session {
   expires: string
 }
 
-export default function Component() {
+const Login = () => {
   const { data: session } = useSession() as { data: CustomSession | null }
   const user = session?.user
 
-  if (user) {
+  useEffect(() => {
+    if (!user) return
+
     kakaoLogin(user.accessToken)
-  }
+  }, [user])
 
   if (user) {
     return (
@@ -44,3 +47,5 @@ export default function Component() {
     </>
   )
 }
+
+export default Login
