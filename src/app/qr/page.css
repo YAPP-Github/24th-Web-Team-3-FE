@@ -1,0 +1,18 @@
+/* App.css */
+.fullscreen-qr-scanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black; /* 배경을 검정색으로 설정하여 QR 스캐너가 더 잘 보이게 합니다. */
+}
+
+.fullscreen-qr-scanner video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+}
