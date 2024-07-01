@@ -64,8 +64,6 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -76,8 +74,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       theme,
       disabled,
-      leftIcon,
-      rightIcon,
       type = "button",
       asChild = false,
       children,
@@ -97,9 +93,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         {...props}>
-        {leftIcon}
         {children}
-        {rightIcon}
       </Comp>
     )
   }
