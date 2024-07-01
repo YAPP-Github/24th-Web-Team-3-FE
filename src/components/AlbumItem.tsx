@@ -90,9 +90,21 @@ function AlbumItem({ value, handleValue, ...props }: AlbumItemProps) {
 
   return (
     <div
-      {...props}
-      className={`${cn(albumItemVariants({ type, isEditable }), className)}`}>
-      {!isEditable && (
+      className={`${cn(albumItemVariants({ type, isEditable }), className)}`}
+      {...props}>
+      {isEditable ? (
+        <>
+          <input
+            className="w-full text-header-1 font-bold bg-gray-100 mix-blend-multiply rounded-lg py-1 pl-3 pr-4 outline-none caret-green-600"
+            value={name}
+            onChange={handleName}
+            maxLength={8}
+          />
+          <div className="text-body-2 font-medium text-gray-500 mt-1 text-right">
+            {name.length}/8자
+          </div>
+        </>
+      ) : (
         <>
           <h3 className="text-title-2 font-bold text-gray-800 ">{name}</h3>
           <div className={`${cn(photoCountVariants({ type }))}`}>
@@ -105,19 +117,6 @@ function AlbumItem({ value, handleValue, ...props }: AlbumItemProps) {
           {isNew && (
             <Badge className="absolute -top-[10px] -left-2">New!</Badge>
           )}
-        </>
-      )}
-      {isEditable && (
-        <>
-          <input
-            className="w-full text-header-1 font-bold bg-gray-100 mix-blend-multiply rounded-lg py-1 pl-3 pr-4 outline-none caret-green-600"
-            value={name}
-            onChange={handleName}
-            maxLength={8}
-          />
-          <div className="text-body-2 font-medium text-gray-500 mt-1 text-right">
-            {name.length}/8자
-          </div>
         </>
       )}
       <ColorIcon
