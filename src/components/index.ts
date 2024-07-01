@@ -1,4 +1,6 @@
+export { AlbumItem } from "./AlbumItem"
 export { Badge } from "./Badge"
 export { Button } from "./Button"
+export { ColorIcon } from "./ColorIcon"
 export { FloatingButton } from "./FloatingButton"
 export { Icon } from "./Icon"
