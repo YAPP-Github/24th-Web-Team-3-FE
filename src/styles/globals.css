@@ -2,6 +2,10 @@
 
 @layer base {
   :root {
+    max-width: 393px;
+    margin: 0 auto;
+    background-color: red;
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
