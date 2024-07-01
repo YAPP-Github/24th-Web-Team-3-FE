@@ -1,18 +1,38 @@
 /* App.css */
 .fullscreen-qr-scanner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: black; /* 배경을 검정색으로 설정하여 QR 스캐너가 더 잘 보이게 합니다. */
+  background: var(--Gray-900, #181c23);
 }
 
 .fullscreen-qr-scanner video {
   object-fit: cover;
-  width: 100vw;
+}
+
+.fullscreen-qr-scanner__overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
+}
+
+.fullscreen-qr-scanner__overlay__inner {
+  width: 345px;
+  height: 345px;
+  border-radius: 24px;
+  border: 4px solid var(--Green-600, #28cb87);
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.7);
+}
+
+.test {
+}
+
+.clear {
+  position: relative;
+  z-index: 1;
+}
+
+button {
+  position: relative;
+  z-index: 1;
+  color: white;
 }
