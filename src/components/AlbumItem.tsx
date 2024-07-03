@@ -91,6 +91,7 @@ function AlbumItem({ value, handleValue, ...props }: AlbumItemProps) {
             value={name}
             onChange={handleName}
             maxLength={8}
+            placeholder="새 앨범"
           />
           <div className="text-body-2 font-medium text-gray-500 mt-1 text-right">
             {name.length}/8자
