@@ -2,10 +2,10 @@ import { ComponentProps } from "react"
 
 import type { iconTypes } from "@/types"
 
-interface IconProps extends ComponentProps<"svg"> {
+export interface IconProps extends ComponentProps<"svg"> {
   name: iconTypes
   size: 16 | 20 | 24 | 28 | 36 | 44 | 56 | 64
-  color?: `${string}-${number}` | `${string}-${string}-${number}`
+  color?: string
 }
 
 /**
