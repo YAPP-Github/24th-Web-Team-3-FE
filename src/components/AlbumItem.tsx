@@ -4,6 +4,7 @@ import { cva, VariantProps } from "class-variance-authority"
 import { ChangeEvent, useState } from "react"
 
 import { Badge, ColorIcon } from "@/components"
+import type { albumValue } from "@/types"
 import { cn } from "@/utils"
 
 const albumItemVariants = cva("w-[164px] h-[150px] rounded-2xl relative p-4", {
@@ -42,15 +43,6 @@ const photoCountVariants = cva("text-caption-1 font-medium", {
   },
 })
 
-interface albumValue {
-  name: string
-  type: "red" | "yellow" | "green" | "blue" | "purple" | "pink"
-  photoCount: number
-  isNew: boolean
-  isSelected: boolean
-  isEditable: boolean
-}
-
 export interface AlbumItemProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof albumItemVariants> {
@@ -78,7 +70,7 @@ function AlbumItem({ value, handleValue, ...props }: AlbumItemProps) {
   const [name, setName] = useState(initialName)
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.value
+    const name = e.target.value.slice(0, 8)
     setName(() => name)
 
     const nextValue = {

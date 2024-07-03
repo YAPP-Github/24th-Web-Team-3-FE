@@ -5,3 +5,15 @@ export type iconTypes =
   | "fireBold"
   | "heartAngleBold"
   | "starFallMinimalisticBold"
+  | "altArrowLeftOutline"
+
+export type albumType = "red" | "yellow" | "green" | "blue" | "purple" | "pink"
+
+export interface albumValue {
+  name: string
+  type: albumType
+  photoCount: number
+  isNew: boolean
+  isSelected: boolean
+  isEditable: boolean
+}
