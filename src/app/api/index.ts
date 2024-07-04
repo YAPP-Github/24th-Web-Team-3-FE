@@ -1,7 +1,7 @@
 import customFetch from "./customFetch"
 
 const myFetch = customFetch({
-  baseUrl: "https://gateway.mafoo.kr",
+  baseUrl: "https://gateway.mafoo.kr/",
   headers: {
     "Content-Type": "application/json",
     Authorization: "Bearer token",
@@ -32,8 +32,19 @@ export const getJsonplaceholder = async (url?: string) => {
   )
 }
 
+<<<<<<< HEAD
 export const authLogin = async (code: string) =>
   await myFetch("/user/v1/auth/login/kakao", {
     method: "POST",
     body: JSON.stringify({ code }),
   })
+=======
+export const postQrCode = async (qrUrl: string) => {
+  const { data } = await myFetch("photo/v1/photos", {
+    method: "POST",
+    body: JSON.stringify({ qrUrl }),
+  })
+
+  return data
+}
+>>>>>>> feat: qr code post api 정의
