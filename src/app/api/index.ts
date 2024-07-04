@@ -1,7 +1,7 @@
 import customFetch from "./customFetch"
 
 const myFetch = customFetch({
-  baseUrl: "",
+  baseUrl: "https://gateway.mafoo.kr/",
   headers: {
     "Content-Type": "application/json",
     Authorization: "Bearer token",
@@ -27,4 +27,13 @@ export const getJsonplaceholder = async (url?: string) => {
   return myFetch(`https://jsonplaceholder.typicode.com/todos/${url ?? ""}`, {
     method: "GET",
   })
+}
+
+export const postQrCode = async (qrUrl: string) => {
+  const { data } = await myFetch("photo/v1/photos", {
+    method: "POST",
+    body: JSON.stringify({ qrUrl }),
+  })
+
+  return data
 }
