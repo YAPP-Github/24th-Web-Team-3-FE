@@ -28,7 +28,8 @@ const QrPage = () => {
       return
     }
 
-    await postQrCode(rawValue)
+    const data = await postQrCode(rawValue)
+    alert(`QR코드가 성공적으로 저장되었습니다.\n${data.photoUrl}`)
   }
 
   return (
