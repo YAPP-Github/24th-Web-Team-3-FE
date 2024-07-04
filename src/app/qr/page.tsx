@@ -2,7 +2,7 @@
 
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
 
-import { postQrCode } from "../api"
+import { postQrCode } from "../api/photo"
 import { isUrlIncluded } from "./lib"
 
 const style = {
