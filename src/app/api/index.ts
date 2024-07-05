@@ -1,7 +1,7 @@
 import customFetch from "./customFetch"
 
-const myFetch = customFetch({
-  baseUrl: "",
+export const myFetch = customFetch({
+  baseUrl: "https://gateway.mafoo.kr/",
   headers: {
     "Content-Type": "application/json",
     Authorization: "Bearer token",
@@ -22,6 +22,7 @@ const myFetch = customFetch({
   },
 })
 
+// test api
 export const getJsonplaceholder = async (url?: string) => {
   await new Promise((resolve) => setTimeout(resolve, 700))
   return myFetch(`https://jsonplaceholder.typicode.com/todos/${url ?? ""}`, {
