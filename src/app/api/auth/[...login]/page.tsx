@@ -4,12 +4,11 @@ import { useSearchParams } from "next/navigation"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
-import { authLogin } from "../.."
+import { authLogin } from "../../login"
 
 const RoutePage = () => {
   const searchParams = useSearchParams()
   const router = useRouter()
-
   const code = searchParams.get("code")
 
   useEffect(() => {
