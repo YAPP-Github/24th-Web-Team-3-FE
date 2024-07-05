@@ -7,6 +7,7 @@ export type iconTypes =
   | "starFallMinimalisticBold"
   | "altArrowLeftOutline"
   | "galleryAddOutline"
+  | "kakaoLogo"
 
 export type albumType = "red" | "yellow" | "green" | "blue" | "purple" | "pink"
 
