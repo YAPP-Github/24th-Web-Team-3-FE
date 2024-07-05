@@ -5,3 +5,4 @@ export type iconTypes =
   | "fireBold"
   | "heartAngleBold"
   | "starFallMinimalisticBold"
+  | "kakaoLogo"
