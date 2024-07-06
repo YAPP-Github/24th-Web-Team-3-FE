@@ -6,6 +6,7 @@ export type iconTypes =
   | "heartAngleBold"
   | "starFallMinimalisticBold"
   | "altArrowLeftOutline"
+  | "galleryAddOutline"
 
 export type albumType = "red" | "yellow" | "green" | "blue" | "purple" | "pink"
 
