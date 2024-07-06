@@ -11,3 +11,4 @@ export { PhotoAddButton } from "./atoms/PhotoAddButton"
 
 // organisms
 export { AlbumEditSection } from "./organisms/AlbumEditSection"
+export { AlbumPhotos } from "./organisms/AlbumPhotos"
