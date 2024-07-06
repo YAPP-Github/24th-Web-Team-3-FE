@@ -1,10 +1,12 @@
+import Cookies from "js-cookie"
+
 import customFetch from "./customFetch"
 
 export const myFetch = customFetch({
   baseUrl: "https://gateway.mafoo.kr/",
   headers: {
     "Content-Type": "application/json",
-    Authorization: "Bearer token",
+    Authorization: `Bearer ${Cookies.get("accessToken")}`,
   },
   interceptors: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
