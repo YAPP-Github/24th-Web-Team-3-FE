@@ -8,3 +8,4 @@ export { Icon } from "./Icon"
 
 // organisms
 export { AlbumEditSection } from "./organisms/AlbumEditSection"
+export { AlbumPhotos } from "./organisms/AlbumPhotos"
