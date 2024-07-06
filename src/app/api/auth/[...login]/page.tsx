@@ -19,7 +19,7 @@ const RoutePage = () => {
         const result = await authLogin(code)
         if (result) {
           // 추후 토큰 및 세션 처리 로직 추가
-          router.replace("/")
+          router.replace("/qr")
         }
       } catch (error) {
         throw new Error(`SNS 로그인 실패 : ${error}`)
