@@ -106,12 +106,11 @@ const customFetch =
     }
 
     const response = await fetchProvided(...requestInterceptorAppliedArgs)
-    const json = await response.json()
 
     if (!response.ok) {
-      // HTTP 오류 코드 처리
-      const { code, message } = json
-      throw new Error(`HTTP error! Status: ${code}\n message: ${message}`)
+      const error = await response.json()
+      const { message } = error
+      throw new Error(`${message}`)
     }
 
     if (defaultOptions?.interceptors?.response) {
@@ -123,7 +122,7 @@ const customFetch =
       return await interceptedResponse.json()
     }
 
-    return await json
+    return await response.json()
   }
 
 export default customFetch
