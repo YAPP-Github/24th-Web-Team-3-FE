@@ -29,7 +29,7 @@ const LoginPage = () => {
       </div>
 
       <div className="mx-[24px] mb-[44px] mt-[12px]">
-        <Link href={KAKAO_AUTH_URL}>
+        <Link href={KAKAO_AUTH_URL} replace>
           <Button className="w-full bg-kakao text-gray-1000">
             <Icon name={"kakaoLogo"} size={28}></Icon>
             카카오로 3초만에 계속하기
