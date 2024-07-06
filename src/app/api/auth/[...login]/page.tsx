@@ -22,7 +22,7 @@ const RoutePage = () => {
         if (result) {
           Cookies.set("accessToken", result.accessToken, {
             expires: 7,
-            httpOnly: true,
+            // httpOnly: true,
             path: "/",
             secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
@@ -31,9 +31,8 @@ const RoutePage = () => {
           return
         }
       } catch (error) {
-        throw new Error(`SNS 로그인 실패 : ${error}`)
-      } finally {
         router.replace("/login")
+        throw new Error(`SNS 로그인 실패 : ${error}`)
       }
     }
 
