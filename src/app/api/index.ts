@@ -1,10 +1,12 @@
+import { getAccessToken } from "@/libs/cookie"
+
 import customFetch from "./customFetch"
 
 export const myFetch = customFetch({
   baseUrl: "https://gateway.mafoo.kr/",
   headers: {
     "Content-Type": "application/json",
-    Authorization: "Bearer token",
+    Authorization: `Bearer ${getAccessToken()}`,
   },
   interceptors: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,7 +27,10 @@ export const myFetch = customFetch({
 // test api
 export const getJsonplaceholder = async (url?: string) => {
   await new Promise((resolve) => setTimeout(resolve, 700))
-  return myFetch(`https://jsonplaceholder.typicode.com/todos/${url ?? ""}`, {
-    method: "GET",
-  })
+  return await myFetch(
+    `https://jsonplaceholder.typicode.com/todos/${url ?? ""}`,
+    {
+      method: "GET",
+    }
+  )
 }

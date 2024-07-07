@@ -2,7 +2,7 @@
 
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
 
-import { isUrlIncluded } from "@/lib"
+import { isUrlIncluded } from "@/libs/qr"
 
 import { postQrCode } from "../api/photo"
 
@@ -29,8 +29,12 @@ const QrPage = () => {
       return
     }
 
-    const data = await postQrCode(rawValue)
-    alert(`QR코드가 성공적으로 저장되었습니다.\n${data.photoUrl}`)
+    try {
+      const data = await postQrCode(rawValue)
+      alert(`QR코드가 성공적으로 저장되었습니다.\n${data.photoUrl}`)
+    } catch (error) {
+      alert(`QR코드 저장에 실패했습니다.\n${error}`)
+    }
   }
 
   return (
