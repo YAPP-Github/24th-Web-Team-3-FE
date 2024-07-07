@@ -1,3 +1,5 @@
+import { getAccessToken } from "@/libs/cookie"
+
 import { myFetch } from "./index"
 
 export interface PostQrCodeResponse {
@@ -11,6 +13,9 @@ export const postQrCode = async (
 ): Promise<PostQrCodeResponse> => {
   const data = await myFetch("photo/v1/photos", {
     method: "POST",
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
     body: JSON.stringify({ qrUrl }),
   })
 
