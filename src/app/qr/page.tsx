@@ -2,7 +2,7 @@
 
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
 
-import { isUrlIncluded } from "@/lib"
+import { isUrlIncluded } from "@/libs/qr"
 
 import { postQrCode } from "../api/photo"
 
