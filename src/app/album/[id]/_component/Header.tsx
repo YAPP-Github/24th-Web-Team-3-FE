@@ -39,7 +39,7 @@ export const Header = ({ albumId }: { albumId: string }) => {
       }
     }
     initAlbum(albumId)
-  }, [])
+  }, [albumId])
 
   if (!album) {
     return <header className={cn(backgroundVariants())}></header>
@@ -48,7 +48,7 @@ export const Header = ({ albumId }: { albumId: string }) => {
   return (
     <header className={cn(backgroundVariants({ type: album.type }))}>
       <Icon name="altArrowLeftOutline" size={28} />
-      <div className="flex gap-1 text-gray-800 text-title-2 font-bold">
+      <div className="flex gap-1 text-title-2 font-bold text-gray-800">
         <Icon
           name={iconName[album.type]}
           color={iconColorStyle[album.type]}
@@ -56,7 +56,7 @@ export const Header = ({ albumId }: { albumId: string }) => {
         />
         {album.name}
       </div>
-      <button className="text-red-600 text-body-1 font-medium">삭제</button>
+      <button className="text-body-1 font-medium text-red-600">삭제</button>
     </header>
   )
 }
