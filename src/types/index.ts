@@ -25,3 +25,10 @@ export interface albumValue {
   isSelected: boolean
   isEditable: boolean
 }
+
+export interface album {
+  albumId: string
+  name: string
+  type: albumType
+  photoCount: string
+}

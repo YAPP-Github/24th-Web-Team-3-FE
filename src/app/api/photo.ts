@@ -1,4 +1,5 @@
 import { getAccessToken } from "@/libs/cookie"
+import { album, albumType } from "@/types"
 
 import { myFetch } from "./index"
 
@@ -60,6 +61,25 @@ export const getAlbums = async (): Promise<getAlbumsResponse> => {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
     },
+  })
+  return data
+}
+
+type postAlbumResponse = album
+
+export const postAlbum = async (
+  name: string,
+  type: albumType
+): Promise<postAlbumResponse> => {
+  const data = await myFetch(`/photo/v1/albums`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+    body: JSON.stringify({
+      name,
+      type,
+    }),
   })
   return data
 }
