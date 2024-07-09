@@ -1,4 +1,5 @@
-import { AlbumEditSection, Header } from "@/components"
+import { AlbumEditSection } from "./_components/AlbumEditSection"
+import { Header } from "./_components/Header"
 
 const AlbumCreatePage = () => {
   return (

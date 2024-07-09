@@ -33,13 +33,13 @@ export function AlbumEditSection({
 
   return (
     <>
-      <div className="w-full flex justify-center pt-6">
+      <div className="flex w-full justify-center pt-6">
         <AlbumItem value={value} handleValue={handleValue} />
       </div>
-      <div className="w-full flex flex-col items-center absolute bottom-0">
+      <div className="absolute bottom-0 flex w-full flex-col items-center">
         <AlbumTypeSelectTab type={type} handleType={handleType} />
         <Button
-          className="w-[calc(100%-3rem)] mt-3 mb-11"
+          className="mb-11 mt-3 w-[calc(100%-3rem)]"
           onClick={handleSubmit}>
           다음으로
         </Button>
@@ -52,7 +52,7 @@ function AlbumTypeSelectTab({ type, handleType }: AlbumTypeSelectTabProps) {
   const colors = ["red", "yellow", "green", "blue", "purple", "pink"] as const
 
   return (
-    <div className="w-full h-20 py-4 px-8 flex justify-between items-center">
+    <div className="flex h-20 w-full items-center justify-between px-8 py-4">
       {colors.map((color) => (
         <ColorIcon
           key={color}

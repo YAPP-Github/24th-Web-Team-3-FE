@@ -7,7 +7,7 @@ export const PhotoAddButton = () => {
   }
   return (
     <button
-      className="w-full aspect-square bg-gray-100 border border-gray-200 flex justify-center items-center rounded-xl mb-[13px]"
+      className="mb-[13px] flex aspect-square w-full items-center justify-center rounded-xl border border-gray-200 bg-gray-100"
       onClick={onClick}>
       <Icon name="galleryAddOutline" size={56} color="gray-300" />
     </button>

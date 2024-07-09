@@ -4,7 +4,8 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 
 import { myFetch } from "@/app/api/index"
-import { PhotoAddButton } from "@/components"
+
+import { PhotoAddButton } from "./PhotoAddButton"
 
 export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
   const [photos, setPhotos] = useState<photo[]>([])
@@ -42,7 +43,7 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
 function Photo({ photo }: { photo: photo }) {
   const { photoUrl } = photo
   return (
-    <div className="h-fit mb-4 relative w-full">
+    <div className="relative mb-4 h-fit w-full">
       <Image
         src={photoUrl}
         alt="img"

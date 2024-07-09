@@ -1,9 +1,8 @@
 "use client"
 import { useRouter } from "next/navigation"
 
+import { Icon } from "@/components"
 import { cn } from "@/utils"
-
-import { Icon } from "./Icon"
 
 interface HeaderProps extends React.HTMLAttributes<HTMLHeadElement> {
   type?: "back"
@@ -24,7 +23,7 @@ function Container({
   children,
 }: React.HTMLAttributes<HTMLHeadElement>) {
   return (
-    <header className={cn("w-full h-14 px-4 py-[14px]", className)}>
+    <header className={cn("h-14 w-full px-4 py-[14px]", className)}>
       {children}
     </header>
   )
