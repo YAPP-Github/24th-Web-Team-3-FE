@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-import { myFetch } from "@/app/api/index"
+import { getPhotos } from "@/app/api/photo"
 
 import { PhotoAddButton } from "./PhotoAddButton"
 
@@ -11,15 +11,6 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
   const [photos, setPhotos] = useState<photo[]>([])
 
   useEffect(() => {
-    // dev 머지 이후 api 폴더 내부로 이동 예정
-    const getPhotos = async (albumId: string): Promise<GetPhotosResponse[]> => {
-      const data = await myFetch(`photo/v1/photos?albumId=${albumId}`, {
-        method: "GET",
-      })
-
-      return data
-    }
-
     const fetchAlbums = async () => {
       const data = await getPhotos(albumId)
       if (data.length) {
@@ -60,4 +51,3 @@ interface photo {
   photoUrl: string
   albumId: string
 }
-type GetPhotosResponse = photo
