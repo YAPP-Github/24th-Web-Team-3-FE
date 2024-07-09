@@ -1,6 +1,7 @@
 "use client"
 
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
+import { useRouter } from "next/navigation"
 
 import { isUrlIncluded } from "@/libs"
 
@@ -21,6 +22,8 @@ const style = {
 }
 
 const ScannerPage = () => {
+  const router = useRouter()
+
   const onScan = async (result: IDetectedBarcode[]) => {
     const { rawValue } = result[0]
 
@@ -37,6 +40,8 @@ const ScannerPage = () => {
       alert(`QR코드가 성공적으로 저장되었습니다.\n${data.photoUrl}`)
     } catch (error) {
       alert(`QR코드 저장에 실패했습니다.\n${error}`)
+      router.replace("/album/create")
+      return
     }
   }
 
