@@ -28,14 +28,3 @@ export const myFetch = customFetch({
     },
   },
 })
-
-// test api
-export const getJsonplaceholder = async (url?: string) => {
-  await new Promise((resolve) => setTimeout(resolve, 700))
-  return await myFetch(
-    `https://jsonplaceholder.typicode.com/todos/${url ?? ""}`,
-    {
-      method: "GET",
-    }
-  )
-}
