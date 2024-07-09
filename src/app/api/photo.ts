@@ -51,3 +51,15 @@ export const getAlbum = async (albumId: string): Promise<GetAlbumResponse> => {
   })
   return data
 }
+
+type getAlbumsResponse = GetAlbumResponse[]
+
+export const getAlbums = async (): Promise<getAlbumsResponse> => {
+  const data = await myFetch(`/photo/v1/albums`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  })
+  return data
+}
