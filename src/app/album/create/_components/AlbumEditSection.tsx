@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
+import { postAlbum } from "@/app/api/photo"
 import AlbumItem from "@/common/AlbumItem"
 import Button from "@/common/Button"
 
@@ -41,10 +42,10 @@ export function AlbumEditSection({
     setValue(() => v)
   }
 
-  const handleSubmit = () => {
-    router.push(`/album/${process.env.NEXT_PUBLIC_TEST_ALBUM_ID}`)
-    // TODO : Album 생성 API 적용
-    // TODO : Album 상세 페이지로의 이동 구현
+  const handleSubmit = async () => {
+    const { name, type } = value
+    const { albumId } = await postAlbum(name, type)
+    router.push(`/album/${albumId}`)
   }
 
   return (
