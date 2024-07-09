@@ -4,12 +4,12 @@ import { useEffect, useState } from "react"
 
 import { getPhotos } from "@/app/api/photo"
 
-import type { photo } from "./Photo"
-import { Photo } from "./Photo"
+import { PhotoInfo } from "../../types"
+import Photo from "./Photo"
 import { PhotoAddButton } from "./PhotoAddButton"
 
 export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
-  const [photos, setPhotos] = useState<photo[]>([])
+  const [photos, setPhotos] = useState<PhotoInfo[]>([])
 
   useEffect(() => {
     const fetchAlbums = async () => {

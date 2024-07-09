@@ -1,4 +1,4 @@
-import { myFetch } from "./index"
+import { myFetch } from "./myfetch"
 
 export interface PostQrCodeResponse {
   photoId: string

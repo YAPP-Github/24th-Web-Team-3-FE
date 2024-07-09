@@ -1,4 +1,4 @@
-import { getAccessToken } from "@/libs/cookie"
+import { getAccessToken } from "@/libs"
 
 import customFetch from "./customFetch"
 

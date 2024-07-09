@@ -27,11 +27,11 @@ const RoutePage = () => {
             secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
           })
-          router.replace("/qr")
+          router.replace("/scanner")
           return
         }
       } catch (error) {
-        router.replace("/login")
+        router.replace("/")
         throw new Error(`SNS 로그인 실패 : ${error}`)
       }
     }
