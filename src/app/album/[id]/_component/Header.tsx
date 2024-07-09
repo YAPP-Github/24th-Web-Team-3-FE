@@ -5,7 +5,12 @@ import { useEffect, useState } from "react"
 
 import { getAlbum } from "@/app/api/photo"
 import { Icon } from "@/components"
-import { albumType } from "@/types"
+import {
+  ALBUM_TYPE_BACKGROUND_VARIANTS,
+  ICON_COLOR_STYLE,
+  ICON_NAME,
+} from "@/constants"
+import type { albumType } from "@/types"
 import { cn } from "@/utils"
 
 export const Header = ({ albumId }: { albumId: string }) => {
@@ -30,8 +35,8 @@ export const Header = ({ albumId }: { albumId: string }) => {
       <Icon name="altArrowLeftOutline" size={28} />
       <div className="flex gap-1 text-title-2 font-bold text-gray-800">
         <Icon
-          name={iconName[album.type]}
-          color={iconColorStyle[album.type]}
+          name={ICON_NAME[album.type]}
+          color={ICON_COLOR_STYLE[album.type]}
           size={28}
         />
         {album.name}
@@ -47,37 +52,14 @@ const backgroundVariants = cva(
   "w-full h-14 p-4 py-[14px] flex justify-between items-center",
   {
     variants: {
-      type: {
-        HEART: "bg-red-200",
-        FIRE: "bg-butter-200",
-        BASKETBALL: "bg-green-200",
-        BUILDING: "bg-blue-200",
-        STARFALL: "bg-purple-200",
-        SMILE_FACE: "bg-pink-200",
-        false: "bg-transparent",
-      },
+      type: { ...ALBUM_TYPE_BACKGROUND_VARIANTS, false: "bg-transparent" },
     },
     defaultVariants: {
       type: false,
     },
   }
 )
-const iconName = {
-  HEART: "heartAngleBold",
-  FIRE: "fireBold",
-  BASKETBALL: "basketballBold",
-  BUILDING: "buildingsBold",
-  STARFALL: "starFallMinimalisticBold",
-  SMILE_FACE: "emojiFunnyCircleBold",
-} as const
-const iconColorStyle = {
-  HEART: "red-500",
-  FIRE: "orange-600",
-  BASKETBALL: "green-700",
-  BUILDING: "sky-blue-700",
-  STARFALL: "purple-600",
-  SMILE_FACE: "pink-600",
-} as const
+
 interface album {
   albumId: string
   name: string
