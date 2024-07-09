@@ -4,17 +4,18 @@ import { cva, VariantProps } from "class-variance-authority"
 import { ChangeEvent, useState } from "react"
 
 import { Badge, ColorIcon } from "@/components"
+import type { albumValue } from "@/types"
 import { cn } from "@/utils"
 
 const albumItemVariants = cva("w-[164px] h-[150px] rounded-2xl relative p-4", {
   variants: {
     type: {
-      red: "bg-red-200",
-      yellow: "bg-butter-200",
-      green: "bg-green-200",
-      blue: "bg-blue-200",
-      purple: "bg-purple-200",
-      pink: "bg-pink-200",
+      HEART: "bg-red-200",
+      FIRE: "bg-butter-200",
+      BASKETBALL: "bg-green-200",
+      BUILDING: "bg-blue-200",
+      STARFALL: "bg-purple-200",
+      SMILE_FACE: "bg-pink-200",
     },
 
     isEditable: {
@@ -22,34 +23,25 @@ const albumItemVariants = cva("w-[164px] h-[150px] rounded-2xl relative p-4", {
     },
   },
   defaultVariants: {
-    type: "red",
+    type: "HEART",
   },
 })
 
 const photoCountVariants = cva("text-caption-1 font-medium", {
   variants: {
     type: {
-      red: "text-red-500",
-      yellow: "text-orange-600",
-      green: "text-green-700",
-      blue: "text-sky-blue-700",
-      purple: "text-purple-600",
-      pink: "text-pink-600",
+      HEART: "text-red-500",
+      FIRE: "text-orange-600",
+      BASKETBALL: "text-green-700",
+      BUILDING: "text-sky-blue-700",
+      STARFALL: "text-purple-600",
+      SMILE_FACE: "text-pink-600",
     },
   },
   defaultVariants: {
-    type: "red",
+    type: "HEART",
   },
 })
-
-interface albumValue {
-  name: string
-  type: "red" | "yellow" | "green" | "blue" | "purple" | "pink"
-  photoCount: number
-  isNew: boolean
-  isSelected: boolean
-  isEditable: boolean
-}
 
 export interface AlbumItemProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -78,7 +70,7 @@ function AlbumItem({ value, handleValue, ...props }: AlbumItemProps) {
   const [name, setName] = useState(initialName)
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.value
+    const name = e.target.value.slice(0, 8)
     setName(() => name)
 
     const nextValue = {
@@ -99,6 +91,7 @@ function AlbumItem({ value, handleValue, ...props }: AlbumItemProps) {
             value={name}
             onChange={handleName}
             maxLength={8}
+            placeholder="새 앨범"
           />
           <div className="mt-1 text-right text-body-2 font-medium text-gray-500">
             {name.length}/8자

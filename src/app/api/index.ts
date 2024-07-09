@@ -34,3 +34,17 @@ export const getJsonplaceholder = async (url?: string) => {
     }
   )
 }
+
+export const authLogin = async (code: string) =>
+  await myFetch("/user/v1/auth/login/kakao", {
+    method: "POST",
+    body: JSON.stringify({ code }),
+  })
+export const postQrCode = async (qrUrl: string) => {
+  const { data } = await myFetch("photo/v1/photos", {
+    method: "POST",
+    body: JSON.stringify({ qrUrl }),
+  })
+
+  return data
+}

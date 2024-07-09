@@ -14,6 +14,18 @@ const pretendard = localFont({
 export const metadata: Metadata = {
   title: "Myframe",
   description: "Myframe client service.",
+  keywords: [
+    "인생네컷",
+    "포토이즘",
+    "하루필름",
+    "인생네컷 앨범",
+    "인생네컷 정리",
+    "인생네컷 보관",
+    "즉석사진 앨범",
+    "인생네컷 앨범 서비스",
+    "앨범 서비스",
+    "모바일 앨범",
+  ],
 }
 
 export default function RootLayout({
