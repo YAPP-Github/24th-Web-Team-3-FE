@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 import { AlbumItem, Button, ColorIcon } from "@/components"
@@ -10,6 +11,7 @@ export function AlbumEditSection({
 }: AlbumCreateSectionProps) {
   const [value, setValue] = useState(albumValueInit)
   const { type } = value
+  const router = useRouter()
 
   const handleType = (type: albumType) => {
     const nextValue = {
@@ -24,6 +26,7 @@ export function AlbumEditSection({
   }
 
   const handleSubmit = () => {
+    router.push(`/album/${process.env.NEXT_PUBLIC_TEST_ALBUM_ID}`)
     // TODO : Album 생성 API 적용
     // TODO : Album 상세 페이지로의 이동 구현
   }
