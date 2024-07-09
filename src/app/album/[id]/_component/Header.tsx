@@ -8,17 +8,10 @@ import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
 import { HEADER_STYLES } from "@/constants/styles"
 import { cn } from "@/utils"
 
-import { AlbumType } from "../../types"
-
-interface Album {
-  albumId: string
-  name: string
-  type: AlbumType
-  photoCount: string
-}
+import { AlbumInfo } from "../../types"
 
 export const Header = ({ albumId }: { albumId: string }) => {
-  const [album, setAlbum] = useState<Album | null>(null)
+  const [album, setAlbum] = useState<AlbumInfo | null>(null)
 
   useEffect(() => {
     const initAlbum = async (albumId: string) => {

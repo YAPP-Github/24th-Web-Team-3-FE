@@ -20,3 +20,10 @@ export interface PhotoInfo {
   photoUrl: string
   albumId: string
 }
+
+export interface AlbumInfo {
+  albumId: string
+  name: string
+  type: AlbumType
+  photoCount: string
+}

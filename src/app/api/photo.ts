@@ -1,3 +1,4 @@
+import { AlbumInfo, AlbumType } from "../album/types"
 import { myFetch } from "./myfetch"
 
 export interface PostQrCodeResponse {
@@ -43,6 +44,27 @@ type GetAlbumResponse = {
 export const getAlbum = async (albumId: string): Promise<GetAlbumResponse> => {
   const data = await myFetch(`/photo/v1/albums/${albumId}`, {
     method: "GET",
+  })
+  return data
+}
+
+export const getAlbums = async (): Promise<GetAlbumResponse[]> => {
+  const data = await myFetch(`/photo/v1/albums`, {
+    method: "GET",
+  })
+  return data
+}
+
+export const postAlbum = async (
+  name: string,
+  type: AlbumType
+): Promise<AlbumInfo> => {
+  const data = await myFetch(`/photo/v1/albums`, {
+    method: "POST",
+    body: JSON.stringify({
+      name,
+      type,
+    }),
   })
   return data
 }

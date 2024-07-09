@@ -23,7 +23,12 @@ export interface AlbumItemProps
  * @param handleValue album 내부에서 사용되는 값을 handle할 수 있는 값
  * @param className className을 추가하여 추가적인 스타일링도 가능합니다.
  */
-const AlbumItem = ({ value, handleValue, ...props }: AlbumItemProps) => {
+function AlbumItem({
+  value,
+  handleValue,
+  className,
+  ...props
+}: AlbumItemProps) {
   const {
     name: initialName,
     type,
@@ -32,7 +37,6 @@ const AlbumItem = ({ value, handleValue, ...props }: AlbumItemProps) => {
     isSelected,
     isEditable,
   } = value
-  const { className } = props
 
   const [name, setName] = useState(initialName)
 
@@ -49,8 +53,8 @@ const AlbumItem = ({ value, handleValue, ...props }: AlbumItemProps) => {
 
   return (
     <div
-      className={`${cn(ALBUM_ITEM_STYLES({ type, isEditable }), className)}`}
-      {...props}>
+      {...props}
+      className={cn(ALBUM_ITEM_STYLES({ type, isEditable }), className)}>
       {isEditable ? (
         <>
           <input
