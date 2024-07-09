@@ -10,12 +10,12 @@ import { cn } from "@/utils"
 const albumItemVariants = cva("w-[164px] h-[150px] rounded-2xl relative p-4", {
   variants: {
     type: {
-      red: "bg-red-200",
-      yellow: "bg-butter-200",
-      green: "bg-green-200",
-      blue: "bg-blue-200",
-      purple: "bg-purple-200",
-      pink: "bg-pink-200",
+      HEART: "bg-red-200",
+      FIRE: "bg-butter-200",
+      BASKETBALL: "bg-green-200",
+      BUILDING: "bg-blue-200",
+      STARFALL: "bg-purple-200",
+      SMILE_FACE: "bg-pink-200",
     },
 
     isEditable: {
@@ -23,23 +23,23 @@ const albumItemVariants = cva("w-[164px] h-[150px] rounded-2xl relative p-4", {
     },
   },
   defaultVariants: {
-    type: "red",
+    type: "HEART",
   },
 })
 
 const photoCountVariants = cva("text-caption-1 font-medium", {
   variants: {
     type: {
-      red: "text-red-500",
-      yellow: "text-orange-600",
-      green: "text-green-700",
-      blue: "text-sky-blue-700",
-      purple: "text-purple-600",
-      pink: "text-pink-600",
+      HEART: "text-red-500",
+      FIRE: "text-orange-600",
+      BASKETBALL: "text-green-700",
+      BUILDING: "text-sky-blue-700",
+      STARFALL: "text-purple-600",
+      SMILE_FACE: "text-pink-600",
     },
   },
   defaultVariants: {
-    type: "red",
+    type: "HEART",
   },
 })
 

@@ -9,7 +9,13 @@ export type iconTypes =
   | "galleryAddOutline"
   | "kakaoLogo"
 
-export type albumType = "red" | "yellow" | "green" | "blue" | "purple" | "pink"
+export type albumType =
+  | "HEART"
+  | "FIRE"
+  | "BASKETBALL"
+  | "BUILDING"
+  | "STARFALL"
+  | "SMILE_FACE"
 
 export interface albumValue {
   name: string

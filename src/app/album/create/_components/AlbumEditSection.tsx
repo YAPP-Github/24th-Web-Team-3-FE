@@ -49,7 +49,14 @@ export function AlbumEditSection({
 }
 
 function AlbumTypeSelectTab({ type, handleType }: AlbumTypeSelectTabProps) {
-  const colors = ["red", "yellow", "green", "blue", "purple", "pink"] as const
+  const colors = [
+    "HEART",
+    "FIRE",
+    "BASKETBALL",
+    "BUILDING",
+    "STARFALL",
+    "SMILE_FACE",
+  ] as const
 
   return (
     <div className="flex h-20 w-full items-center justify-between px-8 py-4">
@@ -77,7 +84,7 @@ interface AlbumTypeSelectTabProps {
 
 const DEFAULT_ALBUM_VALUE: albumValue = {
   name: "",
-  type: "red",
+  type: "HEART",
   photoCount: 0,
   isNew: false,
   isSelected: false,
