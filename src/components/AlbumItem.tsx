@@ -87,28 +87,28 @@ function AlbumItem({ value, handleValue, ...props }: AlbumItemProps) {
       {isEditable ? (
         <>
           <input
-            className="w-full text-header-1 font-bold bg-gray-100 mix-blend-multiply rounded-lg py-1 pl-3 pr-4 outline-none caret-green-600"
+            className="w-full rounded-lg bg-gray-100 py-1 pl-3 pr-4 text-header-1 font-bold caret-green-600 mix-blend-multiply outline-none"
             value={name}
             onChange={handleName}
             maxLength={8}
             placeholder="새 앨범"
           />
-          <div className="text-body-2 font-medium text-gray-500 mt-1 text-right">
+          <div className="mt-1 text-right text-body-2 font-medium text-gray-500">
             {name.length}/8자
           </div>
         </>
       ) : (
         <>
-          <h3 className="text-title-2 font-bold text-gray-800 ">{name}</h3>
+          <h3 className="text-title-2 font-bold text-gray-800">{name}</h3>
           <div className={`${cn(photoCountVariants({ type }))}`}>
             사진 {photoCount}장
           </div>
 
           {isSelected && (
-            <div className="w-full h-full rounded-2xl border-[3px] border-green-600 absolute top-0 left-0" />
+            <div className="absolute left-0 top-0 h-full w-full rounded-2xl border-[3px] border-green-600" />
           )}
           {isNew && (
-            <Badge className="absolute -top-[10px] -left-2">New!</Badge>
+            <Badge className="absolute -left-2 -top-[10px]">New!</Badge>
           )}
         </>
       )}
