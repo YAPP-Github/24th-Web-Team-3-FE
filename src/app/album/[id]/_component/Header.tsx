@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import { getAlbum } from "@/app/api/photo"
@@ -12,6 +13,7 @@ import { AlbumInfo } from "../../types"
 
 export const Header = ({ albumId }: { albumId: string }) => {
   const [album, setAlbum] = useState<AlbumInfo | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     const initAlbum = async (albumId: string) => {
@@ -29,7 +31,9 @@ export const Header = ({ albumId }: { albumId: string }) => {
 
   return (
     <header className={cn(HEADER_STYLES({ type: album.type }))}>
-      <Icon name="altArrowLeftOutline" size={28} />
+      <button onClick={() => router.push("/album")}>
+        <Icon name="altArrowLeftOutline" size={28} />
+      </button>
       <div className="flex gap-1 text-title-2 font-bold text-gray-800">
         <Icon
           name={ICON_NAME[album.type]}
