@@ -13,8 +13,8 @@ const pretendard = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Myframe",
-  description: "Myframe client service.",
+  title: "MAFOO",
+  description: "MAFOO client service.",
   keywords: [
     "인생네컷",
     "포토이즘",
