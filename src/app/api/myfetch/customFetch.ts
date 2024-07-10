@@ -119,7 +119,13 @@ const customFetch =
         requestInterceptorAppliedArgs,
         fetchProvided
       )
-      return await interceptedResponse.json()
+      const contentType = interceptedResponse.headers.get("content-type")
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        return await response.json()
+      } else {
+        const text = await response.text()
+        return text
+      }
     }
 
     return await response.json()
