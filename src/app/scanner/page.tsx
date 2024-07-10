@@ -3,10 +3,10 @@
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
 import { useRouter } from "next/navigation"
 
+import { BottomBar } from "@/common/BottomBar"
 import { isUrlIncluded } from "@/libs"
 
 import { postQrCode } from "../api/photo"
-import { BottomBar } from "./_components/BottomBar"
 
 const style = {
   container: {
@@ -72,7 +72,7 @@ const ScannerPage = () => {
               지원하지 않는 브랜드라면 웹사이트를 열어드려요.
             </p>
           </div>
-          <BottomBar />
+          <BottomBar variant="scanner" />
         </>
       </Scanner>
     </div>

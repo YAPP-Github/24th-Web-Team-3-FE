@@ -151,3 +151,19 @@ export const badgeVariants = cva(
     },
   }
 )
+
+export const bottomBarVariants = cva(
+  "absolute bottom-0 left-0 z-[1] flex w-full justify-between rounded-t-2xl px-[54px] pb-8 pt-5 tp-caption1-regular",
+  {
+    variants: {
+      variant: {
+        album: "bg-white text-gray-400",
+        scanner: "bg-gray-900 text-gray-600",
+        profile: "bg-white text-gray-400",
+      },
+    },
+    defaultVariants: {
+      variant: "scanner",
+    },
+  }
+)
