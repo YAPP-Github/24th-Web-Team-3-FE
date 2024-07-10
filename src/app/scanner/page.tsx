@@ -3,6 +3,7 @@
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
 import { useRouter } from "next/navigation"
 
+import { BottomBar } from "@/common/BottomBar"
 import { isUrlIncluded } from "@/libs"
 
 import { postQrCode } from "../api/photo"
@@ -40,7 +41,7 @@ const ScannerPage = () => {
       alert(`QR코드가 성공적으로 저장되었습니다.\n${data.photoUrl}`)
     } catch (error) {
       alert(`QR코드 저장에 실패했습니다.\n${error}`)
-      router.replace("/album/create")
+      router.push("/album/create")
       return
     }
   }
@@ -71,10 +72,7 @@ const ScannerPage = () => {
               지원하지 않는 브랜드라면 웹사이트를 열어드려요.
             </p>
           </div>
-
-          <div className="absolute bottom-0 left-0 z-[1] h-[106px] w-full rounded-t-2xl bg-gray-900 px-[54px] pb-[32px] pt-[20px]">
-            {/* 아이콘 컴포넌투 추가 */}
-          </div>
+          <BottomBar variant="scanner" />
         </>
       </Scanner>
     </div>

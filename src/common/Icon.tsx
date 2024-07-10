@@ -10,6 +10,12 @@ export type IconTypes =
   | "altArrowLeftOutline"
   | "galleryAddOutline"
   | "kakaoLogo"
+  | "albumOutline"
+  | "albumBold"
+  | "scannerOutline"
+  | "userCircleOutline"
+  | "userCircleBold"
+  | "widgetAddOutline"
 
 export interface IconProps extends ComponentProps<"svg"> {
   name: IconTypes

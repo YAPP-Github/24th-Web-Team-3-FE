@@ -119,7 +119,9 @@ const customFetch =
         requestInterceptorAppliedArgs,
         fetchProvided
       )
-      return await interceptedResponse.json()
+
+      const responseText = await interceptedResponse.text()
+      return responseText ? JSON.parse(responseText) : {}
     }
 
     return await response.json()
