@@ -174,6 +174,11 @@ const config = {
         "caption-1": ["12px", "150%"],
         "caption-2": ["10px", "150%"],
       },
+      fontWeight: {
+        semibold: "700",
+        regular: "500",
+        extralight: "300",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

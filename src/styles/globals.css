@@ -148,3 +148,117 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 
+
+디자인시스템: 타이포그라피 
+tp 접두어에 폰트 크기와 폰트 두께를 소문자로 전환하여 표기합니다.
+tp-[폰트 크키.lowercase()]-[폰트 두께.lowercase()]
+
+ex) Display1 + Extralight -> tp-display1-extralight
+
+*/
+
+/* display 1,2 */
+.tp-display1-extralight {
+  @apply text-display-1 font-extralight tracking-[.8px];
+}
+.tp-display1-regular {
+  @apply font-regular text-display-1 tracking-[.8px];
+}
+.tp-display1-semibold {
+  @apply text-display-1 font-semibold tracking-[.8px];
+}
+.tp-display2-extralight {
+  @apply text-display-2 font-extralight tracking-[.72px];
+}
+.tp-display2-regular {
+  @apply font-regular text-display-2 tracking-[.72px];
+}
+.tp-display2-semibold {
+  @apply text-display-2 font-semibold tracking-[.72px];
+}
+
+/* header 1,2 */
+.tp-header1-extralight {
+  @apply text-header-1 font-extralight tracking-[.56px];
+}
+.tp-header1-regular {
+  @apply font-regular text-header-1 tracking-[.56px];
+}
+.tp-header1-semibold {
+  @apply text-header-1 font-semibold tracking-[.56px];
+}
+
+.tp-header2-extralight {
+  @apply text-header-2 font-extralight tracking-[.48px];
+}
+.tp-header2-regular {
+  @apply font-regular text-header-2 tracking-[.48px];
+}
+.tp-header2-semibold {
+  @apply text-header-2 font-semibold tracking-[.48px];
+}
+
+/* title 1,2 */
+.tp-title1-extralight {
+  @apply text-title-1 font-extralight tracking-[.4px];
+}
+.tp-title1-regular {
+  @apply font-regular text-title-1 tracking-[.4px];
+}
+.tp-title1-semibold {
+  @apply text-title-1 font-semibold tracking-[.4px];
+}
+
+.tp-title2-extralight {
+  @apply text-title-2 font-extralight tracking-[.36px];
+}
+.tp-title2-regular {
+  @apply font-regular text-title-2 tracking-[.36px];
+}
+.tp-title2-semibold {
+  @apply text-title-2 font-semibold tracking-[.36px];
+}
+
+/* body 1,2 */
+.tp-body1-extralight {
+  @apply text-body-1 font-extralight tracking-[.32px];
+}
+.tp-body1-regular {
+  @apply font-regular text-body-1 tracking-[.32px];
+}
+.tp-body1-semibold {
+  @apply text-body-1 font-semibold tracking-[.32px];
+}
+
+.tp-body2-extralight {
+  @apply text-body-2 font-extralight tracking-[.28px];
+}
+.tp-body2-regular {
+  @apply font-regular text-body-2 tracking-[.28px];
+}
+.tp-body2-semibold {
+  @apply text-body-2 font-semibold tracking-[.28px];
+}
+
+/* caption 1,2 */
+.tp-caption1-extralight {
+  @apply text-caption-1 font-extralight tracking-[.24px];
+}
+.tp-caption1-regular {
+  @apply font-regular text-caption-1 tracking-[.24px];
+}
+.tp-caption1-semibold {
+  @apply text-caption-1 font-semibold tracking-[.24px];
+}
+
+.tp-caption2-extralight {
+  @apply text-caption-2 font-extralight tracking-[.24px];
+}
+.tp-caption2-regular {
+  @apply font-regular text-caption-2 tracking-[.24px];
+}
+.tp-caption2-semibold {
+  @apply text-caption-2 font-semibold tracking-[.24px];
+}
