@@ -10,10 +10,19 @@ import { albumDetailHeaderVariants as headerVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
 import { AlbumInfo } from "../../types"
+import { DeleteDialog } from "./DeleteDialog"
 
 export const Header = ({ albumId }: { albumId: string }) => {
   const [album, setAlbum] = useState<AlbumInfo | null>(null)
+  const [isModalShown, setIsModalShown] = useState(false)
   const router = useRouter()
+
+  const onDialogOpenClick = () => {
+    setIsModalShown(() => true)
+  }
+  const onDialogCloseClick = () => {
+    setIsModalShown(() => false)
+  }
 
   useEffect(() => {
     const initAlbum = async (albumId: string) => {
@@ -42,7 +51,14 @@ export const Header = ({ albumId }: { albumId: string }) => {
         />
         {album.name}
       </div>
-      <button className="text-body-1 font-medium text-red-600">삭제</button>
+      <button
+        className="text-body-1 font-medium text-red-600"
+        onClick={onDialogOpenClick}>
+        삭제
+      </button>
+      {isModalShown && (
+        <DeleteDialog albumInfo={album} onClose={onDialogCloseClick} />
+      )}
     </header>
   )
 }
