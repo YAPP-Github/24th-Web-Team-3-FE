@@ -1,7 +1,7 @@
 const AlbumLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="w-full min-h-dvh flex justify-center bg-gray-500">
-      <div className="max-w-[390px] w-full bg-white relative">{children}</div>
+    <div className="flex min-h-dvh w-full justify-center">
+      <div className="relative w-full max-w-[390px] bg-white">{children}</div>
     </div>
   )
 }
