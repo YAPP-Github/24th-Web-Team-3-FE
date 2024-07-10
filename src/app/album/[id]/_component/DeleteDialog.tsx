@@ -15,8 +15,14 @@ export const DeleteDialog = ({ albumInfo, onClose }: DeleteDialogProps) => {
   const router = useRouter()
 
   const onDeleteClick = async () => {
-    await deleteAlbum(albumId)
-    router.push("/album")
+    try {
+      await deleteAlbum(albumId)
+      router.push("/album")
+      return
+    } catch (e) {
+      alert("앨범 삭제에 실패했습니다.")
+      onClose()
+    }
   }
 
   return (
