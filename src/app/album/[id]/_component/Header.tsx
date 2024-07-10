@@ -1,20 +1,19 @@
 "use client"
 
-import { cva } from "class-variance-authority"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import { getAlbum } from "@/app/api/photo"
-import { Icon } from "@/components"
-import {
-  ALBUM_TYPE_BACKGROUND_VARIANTS,
-  ICON_COLOR_STYLE,
-  ICON_NAME,
-} from "@/constants"
-import type { albumType } from "@/types"
+import Icon from "@/common/Icon"
+import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
+import { albumDetailHeaderVariants as headerVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
+import { AlbumInfo } from "../../types"
+
 export const Header = ({ albumId }: { albumId: string }) => {
-  const [album, setAlbum] = useState<album | null>(null)
+  const [album, setAlbum] = useState<AlbumInfo | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     const initAlbum = async (albumId: string) => {
@@ -27,12 +26,14 @@ export const Header = ({ albumId }: { albumId: string }) => {
   }, [albumId])
 
   if (!album) {
-    return <header className={cn(backgroundVariants())}></header>
+    return <header className={cn(headerVariants())}></header>
   }
 
   return (
-    <header className={cn(backgroundVariants({ type: album.type }))}>
-      <Icon name="altArrowLeftOutline" size={28} />
+    <header className={cn(headerVariants({ type: album.type }))}>
+      <button onClick={() => router.push("/album")}>
+        <Icon name="altArrowLeftOutline" size={28} />
+      </button>
       <div className="flex gap-1 text-title-2 font-bold text-gray-800">
         <Icon
           name={ICON_NAME[album.type]}
@@ -44,25 +45,4 @@ export const Header = ({ albumId }: { albumId: string }) => {
       <button className="text-body-1 font-medium text-red-600">삭제</button>
     </header>
   )
-}
-
-// css, types 등
-
-const backgroundVariants = cva(
-  "w-full h-14 p-4 py-[14px] flex justify-between items-center",
-  {
-    variants: {
-      type: { ...ALBUM_TYPE_BACKGROUND_VARIANTS, false: "bg-transparent" },
-    },
-    defaultVariants: {
-      type: false,
-    },
-  }
-)
-
-interface album {
-  albumId: string
-  name: string
-  type: albumType
-  photoCount: string
 }

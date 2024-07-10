@@ -1,8 +1,9 @@
 "use client"
 
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
+import { useRouter } from "next/navigation"
 
-import { isUrlIncluded } from "@/libs/qr"
+import { isUrlIncluded } from "@/libs"
 
 import { postQrCode } from "../api/photo"
 
@@ -20,12 +21,17 @@ const style = {
   },
 }
 
-const QrPage = () => {
+const ScannerPage = () => {
+  const router = useRouter()
+
   const onScan = async (result: IDetectedBarcode[]) => {
     const { rawValue } = result[0]
 
     if (!isUrlIncluded(rawValue)) {
-      alert("지원하지 않는 QR코드입니다.")
+      if (confirm("지원하지 않는 QR코드입니다. 웹사이트를 열어드릴까요?")) {
+        window.open(rawValue, "_blank")
+      }
+
       return
     }
 
@@ -34,6 +40,8 @@ const QrPage = () => {
       alert(`QR코드가 성공적으로 저장되었습니다.\n${data.photoUrl}`)
     } catch (error) {
       alert(`QR코드 저장에 실패했습니다.\n${error}`)
+      router.replace("/album/create")
+      return
     }
   }
 
@@ -73,4 +81,4 @@ const QrPage = () => {
   )
 }
 
-export default QrPage
+export default ScannerPage

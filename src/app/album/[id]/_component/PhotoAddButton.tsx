@@ -1,5 +1,6 @@
 "use client"
-import { Icon } from "@/components"
+
+import Icon from "@/common/Icon"
 
 export const PhotoAddButton = () => {
   const onClick = () => {

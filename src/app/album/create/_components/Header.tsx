@@ -1,7 +1,7 @@
 "use client"
 import { useRouter } from "next/navigation"
 
-import { Icon } from "@/components"
+import Icon from "@/common/Icon"
 import { cn } from "@/utils"
 
 interface HeaderProps extends React.HTMLAttributes<HTMLHeadElement> {

@@ -1,53 +1,20 @@
 "use client"
 
-import { cva, VariantProps } from "class-variance-authority"
+import { VariantProps } from "class-variance-authority"
 import { ChangeEvent, useState } from "react"
 
-import { Badge, ColorIcon } from "@/components"
-import type { albumValue } from "@/types"
+import { AlbumValue } from "@/app/album/types"
+import { albumItemVariants, photoCountVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
-const albumItemVariants = cva("w-[164px] h-[150px] rounded-2xl relative p-4", {
-  variants: {
-    type: {
-      HEART: "bg-red-200",
-      FIRE: "bg-butter-200",
-      BASKETBALL: "bg-green-200",
-      BUILDING: "bg-blue-200",
-      STARFALL: "bg-purple-200",
-      SMILE_FACE: "bg-pink-200",
-    },
-
-    isEditable: {
-      true: "w-60 h-[219.51px] rounded-[23.41px]",
-    },
-  },
-  defaultVariants: {
-    type: "HEART",
-  },
-})
-
-const photoCountVariants = cva("text-caption-1 font-medium", {
-  variants: {
-    type: {
-      HEART: "text-red-500",
-      FIRE: "text-orange-600",
-      BASKETBALL: "text-green-700",
-      BUILDING: "text-sky-blue-700",
-      STARFALL: "text-purple-600",
-      SMILE_FACE: "text-pink-600",
-    },
-  },
-  defaultVariants: {
-    type: "HEART",
-  },
-})
+import Badge from "./Badge"
+import ColorIcon from "./ColorIcon"
 
 export interface AlbumItemProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof albumItemVariants> {
-  value: albumValue
-  handleValue: (v: albumValue) => void
+  value: AlbumValue
+  handleValue: (v: AlbumValue) => void
 }
 
 /**
@@ -125,4 +92,4 @@ function AlbumItem({
   )
 }
 
-export { AlbumItem }
+export default AlbumItem

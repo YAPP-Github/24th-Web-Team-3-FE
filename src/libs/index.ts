@@ -1,3 +1,7 @@
+import Cookies from "js-cookie"
+
+export const getAccessToken = () => Cookies.get("accessToken")
+
 export const FOUR_CUT_BRAND = {
   PHOTOISM: "https://qr.seobuk.kr",
   DONTLXXKUP: "https://x.dontlxxkup.kr",

@@ -1,9 +1,18 @@
 import { ComponentProps } from "react"
 
-import type { iconTypes } from "@/types"
+export type IconTypes =
+  | "basketballBold"
+  | "buildingsBold"
+  | "emojiFunnyCircleBold"
+  | "fireBold"
+  | "heartAngleBold"
+  | "starFallMinimalisticBold"
+  | "altArrowLeftOutline"
+  | "galleryAddOutline"
+  | "kakaoLogo"
 
 export interface IconProps extends ComponentProps<"svg"> {
-  name: iconTypes
+  name: IconTypes
   size: 16 | 20 | 24 | 28 | 36 | 44 | 56 | 64
   color?: string
 }
@@ -14,8 +23,8 @@ export interface IconProps extends ComponentProps<"svg"> {
  * @param size 아이콘 크기 ex) 16
  * @param color 아이콘에 적용할 컬러 ex) gray/600 -> gray-600 (기본값)
  */
-export function Icon({ name, size, color = "gray-600", ...props }: IconProps) {
-  const SvgIcon = require(`@/assets/solar-icons/${name}.svg`).default
+const Icon = ({ name, size, color = "gray-600", ...props }: IconProps) => {
+  const SvgIcon = require(`@/assets/${name}.svg`).default
 
   return (
     <SvgIcon
@@ -26,3 +35,5 @@ export function Icon({ name, size, color = "gray-600", ...props }: IconProps) {
     />
   )
 }
+
+export default Icon

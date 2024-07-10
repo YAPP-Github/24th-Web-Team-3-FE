@@ -3,11 +3,12 @@
 import { useRouter } from "next/navigation"
 import React from "react"
 
-import { AlbumItem } from "@/components"
-import type { album } from "@/types"
+import AlbumItem from "@/common/AlbumItem"
+
+import { AlbumInfo } from "../types"
 
 interface AlbumProps extends React.HTMLAttributes<HTMLDivElement> {
-  album: album
+  album: AlbumInfo
 }
 
 export const Album = ({ album }: AlbumProps) => {

@@ -1,7 +1,5 @@
-import { getAccessToken } from "@/libs/cookie"
-import { album, albumType } from "@/types"
-
-import { myFetch } from "./index"
+import { AlbumInfo, AlbumType } from "../album/types"
+import { myFetch } from "./myfetch"
 
 export interface PostQrCodeResponse {
   photoId: string
@@ -14,9 +12,6 @@ export const postQrCode = async (
 ): Promise<PostQrCodeResponse> => {
   const data = await myFetch("photo/v1/photos", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
     body: JSON.stringify({ qrUrl }),
   })
 
@@ -53,29 +48,19 @@ export const getAlbum = async (albumId: string): Promise<GetAlbumResponse> => {
   return data
 }
 
-type getAlbumsResponse = GetAlbumResponse[]
-
-export const getAlbums = async (): Promise<getAlbumsResponse> => {
+export const getAlbums = async (): Promise<GetAlbumResponse[]> => {
   const data = await myFetch(`/photo/v1/albums`, {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
   })
   return data
 }
 
-type postAlbumResponse = album
-
 export const postAlbum = async (
   name: string,
-  type: albumType
-): Promise<postAlbumResponse> => {
+  type: AlbumType
+): Promise<AlbumInfo> => {
   const data = await myFetch(`/photo/v1/albums`, {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
     body: JSON.stringify({
       name,
       type,

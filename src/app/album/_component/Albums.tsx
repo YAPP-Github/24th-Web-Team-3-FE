@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react"
 
 import { getAlbums } from "@/app/api/photo"
-import type { album } from "@/types"
 
+import { AlbumInfo } from "../types"
 import { Album } from "./Album"
 
 export const Albums = () => {
-  const [albums, setAlbums] = useState<album[] | null>(null)
+  const [albums, setAlbums] = useState<AlbumInfo[] | null>(null)
 
   useEffect(() => {
     const albumsInit = async () => {
@@ -20,6 +20,7 @@ export const Albums = () => {
   }, [])
 
   if (!albums) return <></>
+
   if (!albums.length)
     return (
       <div className="text-center text-caption-1 font-light text-gray-500">

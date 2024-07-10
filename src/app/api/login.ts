@@ -1,4 +1,4 @@
-import { myFetch } from "."
+import { myFetch } from "./myfetch"
 
 interface AuthLoginResponse {
   accessToken: string

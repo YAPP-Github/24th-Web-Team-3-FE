@@ -3,8 +3,25 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-import { AlbumItem, Button, ColorIcon } from "@/components"
-import type { albumType, albumValue } from "@/types"
+import { postAlbum } from "@/app/api/photo"
+import AlbumItem from "@/common/AlbumItem"
+import Button from "@/common/Button"
+
+import { AlbumType, AlbumValue } from "../../types"
+import AlbumTypeSelectTab from "./AlbumTypeSelectTab"
+
+interface AlbumCreateSectionProps extends React.HTMLAttributes<HTMLDivElement> {
+  albumValue?: AlbumValue
+}
+
+const DEFAULT_ALBUM_VALUE: AlbumValue = {
+  name: "",
+  type: "HEART",
+  photoCount: 0,
+  isNew: false,
+  isSelected: false,
+  isEditable: true,
+}
 
 export function AlbumEditSection({
   albumValue: albumValueInit = DEFAULT_ALBUM_VALUE,
@@ -13,7 +30,7 @@ export function AlbumEditSection({
   const { type } = value
   const router = useRouter()
 
-  const handleType = (type: albumType) => {
+  const handleType = (type: AlbumType) => {
     const nextValue = {
       ...value,
       type,
@@ -21,14 +38,14 @@ export function AlbumEditSection({
     setValue(() => nextValue)
   }
 
-  const handleValue = (v: albumValue) => {
+  const handleValue = (v: AlbumValue) => {
     setValue(() => v)
   }
 
-  const handleSubmit = () => {
-    router.push(`/album/${process.env.NEXT_PUBLIC_TEST_ALBUM_ID}`)
-    // TODO : Album 생성 API 적용
-    // TODO : Album 상세 페이지로의 이동 구현
+  const handleSubmit = async () => {
+    const { name, type } = value
+    const { albumId } = await postAlbum(name, type)
+    router.push(`/album/${albumId}`)
   }
 
   return (
@@ -46,47 +63,4 @@ export function AlbumEditSection({
       </div>
     </>
   )
-}
-
-function AlbumTypeSelectTab({ type, handleType }: AlbumTypeSelectTabProps) {
-  const colors = [
-    "HEART",
-    "FIRE",
-    "BASKETBALL",
-    "BUILDING",
-    "STARFALL",
-    "SMILE_FACE",
-  ] as const
-
-  return (
-    <div className="flex h-20 w-full items-center justify-between px-8 py-4">
-      {colors.map((color) => (
-        <ColorIcon
-          key={color}
-          iconColor={color}
-          size={color === type ? "large" : "medium"}
-          className={color !== type ? "opacity-30" : ""}
-          onClick={() => handleType(color)}
-        />
-      ))}
-    </div>
-  )
-}
-
-interface AlbumCreateSectionProps extends React.HTMLAttributes<HTMLDivElement> {
-  albumValue?: albumValue
-}
-
-interface AlbumTypeSelectTabProps {
-  type: albumType
-  handleType: (type: albumType) => void
-}
-
-const DEFAULT_ALBUM_VALUE: albumValue = {
-  name: "",
-  type: "HEART",
-  photoCount: 0,
-  isNew: false,
-  isSelected: false,
-  isEditable: true,
 }

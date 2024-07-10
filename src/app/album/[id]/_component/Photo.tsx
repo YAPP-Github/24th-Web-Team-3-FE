@@ -1,7 +1,9 @@
 "use client"
 import Image from "next/image"
 
-export function Photo({ photo }: { photo: photo }) {
+import { PhotoInfo } from "../../types"
+
+const Photo = ({ photo }: { photo: PhotoInfo }) => {
   const { photoUrl } = photo
   return (
     <div className="relative mb-4 h-fit w-full">
@@ -16,8 +18,4 @@ export function Photo({ photo }: { photo: photo }) {
   )
 }
 
-export interface photo {
-  photoId: string
-  photoUrl: string
-  albumId: string
-}
+export default Photo
