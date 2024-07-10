@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { isUrlIncluded } from "@/libs"
 
 import { postQrCode } from "../api/photo"
+import { BottomBar } from "./_components/BottomBar"
 
 const style = {
   container: {
@@ -71,10 +72,7 @@ const ScannerPage = () => {
               지원하지 않는 브랜드라면 웹사이트를 열어드려요.
             </p>
           </div>
-
-          <div className="absolute bottom-0 left-0 z-[1] h-[106px] w-full rounded-t-2xl bg-gray-900 px-[54px] pb-[32px] pt-[20px]">
-            {/* 아이콘 컴포넌투 추가 */}
-          </div>
+          <BottomBar />
         </>
       </Scanner>
     </div>
