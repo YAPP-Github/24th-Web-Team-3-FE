@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { getAlbum } from "@/app/api/photo"
 import Icon from "@/common/Icon"
 import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
-import { HEADER_STYLES } from "@/constants/styles"
+import { albumDetailHeaderVariants as headerVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
 import { AlbumInfo } from "../../types"
@@ -26,11 +26,11 @@ export const Header = ({ albumId }: { albumId: string }) => {
   }, [albumId])
 
   if (!album) {
-    return <header className={cn(HEADER_STYLES)}></header>
+    return <header className={cn(headerVariants())}></header>
   }
 
   return (
-    <header className={cn(HEADER_STYLES({ type: album.type }))}>
+    <header className={cn(headerVariants({ type: album.type }))}>
       <button onClick={() => router.push("/album")}>
         <Icon name="altArrowLeftOutline" size={28} />
       </button>

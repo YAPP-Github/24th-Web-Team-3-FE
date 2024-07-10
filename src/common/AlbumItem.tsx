@@ -4,7 +4,7 @@ import { VariantProps } from "class-variance-authority"
 import { ChangeEvent, useState } from "react"
 
 import { AlbumValue } from "@/app/album/types"
-import { ALBUM_ITEM_STYLES, PHOTO_COUNT_STYLES } from "@/constants/styles"
+import { albumItemVariants, photoCountVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
 import Badge from "./Badge"
@@ -12,7 +12,7 @@ import ColorIcon from "./ColorIcon"
 
 export interface AlbumItemProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof ALBUM_ITEM_STYLES> {
+    VariantProps<typeof albumItemVariants> {
   value: AlbumValue
   handleValue: (v: AlbumValue) => void
 }
@@ -54,7 +54,7 @@ function AlbumItem({
   return (
     <div
       {...props}
-      className={cn(ALBUM_ITEM_STYLES({ type, isEditable }), className)}>
+      className={cn(albumItemVariants({ type, isEditable }), className)}>
       {isEditable ? (
         <>
           <input
@@ -71,7 +71,7 @@ function AlbumItem({
       ) : (
         <>
           <h3 className="text-title-2 font-bold text-gray-800">{name}</h3>
-          <div className={`${cn(PHOTO_COUNT_STYLES({ type }))}`}>
+          <div className={`${cn(photoCountVariants({ type }))}`}>
             사진 {photoCount}장
           </div>
 

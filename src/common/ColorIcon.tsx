@@ -1,7 +1,7 @@
 import { VariantProps } from "class-variance-authority"
 
 import { ICON_NAME } from "@/constants"
-import { COLOR_ICON_STYLES } from "@/constants/styles"
+import { colorIconVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
 const iconSize = {
@@ -11,7 +11,7 @@ const iconSize = {
 
 export interface ColorIconProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof COLOR_ICON_STYLES> {}
+    VariantProps<typeof colorIconVariants> {}
 
 /**
  *
@@ -30,7 +30,7 @@ const ColorIcon = ({
 
   return (
     <div
-      className={`${cn(COLOR_ICON_STYLES({ size, iconColor }), className)}`}
+      className={`${cn(colorIconVariants({ size, iconColor }), className)}`}
       {...props}>
       <SvgIcon
         width={iconSize[size || "medium"]}

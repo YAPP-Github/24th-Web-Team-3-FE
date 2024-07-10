@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority"
 
-export const HEADER_STYLES = cva(
+export const albumDetailHeaderVariants = cva(
   "w-full h-14 p-4 py-[14px] flex justify-between items-center",
   {
     variants: {
@@ -20,7 +20,7 @@ export const HEADER_STYLES = cva(
   }
 )
 
-export const COLOR_ICON_STYLES = cva(
+export const colorIconVariants = cva(
   "flex items-center justify-center rounded-full",
   {
     variants: {
@@ -44,7 +44,7 @@ export const COLOR_ICON_STYLES = cva(
   }
 )
 
-export const ALBUM_ITEM_STYLES = cva(
+export const albumItemVariants = cva(
   "w-[164px] h-[150px] rounded-2xl relative p-4",
   {
     variants: {
@@ -67,7 +67,7 @@ export const ALBUM_ITEM_STYLES = cva(
   }
 )
 
-export const PHOTO_COUNT_STYLES = cva("text-caption-1 font-medium", {
+export const photoCountVariants = cva("text-caption-1 font-medium", {
   variants: {
     type: {
       HEART: "text-red-500",
@@ -83,7 +83,7 @@ export const PHOTO_COUNT_STYLES = cva("text-caption-1 font-medium", {
   },
 })
 
-export const BUTTON_STYLES = cva(
+export const buttonVariants = cva(
   "inline-flex items-center justify-center gap-[6px] whitespace-nowrap rounded-[10px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
@@ -138,7 +138,7 @@ export const BUTTON_STYLES = cva(
   }
 )
 
-export const BADGE_STYLES = cva(
+export const badgeVariants = cva(
   "inline-flex items-center rounded-full py-1 px-[10px] text-white font-bold",
   {
     variants: {
