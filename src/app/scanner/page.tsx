@@ -41,7 +41,7 @@ const ScannerPage = () => {
       alert(`QR코드가 성공적으로 저장되었습니다.\n${data.photoUrl}`)
     } catch (error) {
       alert(`QR코드 저장에 실패했습니다.\n${error}`)
-      router.replace("/album/create")
+      router.push("/album/create")
       return
     }
   }
