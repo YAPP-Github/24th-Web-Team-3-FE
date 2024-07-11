@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useState } from "react"
+import Slider from "react-slick"
 
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
@@ -19,7 +20,13 @@ export const ImageDetail = ({
   startIdx,
   onClose,
 }: ImageDetailProps) => {
-  const [idx] = useState(startIdx)
+  const [idx, setIdx] = useState(startIdx)
+  const sliderSettings = {
+    infinite: true,
+    arrows: false,
+    beforeChange: (_: number, newIdx: number) => setIdx(newIdx),
+    startIdx,
+  }
 
   return (
     <div className="fixed left-0 top-0 z-50 flex h-dvh w-dvw justify-center bg-gray-900">
@@ -36,13 +43,21 @@ export const ImageDetail = ({
           </span>
           <button className="text-red-600">삭제</button>
         </header>
-        <div className="relative flex h-20 w-full flex-1 items-center justify-center border-2 border-pink-500 p-6">
-          <Image
-            src={photos[idx].photoUrl}
-            alt=""
-            fill
-            className="object-contain"
-          />
+        <div className="flex h-1 w-full flex-1 items-center justify-center">
+          <Slider {...sliderSettings} className="h-full w-full">
+            {photos.map((photo) => (
+              <div
+                className="relative flex h-full w-full items-center justify-center"
+                key={photo.photoId}>
+                <Image
+                  src={photo.photoUrl}
+                  alt=""
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
         <div className="w-full p-6 pb-11 pt-3">
           <Button color="green" disabled className="w-full">
