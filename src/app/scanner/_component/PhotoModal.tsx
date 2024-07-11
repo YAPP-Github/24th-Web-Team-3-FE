@@ -11,12 +11,13 @@ interface PhotoModalProps {
   photo: PhotoInfo
   onClose: () => void
 }
+const WIDTH = 240
+const MIN_HEIGHT = 358
 
 export const PhotoModal = ({ photo, onClose }: PhotoModalProps) => {
   const { photoId, photoUrl } = photo
   const router = useRouter()
-  const WIDTH = 240
-  const [height, setHeight] = useState(358)
+  const [height, setHeight] = useState(MIN_HEIGHT)
 
   const onAlreadyExistAlbumBtnClick = () => {
     router.push(`/scanner/select-album?photoId=${photoId}`)

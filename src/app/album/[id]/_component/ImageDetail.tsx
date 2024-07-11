@@ -89,7 +89,7 @@ export const ImageDetail = ({
                   key={photo.photoId}>
                   <Image
                     src={photo.photoUrl}
-                    alt=""
+                    alt={`mafoo_${photo.photoId}`}
                     fill
                     className="object-contain"
                   />
