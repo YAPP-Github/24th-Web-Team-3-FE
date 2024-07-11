@@ -11,7 +11,7 @@ const nextConfig = {
   },
 }
 
-const isProd = process.env.NODE_ENV === "production" // 운영환경에서만 pwa 적용
+const isProd = process.env.NODE_ENV === "production" // 빌드 환경에서만 PWA를 적용합니다.
 const config = isProd ? withPWAInit({ dest: "public" })(nextConfig) : nextConfig
 
 export default config
