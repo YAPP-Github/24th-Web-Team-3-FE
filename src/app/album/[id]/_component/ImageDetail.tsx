@@ -6,6 +6,7 @@ import Slider from "react-slick"
 
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
+import { fullDateStr } from "@/utils"
 
 import { PhotoInfo } from "../../types"
 
@@ -26,6 +27,20 @@ export const ImageDetail = ({
     arrows: false,
     beforeChange: (_: number, newIdx: number) => setIdx(newIdx),
     startIdx,
+  }
+
+  const handleDownload = async (imageUrl: string) => {
+    const res = await fetch(imageUrl)
+    const blob = await res.blob()
+
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `mafoo_${fullDateStr()}.jpg` // 다운로드될 파일명 설정
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url) // Object URL 해제
   }
 
   return (
@@ -60,7 +75,10 @@ export const ImageDetail = ({
           </Slider>
         </div>
         <div className="w-full p-6 pb-11 pt-3">
-          <Button color="green" disabled className="w-full">
+          <Button
+            color="green"
+            className="w-full"
+            onClick={() => handleDownload(photos[idx].photoUrl)}>
             <Icon name="downloadBold" size={28} color="white" />
             <span className="mr-[6px]">다운로드 받기</span>
           </Button>
