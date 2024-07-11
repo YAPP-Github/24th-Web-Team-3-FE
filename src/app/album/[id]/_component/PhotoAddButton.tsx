@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation"
 
 import Icon from "@/common/Icon"
 
-export const PhotoAddButton = ({ albumId }: { albumId: string }) => {
+interface PhotoAddButtonProps {
+  albumId: string
+}
+
+export const PhotoAddButton = ({ albumId }: PhotoAddButtonProps) => {
   const router = useRouter()
   const onClick = () => {
     router.push(`/scanner?albumId=${albumId}`)
