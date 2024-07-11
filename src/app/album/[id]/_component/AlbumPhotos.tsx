@@ -16,20 +16,21 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
 
   const onPhotoClick = (startIdx: number) => {
     carouselStartIdx.current = startIdx
-    setImageDetailShown(() => true)
+    setImageDetailShown(true)
   }
 
   const closeImageDetail = () => {
-    setImageDetailShown(() => false)
+    setImageDetailShown(false)
   }
 
   const handleDelete = async (photoIdx: number) => {
     await deletePhoto(photos[photoIdx].photoId)
 
     const nextPhotos = photos.filter((v, i) => i !== photoIdx)
-    setPhotos(() => nextPhotos)
+    setPhotos(nextPhotos)
+    
     if (!nextPhotos.length) {
-      setImageDetailShown(() => false)
+      setImageDetailShown(false)
     }
   }
 
@@ -59,7 +60,7 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
           photos={photos}
           startIdx={carouselStartIdx.current}
           onClose={closeImageDetail}
-          onDelete={(photoIdx) => handleDelete(photoIdx)}
+          onDelete={handleDelete}
         />
       )}
     </>

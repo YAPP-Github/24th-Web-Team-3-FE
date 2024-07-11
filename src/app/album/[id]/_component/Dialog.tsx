@@ -19,7 +19,7 @@ export const Dialog = ({
     <div className="fixed left-0 top-0 z-10 flex h-dvh w-dvw items-center justify-center bg-gray-800/50">
       <div className="w-[350px] rounded-3xl bg-white p-8 px-5">
         <div>
-          <div className="tp-title1-semibold text-gray-800">{title}</div>
+          <p className="tp-title1-semibold text-gray-800">{title}</p>
           <p className="tp-body1-regular mt-3 text-gray-600">{desc}</p>
         </div>
         <div className="mt-7 flex w-full gap-3">

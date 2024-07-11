@@ -22,7 +22,7 @@ export const Header = ({ albumId }: { albumId: string }) => {
     setIsModalShown(() => true)
   }
   const onDialogCloseClick = () => {
-    setIsModalShown(() => false)
+    setIsModalShown(false)
   }
 
   const handleDeleteAlbum = async () => {

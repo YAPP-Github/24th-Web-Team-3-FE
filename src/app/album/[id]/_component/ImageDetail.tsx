@@ -47,19 +47,19 @@ export const ImageDetail = ({
   }
 
   const onDeleteBtnClick = () => {
-    setDeleteModalShown(() => true)
+    setDeleteModalShown(true)
   }
 
   const handleDelete = async () => {
     await onDelete(idx)
-    setDeleteModalShown(() => false)
+    setDeleteModalShown(false)
   }
 
   const dialogProps = {
     title: "해당 사진을 삭제할까요?",
     desc: "한 번 삭제하면 복구할 수 없어요.",
     confirmBtnContext: "사진 삭제",
-    onClose: () => setDeleteModalShown(() => false),
+    onClose: () => setDeleteModalShown(false),
     onConfirm: handleDelete,
   }
 

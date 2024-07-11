@@ -85,7 +85,7 @@ const ScannerPage = () => {
   }
 
   const closePhotoModal = () => {
-    setIsPhotoModalShown(() => false)
+    setIsPhotoModalShown(false)
   }
 
   useEffect(() => {
