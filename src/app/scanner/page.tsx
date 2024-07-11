@@ -1,12 +1,12 @@
 "use client"
 
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 
 import { BottomBar } from "@/common/BottomBar"
 import { isUrlIncluded } from "@/libs"
 
-import { postQrCode } from "../api/photo"
+import { patchPhotoAlbum, postQrCode } from "../api/photo"
 
 const style = {
   container: {
@@ -18,12 +18,25 @@ const style = {
   video: {
     width: "100%",
     height: "100%",
-    "object-fit": "cover",
+    objectFit: "cover",
   },
-}
+} as const
 
 const ScannerPage = () => {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const defaultAlbumId = searchParams.get("defaultAlbumId")
+
+  const patchPhotoToDefaultAlbum = async (photoId: string) => {
+    if (!defaultAlbumId) {
+      console.error(
+        "기본 앨범 아이디가 없는 상황에서 patchPhotoAlbum을 시도했습니다."
+      )
+      return
+    }
+    await patchPhotoAlbum(photoId, defaultAlbumId)
+    router.push(`/album/${defaultAlbumId}`)
+  }
 
   const onScan = async (result: IDetectedBarcode[]) => {
     const { rawValue } = result[0]
@@ -37,8 +50,17 @@ const ScannerPage = () => {
     }
 
     try {
-      const data = await postQrCode(rawValue)
-      alert(`QR코드가 성공적으로 저장되었습니다.\n${data.photoUrl}`)
+      const { photoId, photoUrl } = await postQrCode(rawValue)
+
+      if (defaultAlbumId) {
+        patchPhotoToDefaultAlbum(photoId)
+        return
+      }
+
+      if (!defaultAlbumId) {
+        alert(`QR코드가 성공적으로 저장되었습니다.\n${photoUrl}`)
+        // TODO: 사진을 앨범에 등록하는 모달 구현
+      }
     } catch (error) {
       alert(`QR코드 저장에 실패했습니다.\n${error}`)
       router.push("/album/create")

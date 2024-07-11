@@ -5,6 +5,7 @@ export interface PostQrCodeResponse {
   photoId: string
   photoUrl: string
   albumId: string
+  brand: string
 }
 
 export const postQrCode = async (
@@ -81,4 +82,19 @@ export const deletePhoto = async (photoId: string): Promise<null> => {
     method: "DELETE",
   })
   return null
+}
+
+type PatchPhotoAlbumResponse = PostQrCodeResponse
+
+export const patchPhotoAlbum = async (
+  photoId: string,
+  albumId: string
+): Promise<PatchPhotoAlbumResponse> => {
+  const data = await myFetch(`/photo/v1/photos/${photoId}/album`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      albumId,
+    }),
+  })
+  return data
 }
