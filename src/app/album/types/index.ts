@@ -7,6 +7,7 @@ export type AlbumType =
   | "SMILE_FACE"
 
 export interface AlbumValue {
+  albumId?: string
   name: string
   type: AlbumType
   photoCount: number
