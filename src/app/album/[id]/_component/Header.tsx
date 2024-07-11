@@ -4,13 +4,14 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import { getAlbum } from "@/app/api/photo"
+import { deleteAlbum } from "@/app/api/photo"
 import Icon from "@/common/Icon"
 import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
 import { albumDetailHeaderVariants as headerVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
 import { AlbumInfo } from "../../types"
-import { DeleteDialog } from "./DeleteDialog"
+import { Dialog } from "./Dialog"
 
 export const Header = ({ albumId }: { albumId: string }) => {
   const [album, setAlbum] = useState<AlbumInfo | null>(null)
@@ -22,6 +23,19 @@ export const Header = ({ albumId }: { albumId: string }) => {
   }
   const onDialogCloseClick = () => {
     setIsModalShown(() => false)
+  }
+
+  const handleDeleteAlbum = async () => {
+    await deleteAlbum(album!.albumId)
+    router.push("/album")
+  }
+
+  const dialogProps = {
+    title: `'${album?.name}' 앨범을 삭제할까요?`,
+    desc: "모든 사진도 함께 삭제되며, 복구할 수 없어요",
+    confirmBtnContext: "앨범 삭제",
+    onClose: onDialogCloseClick,
+    onConfirm: handleDeleteAlbum,
   }
 
   useEffect(() => {
@@ -56,9 +70,7 @@ export const Header = ({ albumId }: { albumId: string }) => {
         onClick={onDialogOpenClick}>
         삭제
       </button>
-      {isModalShown && (
-        <DeleteDialog albumInfo={album} onClose={onDialogCloseClick} />
-      )}
+      {isModalShown && <Dialog {...dialogProps} />}
     </header>
   )
 }
