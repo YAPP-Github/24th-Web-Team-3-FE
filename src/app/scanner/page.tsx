@@ -2,11 +2,14 @@
 
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
 import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
 
 import { BottomBar } from "@/common/BottomBar"
 import { isUrlIncluded } from "@/libs"
 
-import { patchPhotoAlbum, postQrCode } from "../api/photo"
+import { PhotoInfo } from "../album/types"
+import { getAlbums, patchPhotoAlbum, postQrCode } from "../api/photo"
+import { PhotoModal } from "./_component/PhotoModal"
 
 const style = {
   container: {
@@ -26,14 +29,19 @@ const ScannerPage = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const defaultAlbumId = searchParams.get("defaultAlbumId")
+  const [isPhotoModalShown, setIsPhotoModalShown] = useState(false)
+  const photoInfo = useRef<PhotoInfo | null>(null)
+  const isAlbumExist = useRef(false)
 
-  const patchPhotoToDefaultAlbum = async (photoId: string) => {
+  const patchPhotoToDefaultAlbum = async (photo: PhotoInfo) => {
     if (!defaultAlbumId) {
       console.error(
         "기본 앨범 아이디가 없는 상황에서 patchPhotoAlbum을 시도했습니다."
       )
       return
     }
+
+    const { photoId } = photo
     await patchPhotoAlbum(photoId, defaultAlbumId)
     router.push(`/album/${defaultAlbumId}`)
   }
@@ -50,16 +58,24 @@ const ScannerPage = () => {
     }
 
     try {
-      const { photoId, photoUrl } = await postQrCode(rawValue)
+      const photo = await postQrCode(rawValue)
+      photoInfo.current = photo
 
-      if (defaultAlbumId) {
-        patchPhotoToDefaultAlbum(photoId)
+      // 만든 앨범이 하나도 없다면 앨범 생성 페이지로 바로 이동
+      if (!isAlbumExist) {
+        router.push(`/album/create?photoId=${photo.photoId}`)
         return
       }
 
-      if (!defaultAlbumId) {
-        alert(`QR코드가 성공적으로 저장되었습니다.\n${photoUrl}`)
-        // TODO: 사진을 앨범에 등록하는 모달 구현
+      // 기본 앨범이 있다면 기본 앨범에 사진 추가
+      if (defaultAlbumId) {
+        patchPhotoToDefaultAlbum(photo)
+        return
+      }
+
+      // 기본 앨범이 없다면 사진 모달 보여줌
+      if (!defaultAlbumId && photoInfo.current) {
+        setIsPhotoModalShown(() => true)
       }
     } catch (error) {
       alert(`QR코드 저장에 실패했습니다.\n${error}`)
@@ -67,6 +83,20 @@ const ScannerPage = () => {
       return
     }
   }
+
+  const closePhotoModal = () => {
+    setIsPhotoModalShown(() => false)
+  }
+
+  useEffect(() => {
+    const initAlbumExist = async () => {
+      const albums = await getAlbums()
+      if (albums.length) {
+        isAlbumExist.current = true
+      }
+    }
+    initAlbumExist()
+  }, [])
 
   return (
     <div className="h-[100vh] overflow-hidden">
@@ -97,6 +127,9 @@ const ScannerPage = () => {
           <BottomBar variant="scanner" />
         </>
       </Scanner>
+      {isPhotoModalShown && (
+        <PhotoModal photo={photoInfo.current!} onClose={closePhotoModal} />
+      )}
     </div>
   )
 }
