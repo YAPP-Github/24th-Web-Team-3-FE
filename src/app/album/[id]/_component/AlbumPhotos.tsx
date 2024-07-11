@@ -2,35 +2,15 @@
 
 import { useEffect, useRef, useState } from "react"
 
-import { getPhotos } from "@/app/api/photo"
+import { deletePhoto, getPhotos } from "@/app/api/photo"
 
 import { PhotoInfo } from "../../types"
 import { ImageDetail } from "./ImageDetail"
 import { Photo } from "./Photo"
 import { PhotoAddButton } from "./PhotoAddButton"
 
-const dummyPhotos = [
-  {
-    photoId: "123",
-    photoUrl:
-      "https://www.hattori.asia/wordpress/wp-content/uploads/2023/03/20230315-01.jpg",
-    albumId: "",
-  },
-  {
-    photoId: "2",
-    photoUrl:
-      "https://m.media-amazon.com/images/M/MV5BMGQ0ZGJiZTItYTkxMy00OThiLWFkNGQtNGNlOTE3MDZiNmI5XkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg",
-    albumId: "",
-  },
-  {
-    photoId: "3",
-    photoUrl:
-      "https://m.media-amazon.com/images/I/51csusgNVrL._AC_UF1000,1000_QL80_.jpg",
-    albumId: "",
-  },
-]
 export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
-  const [photos, setPhotos] = useState<PhotoInfo[]>(dummyPhotos)
+  const [photos, setPhotos] = useState<PhotoInfo[]>([])
   const [imageDetailShown, setImageDetailShown] = useState(false)
   const carouselStartIdx = useRef(0)
 
@@ -41,6 +21,16 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
 
   const closeImageDetail = () => {
     setImageDetailShown(() => false)
+  }
+
+  const handleDelete = async (photoIdx: number) => {
+    await deletePhoto(photos[photoIdx].photoId)
+
+    const nextPhotos = photos.filter((v, i) => i !== photoIdx)
+    setPhotos(() => nextPhotos)
+    if (!nextPhotos.length) {
+      setImageDetailShown(() => false)
+    }
   }
 
   useEffect(() => {
@@ -69,6 +59,7 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
           photos={photos}
           startIdx={carouselStartIdx.current}
           onClose={closeImageDetail}
+          onDelete={(photoIdx) => handleDelete(photoIdx)}
         />
       )}
     </>

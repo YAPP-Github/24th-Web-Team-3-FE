@@ -75,3 +75,10 @@ export const deleteAlbum = async (albumId: string): Promise<AlbumInfo> => {
   })
   return data
 }
+
+export const deletePhoto = async (photoId: string): Promise<null> => {
+  await myFetch(`/photo/v1/albums/${photoId}`, {
+    method: "DELETE",
+  })
+  return null
+}
