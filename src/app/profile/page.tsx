@@ -1,11 +1,15 @@
 import { BottomBar } from "@/common/BottomBar"
 
+import Header from "./_components/Header"
+import ListItem from "./_components/ListItem"
+
 const ProfilePage = () => {
   return (
-    <h1 className="tp-header1-semibold">
-      프로필 페이지 🚀
+    <div className="relative h-dvh w-full">
+      <Header />
+      <ListItem />
       <BottomBar variant="profile" />
-    </h1>
+    </div>
   )
 }
 
