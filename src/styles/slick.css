@@ -1,0 +1,13 @@
+.slick-list {
+  height: 100%;
+}
+.slick-track {
+  height: 100%;
+}
+.slick-slide {
+  height: 100%;
+}
+.slick-slide > div {
+  height: 100%;
+  padding: 24px;
+}
