@@ -15,16 +15,16 @@ if (!self.define) {
         return e
       })
   )
-  self.define = (n, c) => {
-    const i =
+  self.define = (n, i) => {
+    const t =
       e ||
       ("document" in self ? document.currentScript.src : "") ||
       location.href
-    if (s[i]) return
-    let t = {}
-    const r = (e) => a(e, i),
-      o = { module: { uri: i }, exports: t, require: r }
-    s[i] = Promise.all(n.map((e) => o[e] || r(e))).then((e) => (c(...e), t))
+    if (s[t]) return
+    let c = {}
+    const g = (e) => a(e, t),
+      r = { module: { uri: t }, exports: c, require: g }
+    s[t] = Promise.all(n.map((e) => r[e] || g(e))).then((e) => (i(...e), c))
   }
 }
 define(["./workbox-3c9d0171"], function (e) {
@@ -35,120 +35,112 @@ define(["./workbox-3c9d0171"], function (e) {
     e.precacheAndRoute(
       [
         {
-          url: "/_next/static/SIJ1ch1W2fzAPz3CN4d_g/_buildManifest.js",
-          revision: "a403340f6001126722b00630fa90e454",
-        },
-        {
-          url: "/_next/static/SIJ1ch1W2fzAPz3CN4d_g/_ssgManifest.js",
-          revision: "b6652df95db52feb4daf4eca35380933",
-        },
-        {
           url: "/_next/static/chunks/121-842e1302f81f032b.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/285-0869f5040a4b2b54.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/323-870a54866142734b.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/342-b8dc253c5ac550fa.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/460-0acc185b65db7593.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/465-866876a19d759e36.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/494-765796572a7a25a5.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/616-35028d584b84d8e3.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/978-cc33320615f69cd9.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/a67cc4ef-2c571d757b327875.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/app/_not-found/page-6e01a5cc062d1894.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/app/album/%5Bid%5D/page-c8c54e51ab101243.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/app/album/create/page-813e4455776b40b1.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/app/album/layout-9b2e42a3df49aef0.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
-          url: "/_next/static/chunks/app/album/page-2060d44e08c54e08.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          url: "/_next/static/chunks/app/album/page-339b7a8aaf3faf4e.js",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/app/api/auth/%5B...login%5D/page-b4f7e9965ae4718d.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/app/layout-d89eeaa3b58c2a9a.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/app/loading-94a67a8f0c0b5979.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/app/page-fe9929dabe67ecb6.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
-          url: "/_next/static/chunks/app/profile/page-476cbd3bad99cb45.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          url: "/_next/static/chunks/app/profile/page-0295ba670ba9191d.js",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
-          url: "/_next/static/chunks/app/scanner/page-a9fe04c4abc6d0f8.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          url: "/_next/static/chunks/app/scanner/page-9168fe48763470ac.js",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/app/scanner/select-album/page-508907e4cfaafe61.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/framework-6e06c675866dc992.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/main-af3e55f71695f458.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/main-app-e68333e37c6107c0.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/pages/_app-de47d6d29ff05868.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/pages/_error-435f8ccca04fda18.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js",
@@ -156,7 +148,7 @@ define(["./workbox-3c9d0171"], function (e) {
         },
         {
           url: "/_next/static/chunks/webpack-6d649e97ac7696e4.js",
-          revision: "SIJ1ch1W2fzAPz3CN4d_g",
+          revision: "gGOj0EPYHdgJWc8vDagsL",
         },
         {
           url: "/_next/static/css/39c7578ab7679500.css",
@@ -165,6 +157,14 @@ define(["./workbox-3c9d0171"], function (e) {
         {
           url: "/_next/static/css/a8b54424595ed043.css",
           revision: "a8b54424595ed043",
+        },
+        {
+          url: "/_next/static/gGOj0EPYHdgJWc8vDagsL/_buildManifest.js",
+          revision: "a403340f6001126722b00630fa90e454",
+        },
+        {
+          url: "/_next/static/gGOj0EPYHdgJWc8vDagsL/_ssgManifest.js",
+          revision: "b6652df95db52feb4daf4eca35380933",
         },
         {
           url: "/_next/static/media/ajax-loader.0b80f665.gif",
@@ -182,16 +182,24 @@ define(["./workbox-3c9d0171"], function (e) {
         { url: "/_next/static/media/slick.6aa1ee46.ttf", revision: "6aa1ee46" },
         { url: "/_next/static/media/slick.db61df16.svg", revision: "db61df16" },
         {
-          url: "/images/AlbumItem_Carousell.png",
-          revision: "ac7ad14a4b9f00ff8b79134eb0a5ab84",
+          url: "/images/AlbumItem_Carousell.svg",
+          revision: "52a1246021f0133943d805ace25e19ad",
         },
         {
-          url: "/pwa-icons/192.png",
-          revision: "7303a7d5ec5eae8c49f1b45a04410835",
+          url: "/splash/192.png",
+          revision: "ab5180669dc5ad28340f1b526ad995e9",
         },
         {
-          url: "/pwa-icons/512.png",
-          revision: "47bc56f84e2496b77514c950ac2b4752",
+          url: "/splash/256.png",
+          revision: "98ea36aeb9596ef70fd36169897d4c89",
+        },
+        {
+          url: "/splash/512.png",
+          revision: "6b9fa22d96020b702493af4e0063f6d5",
+        },
+        {
+          url: "/splash/logo.png",
+          revision: "e208fa356b355e004d20666e0b44f4ce",
         },
       ],
       { ignoreURLParametersMatching: [/^utm_/, /^fbclid$/] }
