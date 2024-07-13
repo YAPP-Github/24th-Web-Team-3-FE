@@ -16,6 +16,9 @@ export type IconTypes =
   | "userCircleOutline"
   | "userCircleBold"
   | "widgetAddOutline"
+  | "downloadBold"
+  | "closeCircleBold"
+  | "arrowRight"
 
 export interface IconProps extends ComponentProps<"svg"> {
   name: IconTypes

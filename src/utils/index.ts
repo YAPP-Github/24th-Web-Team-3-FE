@@ -23,3 +23,8 @@ const customTWMerge = extendTailwindMerge<"font-size">({
 export function cn(...inputs: ClassValue[]) {
   return customTWMerge(clsx(inputs))
 }
+
+export function fullDateStr() {
+  const today = new Date()
+  return `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`
+}

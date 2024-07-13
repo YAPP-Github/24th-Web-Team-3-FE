@@ -3,7 +3,7 @@ import Image from "next/image"
 
 import { PhotoInfo } from "../../types"
 
-const Photo = ({ photo }: { photo: PhotoInfo }) => {
+export const Photo = ({ photo }: { photo: PhotoInfo }) => {
   const { photoUrl } = photo
   return (
     <div className="relative mb-4 h-fit w-full">
@@ -17,5 +17,3 @@ const Photo = ({ photo }: { photo: PhotoInfo }) => {
     </div>
   )
 }
-
-export default Photo

@@ -1,11 +1,19 @@
 "use client"
 
+import { useRouter } from "next/navigation"
+
 import Icon from "@/common/Icon"
 
-export const PhotoAddButton = () => {
+interface PhotoAddButtonProps {
+  albumId: string
+}
+
+export const PhotoAddButton = ({ albumId }: PhotoAddButtonProps) => {
+  const router = useRouter()
   const onClick = () => {
-    // TODO: router를 이용한 페이지 라우팅
+    router.push(`/scanner?albumId=${albumId}`)
   }
+
   return (
     <button
       className="mb-[13px] flex aspect-square w-full items-center justify-center rounded-xl border border-gray-200 bg-gray-100"
