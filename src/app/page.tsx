@@ -22,7 +22,7 @@ export default function Home() {
         </p>
         <Image
           className="mt-[110px] w-full"
-          src={"/images/AlbumItem_Carousell.png"}
+          src={"/images/AlbumItem_Carousell.svg"}
           alt="albumImage"
           width={300}
           height={150}

@@ -28,7 +28,7 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
 
     const nextPhotos = photos.filter((v, i) => i !== photoIdx)
     setPhotos(nextPhotos)
-    
+
     if (!nextPhotos.length) {
       setImageDetailShown(false)
     }

@@ -4,23 +4,29 @@
   "description": "MAFOO client service",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000",
-  "theme_color": "#000",
+  "background_color": "#28CB87",
+  "theme_color": "#28CB87",
   "icons": [
     {
-      "src": "/pwa-icons/192.png",
+      "src": "/splash/192.png",
       "sizes": "192x192",
       "purpose": "maskable",
       "type": "image/png"
     },
     {
-      "src": "/pwa-icons/512.png",
+      "src": "/splash/256.png",
+      "sizes": "256x256",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "/splash/512.png",
       "sizes": "512x512",
       "purpose": "maskable",
       "type": "image/png"
     },
     {
-      "src": "/pwa-icons/512.png",
+      "src": "/splash/512.png",
       "sizes": "any",
       "type": "image/png"
     }
