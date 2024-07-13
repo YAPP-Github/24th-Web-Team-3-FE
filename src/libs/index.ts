@@ -6,6 +6,7 @@ export const FOUR_CUT_BRAND = {
   PHOTOISM: "https://qr.seobuk.kr",
   DONTLXXKUP: "https://x.dontlxxkup.kr",
   HARUFILM: "http://haru6.mx2.co.kr",
+  MAFOO: "https://mafoo.kr",
 }
 
 // 객체의 value들을 정규표현식 패턴으로 결합
