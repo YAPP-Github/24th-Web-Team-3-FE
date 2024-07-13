@@ -9,6 +9,14 @@ const nextConfig = {
     })
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
 }
 
 const isProd = process.env.NODE_ENV === "production" // 빌드 환경에서만 PWA를 적용합니다.
