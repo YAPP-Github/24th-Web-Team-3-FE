@@ -103,6 +103,7 @@ const ScannerPage = () => {
       <Scanner
         onScan={onScan}
         styles={{ ...style }}
+        allowMultiple={true}
         components={{
           onOff: true,
           audio: true,
