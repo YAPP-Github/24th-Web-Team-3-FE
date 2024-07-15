@@ -40,18 +40,20 @@ export const PhotoModal = ({ photo, onClose }: PhotoModalProps) => {
           사진을 잘 가져왔어요!
           <br /> 어떤 앨범에 저장하시겠어요?
         </h3>
-        <div className="relative p-4">
-          <Image
-            src={photoUrl}
-            width={WIDTH}
-            height={height}
-            alt=""
-            onLoadingComplete={({ naturalWidth, naturalHeight }) =>
-              handleLoadingComplete(naturalWidth, naturalHeight)
-            }
-            priority
-          />
-        </div>
+        <Image
+          src={photoUrl}
+          width={WIDTH}
+          height={height}
+          style={{ width: "auto", height: "auto" }}
+          alt="scanner_image"
+          onLoad={(e) => {
+            handleLoadingComplete(
+              e.currentTarget.naturalWidth,
+              e.currentTarget.naturalHeight
+            )
+          }}
+          priority
+        />
         <div className="flex w-full gap-3 p-6 py-3">
           <Button
             variant="weak"
