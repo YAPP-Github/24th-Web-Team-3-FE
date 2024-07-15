@@ -103,11 +103,11 @@ const ScannerPage = () => {
       <Scanner
         onScan={onScan}
         styles={{ ...style }}
-        scanDelay={500}
-        allowMultiple={true}
         components={{
           onOff: true,
+          audio: true,
           finder: false,
+          zoom: true,
         }}>
         <>
           <p className="relative z-[1] px-4 py-3.5 text-header-2 font-bold text-white">
