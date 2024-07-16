@@ -40,16 +40,13 @@ function AlbumItem({
   } = value
 
   const [name, setName] = useState(initialName)
-  const [nameLength, setNameLength] = useState(Array.from(initialName).length)
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = Array.from(e.target.value)
     let name = inputValue.join("")
-    let nameLength = inputValue.length
 
     if (inputValue.length > MAX_INPUT_LENGTH) {
       name = inputValue.slice(0, MAX_INPUT_LENGTH).join("")
-      nameLength = MAX_INPUT_LENGTH
     }
 
     const nextValue = {
@@ -57,7 +54,6 @@ function AlbumItem({
       name,
     }
     setName(name)
-    setNameLength(nameLength)
     handleValue(nextValue)
   }
 
@@ -74,7 +70,7 @@ function AlbumItem({
             placeholder="새 앨범"
           />
           <div className="mt-1 text-right text-body-2 font-medium text-gray-500">
-            {nameLength}/8자
+            {Array.from(name).length}/8자
           </div>
         </>
       ) : (
