@@ -6,7 +6,7 @@ import { PhotoInfo } from "../../types"
 export const Photo = ({ photo }: { photo: PhotoInfo }) => {
   const { photoUrl } = photo
   return (
-    <div className="relative mb-4 h-fit w-full">
+    <div className="relative mb-4 h-fit w-[164px]">
       <Image
         src={photoUrl}
         alt="img"
