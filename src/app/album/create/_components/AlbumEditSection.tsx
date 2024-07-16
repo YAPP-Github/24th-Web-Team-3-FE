@@ -58,7 +58,7 @@ export function AlbumEditSection({
       <div className="flex w-full justify-center pt-6">
         <AlbumItem value={value} handleValue={handleValue} />
       </div>
-      <div className="absolute bottom-0 flex w-full flex-col items-center">
+      <div className="fixed bottom-0 flex w-full max-w-[430px] flex-col items-center">
         <AlbumTypeSelectTab type={type} handleType={handleType} />
         <Button
           className="mb-11 mt-3 w-[calc(100%-3rem)]"
