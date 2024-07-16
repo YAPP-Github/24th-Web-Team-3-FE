@@ -62,7 +62,8 @@ export function AlbumEditSection({
         <AlbumTypeSelectTab type={type} handleType={handleType} />
         <Button
           className="mb-11 mt-3 w-[calc(100%-3rem)]"
-          onClick={handleSubmit}>
+          onClick={handleSubmit}
+          disabled={!value.name.length}>
           다음으로
         </Button>
       </div>
