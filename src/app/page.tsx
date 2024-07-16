@@ -7,7 +7,7 @@ import { KAKAO_AUTH_URL } from "@/constants"
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col justify-between pb-28">
+    <div className="flex flex-col justify-between pb-24">
       <div className="flex w-full flex-1 flex-col">
         <div className="mt-[94px] px-8 text-center">
           <p className="text-header-1 font-bold text-gray-500">
