@@ -7,7 +7,7 @@ import { KAKAO_AUTH_URL } from "@/constants"
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col justify-between">
+    <div className="flex h-screen flex-col justify-between pb-28">
       <div className="flex w-full flex-1 flex-col">
         <div className="mt-[94px] px-8 text-center">
           <p className="text-header-1 font-bold text-gray-500">
@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w-full p-8 pb-11 pt-3">
+      <div className="fixed bottom-11 w-full max-w-[430px] px-8">
         <Link href={KAKAO_AUTH_URL} replace>
           <Button className="w-full bg-kakao text-gray-1000">
             <Icon name={"kakaoLogo"} size={28}></Icon>
