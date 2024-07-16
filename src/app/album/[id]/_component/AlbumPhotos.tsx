@@ -47,7 +47,7 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
 
   return (
     <>
-      <div className="w-full columns-2 gap-[13px]">
+      <div className={`flex min-h-[165px] w-full flex-wrap gap-[13px]`}>
         <PhotoAddButton albumId={albumId} />
         {photos.map((photo, idx) => (
           <div key={photo.photoId} onClick={() => onPhotoClick(idx)}>

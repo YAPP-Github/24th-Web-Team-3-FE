@@ -16,6 +16,7 @@ export interface AlbumItemProps
   value: AlbumValue
   handleValue: (v: AlbumValue) => void
 }
+const MAX_INPUT_LENGTH = 8
 
 /**
  *
@@ -41,13 +42,18 @@ function AlbumItem({
   const [name, setName] = useState(initialName)
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.value.slice(0, 8)
-    setName(() => name)
+    const inputValue = Array.from(e.target.value)
+    let name = inputValue.join("")
+
+    if (inputValue.length > MAX_INPUT_LENGTH) {
+      name = inputValue.slice(0, MAX_INPUT_LENGTH).join("")
+    }
 
     const nextValue = {
       ...value,
       name,
     }
+    setName(name)
     handleValue(nextValue)
   }
 
@@ -61,11 +67,10 @@ function AlbumItem({
             className="w-full rounded-lg bg-gray-100 py-1 pl-3 pr-4 text-header-1 font-bold caret-green-600 mix-blend-multiply outline-none"
             value={name}
             onChange={handleName}
-            maxLength={8}
             placeholder="새 앨범"
           />
           <div className="mt-1 text-right text-body-2 font-medium text-gray-500">
-            {name.length}/8자
+            {Array.from(name).length}/8자
           </div>
         </>
       ) : (

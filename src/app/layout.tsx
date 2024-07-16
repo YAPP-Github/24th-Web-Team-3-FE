@@ -1,16 +1,10 @@
 import "@/styles/main.css"
 
 import type { Metadata } from "next"
-import localFont from "next/font/local"
 
 import ErrorHandlingWrapper from "@/common/ErrorHandlingWrapper"
 import { QueryProviders } from "@/common/QueryProviders"
-
-const pretendard = localFont({
-  src: "../font/PretendardVariable.woff2",
-  fallback: ["system-ui", "arial"],
-  variable: "--font-pretendard",
-})
+import { pretendard } from "@/font"
 
 export const metadata: Metadata = {
   title: "MAFOO",
@@ -35,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko" className={`${pretendard.variable}`}>
+    <html lang="ko" className={`${pretendard}`}>
       <body className={pretendard.className}>
         <QueryProviders>
           <ErrorHandlingWrapper>{children}</ErrorHandlingWrapper>

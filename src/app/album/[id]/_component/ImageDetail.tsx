@@ -33,7 +33,10 @@ export const ImageDetail = ({
     initialSlide: startIdx,
   }
   const handleDownload = async (imageUrl: string) => {
-    const res = await fetch(imageUrl)
+    const res = await fetch(imageUrl, {
+      method: "GET",
+      mode: "no-cors",
+    })
     const blob = await res.blob()
 
     const url = URL.createObjectURL(blob)
