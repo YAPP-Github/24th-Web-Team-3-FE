@@ -5,6 +5,7 @@ import localFont from "next/font/local"
 
 import ErrorHandlingWrapper from "@/common/ErrorHandlingWrapper"
 import { QueryProviders } from "@/common/QueryProviders"
+import AlertContainer from "@/store/AlertContext"
 
 const pretendard = localFont({
   src: "../font/PretendardVariable.woff2",
@@ -38,7 +39,10 @@ export default function RootLayout({
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
         <QueryProviders>
-          <ErrorHandlingWrapper>{children}</ErrorHandlingWrapper>
+          <ErrorHandlingWrapper>
+            <AlertContainer />
+            {children}
+          </ErrorHandlingWrapper>
         </QueryProviders>
       </body>
     </html>
