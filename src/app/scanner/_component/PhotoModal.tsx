@@ -3,19 +3,19 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-import { PhotoInfo } from "@/app/album/types"
+import { PostQrCodeResponse } from "@/app/api/photo"
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 
 interface PhotoModalProps {
-  photo: PhotoInfo
+  scanInfo: PostQrCodeResponse
   onClose: () => void
 }
 const WIDTH = 240
 const MIN_HEIGHT = 358
 
-export const PhotoModal = ({ photo, onClose }: PhotoModalProps) => {
-  const { photoId, photoUrl } = photo
+export const PhotoModal = ({ scanInfo, onClose }: PhotoModalProps) => {
+  const { photoId, photoUrl } = scanInfo
   const router = useRouter()
   const [height, setHeight] = useState(MIN_HEIGHT)
 
