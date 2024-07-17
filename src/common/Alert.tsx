@@ -13,10 +13,8 @@ const Alert = ({ title, description, onClose }: AlertProps) => {
     <div className="absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-gray-800 bg-opacity-50">
       <div className="relative flex h-[220px] w-[350px] flex-col justify-between rounded-3xl bg-white px-5 py-6">
         <div>
-          <p className="text-center text-title-1 font-semibold text-gray-800">
-            {title}
-          </p>
-          <p className="mt-3 text-center text-body-1 font-regular text-gray-600">
+          <p className="text-title-1 font-semibold text-gray-800">{title}</p>
+          <p className="mt-3 px-[6px] text-body-1 font-regular text-gray-600">
             {description}
           </p>
         </div>
