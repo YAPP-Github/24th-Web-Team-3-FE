@@ -10,7 +10,7 @@ export const usePostQrCode = () => {
     mutationFn: (code: string) => postQrCode(code),
     mutationKey: ["postQrCode"],
     onError: (error) => {
-      showAlert("스캔에 문제가 발생했습니다", error.message)
+      showAlert("앗! 사진을 불러오지 못했어요", error.message)
     },
 
     // throwOnError: true,
