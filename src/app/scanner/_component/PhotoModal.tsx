@@ -3,19 +3,19 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-import { PhotoInfo } from "@/app/album/types"
+import { PostQrCodeResponse } from "@/app/api/photo"
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 
 interface PhotoModalProps {
-  photo: PhotoInfo
+  scanInfo: PostQrCodeResponse
   onClose: () => void
 }
 const WIDTH = 240
 const MIN_HEIGHT = 358
 
-export const PhotoModal = ({ photo, onClose }: PhotoModalProps) => {
-  const { photoId, photoUrl } = photo
+export const PhotoModal = ({ scanInfo, onClose }: PhotoModalProps) => {
+  const { photoId, photoUrl } = scanInfo
   const router = useRouter()
   const [height, setHeight] = useState(MIN_HEIGHT)
 
@@ -40,18 +40,20 @@ export const PhotoModal = ({ photo, onClose }: PhotoModalProps) => {
           사진을 잘 가져왔어요!
           <br /> 어떤 앨범에 저장하시겠어요?
         </h3>
-        <div className="relative p-4">
-          <Image
-            src={photoUrl}
-            width={WIDTH}
-            height={height}
-            alt=""
-            onLoadingComplete={({ naturalWidth, naturalHeight }) =>
-              handleLoadingComplete(naturalWidth, naturalHeight)
-            }
-            priority
-          />
-        </div>
+        <Image
+          src={photoUrl}
+          width={WIDTH}
+          height={height}
+          style={{ width: "auto", height: "auto" }}
+          alt="scanner_image"
+          onLoad={(e) => {
+            handleLoadingComplete(
+              e.currentTarget.naturalWidth,
+              e.currentTarget.naturalHeight
+            )
+          }}
+          priority
+        />
         <div className="flex w-full gap-3 p-6 py-3">
           <Button
             variant="weak"

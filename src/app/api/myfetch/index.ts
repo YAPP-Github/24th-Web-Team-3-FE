@@ -3,7 +3,7 @@ import { getAccessToken } from "@/libs"
 import customFetch from "./customFetch"
 
 export const myFetch = customFetch({
-  baseUrl: "https://gateway.mafoo.kr/",
+  baseUrl: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     "Content-Type": "application/json",
   },

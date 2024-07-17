@@ -84,12 +84,10 @@ export const deletePhoto = async (photoId: string): Promise<null> => {
   return null
 }
 
-type PatchPhotoAlbumResponse = PostQrCodeResponse
-
 export const patchPhotoAlbum = async (
   photoId: string,
   albumId: string
-): Promise<PatchPhotoAlbumResponse> => {
+): Promise<PostQrCodeResponse> => {
   const data = await myFetch(`/photo/v1/photos/${photoId}/album`, {
     method: "PATCH",
     body: JSON.stringify({

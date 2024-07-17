@@ -5,6 +5,7 @@ import type { Metadata } from "next"
 import ErrorHandlingWrapper from "@/common/ErrorHandlingWrapper"
 import { QueryProviders } from "@/common/QueryProviders"
 import { pretendard } from "@/font"
+import AlertContainer from "@/store/AlertContext"
 
 export const metadata: Metadata = {
   title: "MAFOO",
@@ -32,7 +33,10 @@ export default function RootLayout({
     <html lang="ko" className={`${pretendard}`}>
       <body className={pretendard.className}>
         <QueryProviders>
-          <ErrorHandlingWrapper>{children}</ErrorHandlingWrapper>
+          <ErrorHandlingWrapper>
+            <AlertContainer />
+            {children}
+          </ErrorHandlingWrapper>
         </QueryProviders>
       </body>
     </html>
