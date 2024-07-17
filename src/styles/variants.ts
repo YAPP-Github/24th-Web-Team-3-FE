@@ -153,7 +153,7 @@ export const badgeVariants = cva(
 )
 
 export const bottomBarVariants = cva(
-  "absolute bottom-0 left-0 z-[1] flex w-full justify-between rounded-t-2xl px-[54px] pb-8 pt-5 tp-caption1-regular",
+  "fixed max-w-[430px] bottom-0 left-0 z-[1] flex w-full justify-evenly rounded-t-2xl pb-8 pt-5 tp-caption1-regular",
   {
     variants: {
       variant: {

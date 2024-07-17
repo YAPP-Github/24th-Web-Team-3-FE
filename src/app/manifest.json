@@ -4,8 +4,8 @@
   "description": "MAFOO client service",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#28CB87",
-  "theme_color": "#28CB87",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "/splash/192.png",

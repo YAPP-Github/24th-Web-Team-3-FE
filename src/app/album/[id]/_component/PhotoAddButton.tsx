@@ -16,7 +16,7 @@ export const PhotoAddButton = ({ albumId }: PhotoAddButtonProps) => {
 
   return (
     <button
-      className="mb-[13px] flex aspect-square w-full items-center justify-center rounded-xl border border-gray-200 bg-gray-100"
+      className="mb-[13px] flex h-[165px] w-[165px] items-center justify-center rounded-xl border border-gray-200 bg-gray-100"
       onClick={onClick}>
       <Icon name="galleryAddOutline" size={56} color="gray-300" />
     </button>
