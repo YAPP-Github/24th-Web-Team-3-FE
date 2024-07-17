@@ -10,7 +10,7 @@ interface AlertProps {
 
 const Alert = ({ title, description, onClose }: AlertProps) => {
   return ReactDOM.createPortal(
-    <div className="absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-gray-600 bg-opacity-50">
+    <div className="absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-gray-800 bg-opacity-50">
       <div className="relative flex h-[220px] w-[350px] flex-col justify-between rounded-3xl bg-white px-5 py-6">
         <div>
           <p className="text-center text-title-1 font-semibold text-gray-800">
