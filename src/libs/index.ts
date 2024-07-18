@@ -19,3 +19,15 @@ const urlPatterns = Object.values(FOUR_CUT_BRAND)
 
 export const isUrlIncluded = (input: string) =>
   new RegExp(`^(${urlPatterns})$`).test(input)
+
+// 외부 링크 확인 정규 표현식
+export const isExternalLink = (url: string) => {
+  const externalLinkRegex = /^https?:\/\//
+  return externalLinkRegex.test(url)
+}
+
+// 내부 링크 확인 정규 표현식
+export const isInternalLink = (url: string) => {
+  const internalLinkRegex = /^\//
+  return internalLinkRegex.test(url)
+}

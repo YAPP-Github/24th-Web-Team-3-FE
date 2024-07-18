@@ -5,20 +5,14 @@ import { useRouter } from "next/navigation"
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import { LIST_ITEM_INFO } from "@/constants"
+import { isExternalLink, isInternalLink } from "@/libs"
+import { useAlert } from "@/store/AlertContext"
 
-interface ButtonAction {
+interface ItemButtonType {
   label: string
-  actionType: "button"
-  action: () => Promise<void> | void
+  action?: () => Promise<void> | void
+  link?: string
 }
-
-interface LinkAction {
-  label: string
-  actionType: "link"
-  link: string
-}
-
-type ItemButtonType = ButtonAction | LinkAction
 
 export interface ListItemProps {
   title: string
@@ -27,12 +21,22 @@ export interface ListItemProps {
 
 const ListItem = () => {
   const router = useRouter()
+  const { showAlert } = useAlert()
 
-  const handleClick = (item: ItemButtonType) => {
-    if (item.actionType === "button") {
-      item.action()
-    } else if (item.actionType === "link") {
-      router.push(item.link)
+  const handleClick = async (item: ItemButtonType) => {
+    if (item.action) {
+      await item.action()
+    }
+    if (item.link) {
+      const { link } = item
+
+      if (isExternalLink(link)) {
+        window.open(link, "_blank")
+      } else if (isInternalLink(link)) {
+        router.push(link)
+      } else {
+        showAlert("알림", "해당 링크는 지원하지 않습니다.")
+      }
     }
   }
 
@@ -54,6 +58,10 @@ const ListItem = () => {
               </Button>
             </li>
           ))}
+
+          {LIST_ITEM_INFO.length - 1 !== index && (
+            <div className="h-[10px] bg-gray-50"></div>
+          )}
         </ul>
       ))}
     </section>

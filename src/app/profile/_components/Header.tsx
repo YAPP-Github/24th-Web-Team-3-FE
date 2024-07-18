@@ -32,9 +32,7 @@ const Header = () => {
           className="rounded-full"
         />
 
-        <p className="text-header-2 font-semibold text-gray-700">
-          {userInfo.name}
-        </p>
+        <p className="tp-header2-semibold text-gray-700">{userInfo.name}</p>
       </div>
     </>
   )
