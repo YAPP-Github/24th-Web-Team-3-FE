@@ -5,11 +5,10 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import { AlbumValue } from "@/app/album/types"
-import { patchPhotoAlbum } from "@/app/api/photo"
 import AlbumItem from "@/common/AlbumItem"
 import Button from "@/common/Button"
 
-import { useGetAlbums } from "../hooks/usePhoto"
+import { useGetAlbums, usePatchPhotoAlbum } from "../hooks/usePhoto"
 import { Header } from "./_component/Header"
 
 const ScannerSelectAlbumPage = () => {
@@ -17,6 +16,8 @@ const ScannerSelectAlbumPage = () => {
   const [albumData, setAlbumData] = useState<AlbumValue[] | null>()
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumValue | null>(null)
   const searchParams = useSearchParams()
+  const { patchPhotoAlbum } = usePatchPhotoAlbum()
+
   const photoId = searchParams.get("photoId")
   const router = useRouter()
 
@@ -38,9 +39,10 @@ const ScannerSelectAlbumPage = () => {
   }
 
   const onSubmit = async () => {
-    if (!selectedAlbum || !photoId) return
+    if (!selectedAlbum?.albumId || !photoId) return
+    const { albumId } = selectedAlbum
 
-    const { albumId } = await patchPhotoAlbum(photoId, selectedAlbum.albumId!)
+    patchPhotoAlbum({ photoId, albumId })
     router.push(`/album/${albumId}`)
   }
 

@@ -65,7 +65,7 @@ const ScannerPage = () => {
 
     // 기본 앨범이 있다면 기본 앨범에 사진 추가
     if (defaultAlbumId) {
-      patchPhotoAlbum({ photoId, defaultAlbumId })
+      patchPhotoAlbum({ photoId, albumId: defaultAlbumId })
       router.push(`/album/${defaultAlbumId}`)
       return
     }

@@ -35,15 +35,15 @@ export const useGetAlbums = () => {
 }
 
 export const usePatchPhotoAlbum = () => {
+  const { showAlert } = useAlert()
+
   const { mutate } = useMutation({
-    mutationFn: ({
-      photoId,
-      defaultAlbumId,
-    }: {
-      photoId: string
-      defaultAlbumId: string
-    }) => patchPhotoAlbum(photoId, defaultAlbumId),
+    mutationFn: ({ photoId, albumId }: { photoId: string; albumId: string }) =>
+      patchPhotoAlbum(photoId, albumId),
     mutationKey: ["patchPhotoAlbum"],
+    onError: (error) => {
+      showAlert("앗! 앨범에 사진을 추가하지 못했어요", error.message)
+    },
   })
 
   return { patchPhotoAlbum: mutate }
