@@ -31,6 +31,7 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
         action: () => {
           Cookies.remove("accessToken")
         },
+        link: "/",
       },
       {
         label: "탈퇴하기",
