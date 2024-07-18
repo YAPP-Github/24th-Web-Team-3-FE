@@ -34,7 +34,7 @@ const ScannerPage = () => {
   const searchParams = useSearchParams()
   const defaultAlbumId = searchParams.get("defaultAlbumId")
   const { scanInfo, postQrCodeQuery, isPending } = usePostQrCode()
-  const { albumLength } = useGetAlbums()
+  const { albums } = useGetAlbums()
   const { patchPhotoAlbum } = usePatchPhotoAlbum()
   const [isPhotoModalShown, setIsPhotoModalShown] = useState(false)
 
@@ -58,7 +58,7 @@ const ScannerPage = () => {
     const { photoId } = scanInfo
 
     // 만든 앨범이 하나도 없다면 앨범 생성 페이지로 바로 이동
-    if (!albumLength) {
+    if (!albums.length) {
       router.push(`/album/create?photoId=${photoId}`)
       return
     }
@@ -71,7 +71,7 @@ const ScannerPage = () => {
     }
 
     setIsPhotoModalShown(true)
-  }, [albumLength, defaultAlbumId, patchPhotoAlbum, router, scanInfo])
+  }, [albums.length, defaultAlbumId, patchPhotoAlbum, router, scanInfo])
 
   const closePhotoModal = () => {
     setIsPhotoModalShown(false)

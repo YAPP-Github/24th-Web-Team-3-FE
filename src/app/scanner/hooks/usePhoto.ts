@@ -30,7 +30,7 @@ export const useGetAlbums = () => {
   })
 
   return {
-    albumLength: data.length,
+    albums: data,
   }
 }
 
