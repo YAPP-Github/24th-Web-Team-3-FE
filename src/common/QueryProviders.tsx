@@ -16,7 +16,7 @@ function makeQueryClient() {
         // above 0 to avoid refetching immediately on the client
         staleTime: 60 * 1000,
         throwOnError: true,
-        retry: 0,
+        retry: 1,
       },
     },
   })
