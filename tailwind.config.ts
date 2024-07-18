@@ -160,7 +160,10 @@ const config = {
           900: "#9D4171",
           1000: "#6F2E50",
         },
-        kakao: "#FEE500",
+        kakao: {
+          600: "#FEE500",
+          700: "#EDD60B",
+        },
       },
       fontSize: {
         "display-1": ["40px", "130%"],

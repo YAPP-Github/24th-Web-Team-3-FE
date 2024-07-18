@@ -102,32 +102,32 @@ export const buttonVariants = cva(
       {
         variant: "solid",
         theme: "green",
-        class: "bg-green-600",
+        class: "bg-green-600 active:bg-green-700",
       },
       {
         variant: "solid",
         theme: "red",
-        class: "bg-red-600",
+        class: "bg-red-600 active:bg-red-700",
       },
       {
         variant: "weak",
         theme: "green",
-        class: "bg-green-200 text-green-700",
+        class: "bg-green-200 text-green-700 active:bg-green-300",
       },
       {
         variant: "weak",
         theme: "red",
-        class: "bg-red-200 text-red-600",
+        class: "bg-red-200 text-red-600 active:bg-red-300",
       },
       {
         variant: "weak",
         theme: "gray",
-        class: "bg-gray-100 text-gray-600",
+        class: "bg-gray-100 text-gray-600 active:bg-gray-200",
       },
       {
         variant: "solid",
         theme: "gray",
-        class: "bg-gray-100 text-gray-600",
+        class: "bg-gray-100 text-gray-600 active:bg-gray-200",
       },
     ],
     defaultVariants: {

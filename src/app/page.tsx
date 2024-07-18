@@ -34,7 +34,7 @@ export default function Home() {
 
       <div className="fixed bottom-11 w-full max-w-[430px] px-8">
         <Link href={KAKAO_AUTH_URL} replace>
-          <Button className="w-full bg-kakao text-gray-1000">
+          <Button className="w-full bg-kakao-600 text-gray-1000 active:bg-kakao-700">
             <Icon name={"kakaoLogo"} size={28}></Icon>
             카카오로 3초만에 계속하기
           </Button>
