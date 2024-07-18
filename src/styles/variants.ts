@@ -67,7 +67,7 @@ export const albumItemVariants = cva(
   }
 )
 
-export const photoCountVariants = cva("text-caption-1 font-medium", {
+export const photoCountVariants = cva("tp-caption1-regular", {
   variants: {
     type: {
       HEART: "text-red-500",
@@ -93,9 +93,9 @@ export const buttonVariants = cva(
       },
       theme: { green: "", red: "", gray: "" },
       size: {
-        large: "h-14 px-6 text-body-1 font-bold",
-        medium: "h-10 px-5 text-body-2 font-bold",
-        small: "h-8 px-4 text-caption-1 font-bold",
+        large: "h-14 px-6 tp-body1-semibold",
+        medium: "h-10 px-5 tp-body2-semibold",
+        small: "h-8 px-4 tp-caption1-semibold",
       },
     },
     compoundVariants: [
@@ -139,11 +139,11 @@ export const buttonVariants = cva(
 )
 
 export const badgeVariants = cva(
-  "inline-flex items-center rounded-full py-1 px-[10px] text-white font-bold",
+  "inline-flex items-center rounded-full py-1 px-[10px] text-white tp-caption1-semibold",
   {
     variants: {
       variant: {
-        default: "bg-gradient-purple text-caption-1",
+        default: "bg-gradient-purple",
       },
     },
     defaultVariants: {

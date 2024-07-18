@@ -57,7 +57,7 @@ export const Header = ({ albumId }: { albumId: string }) => {
       <button onClick={() => router.push("/album")}>
         <Icon name="altArrowLeftOutline" size={28} />
       </button>
-      <div className="flex gap-1 text-title-2 font-bold text-gray-800">
+      <div className="tp-title2-semibold flex gap-1 text-gray-800">
         <Icon
           name={ICON_NAME[album.type]}
           color={ICON_COLOR_STYLE[album.type]}
@@ -66,7 +66,7 @@ export const Header = ({ albumId }: { albumId: string }) => {
         {album.name}
       </div>
       <button
-        className="text-body-1 font-medium text-red-600"
+        className="tp-body1-regular text-red-600"
         onClick={onDialogOpenClick}>
         삭제
       </button>

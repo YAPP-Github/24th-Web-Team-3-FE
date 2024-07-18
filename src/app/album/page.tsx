@@ -6,7 +6,7 @@ import { NewAlbumButton } from "./_component/NewAlbumButton"
 const AlbumsPage = () => {
   return (
     <>
-      <h1 className="w-full p-4 py-[14px] text-header-2 font-bold">내 앨범</h1>
+      <h1 className="tp-header2-semibold w-full p-4 py-[14px]">내 앨범</h1>
       <Albums />
       <NewAlbumButton />
       <BottomBar variant="album" />
