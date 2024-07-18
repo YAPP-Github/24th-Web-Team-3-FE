@@ -8,6 +8,7 @@ interface AuthLoginResponse {
 export interface GetMyProfileResponse {
   memberId: string
   name: string
+  profileImageUrl: string
 }
 
 export const authLogin = async (code: string): Promise<AuthLoginResponse> => {
