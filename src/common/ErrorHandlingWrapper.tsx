@@ -1,22 +1,13 @@
 "use client"
 
 import { QueryErrorResetBoundary } from "@tanstack/react-query"
-import { ComponentType } from "react"
 
-import ErrorBoundary, { FallbackProps } from "./ErrorBoundary"
+import ErrorBoundary from "./ErrorBoundary"
+import Fallback from "./Fallback"
 
 interface PropsType {
   children: React.ReactNode
 }
-
-const FallbackComponent: ComponentType<FallbackProps> = ({
-  resetErrorBoundary,
-}) => (
-  <div>
-    There was an error!
-    <button onClick={() => resetErrorBoundary()}>Try again</button>
-  </div>
-)
 
 export default function ErrorHandlingWrapper({ children }: PropsType) {
   return (
@@ -24,7 +15,7 @@ export default function ErrorHandlingWrapper({ children }: PropsType) {
     // query reset을 이용하여 에러가 발생했을 때, 에러를 초기화합니다.
     <QueryErrorResetBoundary>
       {({ reset }) => (
-        <ErrorBoundary onReset={reset} FallbackComponent={FallbackComponent}>
+        <ErrorBoundary onReset={reset} FallbackComponent={Fallback}>
           {children}
         </ErrorBoundary>
       )}

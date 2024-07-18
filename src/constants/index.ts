@@ -1,3 +1,5 @@
+import Cookies from "js-cookie"
+
 import { ListItemProps } from "@/app/profile/_components/ListItem"
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&prompt=select_account`
@@ -26,12 +28,13 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
     items: [
       {
         label: "로그아웃",
-        actionType: "link",
+        action: () => {
+          Cookies.remove("accessToken")
+        },
         link: "/",
       },
       {
         label: "탈퇴하기",
-        actionType: "button",
         action: async () => {
           await setTimeout(() => {
             alert("탈퇴 성공")
@@ -45,17 +48,14 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
     items: [
       {
         label: "개발팀 소개",
-        actionType: "link",
         link: "/",
       },
       {
-        label: "1:1 스파링",
-        actionType: "link",
-        link: "/",
+        label: "1:1 문의",
+        link: "https://forms.gle/kX9j7co6jLvbgWFr7",
       },
       {
         label: "서비스 이용약관",
-        actionType: "link",
         link: "/",
       },
     ],
