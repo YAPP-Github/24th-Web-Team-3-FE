@@ -4,85 +4,76 @@ import { useSearchParams } from "next/navigation"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-import { useGetAlbums } from "@/app/album/create/hooks/useAlbum"
 import { AlbumValue } from "@/app/album/types"
+import { getAlbums, patchPhotoAlbum } from "@/app/api/photo"
 import AlbumItem from "@/common/AlbumItem"
 import Button from "@/common/Button"
 
-import { usePatchPhotoAlbum } from "../hooks/usePhoto"
 import { Header } from "./_component/Header"
 
 const ScannerSelectAlbumPage = () => {
-  const { albums } = useGetAlbums()
-  const [albumData, setAlbumData] = useState<AlbumValue[] | null>()
+  const [albums, setAlbums] = useState<AlbumValue[] | null>(null)
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumValue | null>(null)
   const searchParams = useSearchParams()
-  const { patchPhotoAlbum } = usePatchPhotoAlbum()
-
   const photoId = searchParams.get("photoId")
   const router = useRouter()
 
   const handleSelectAlbum = (idx: number) => {
-    if (!albumData) return
+    if (!albums) return
 
-    if (selectedAlbum && albumData[idx].albumId === selectedAlbum.albumId) {
-      setSelectedAlbum(null)
-      const nextAlbums = albumData?.map((album) => {
-        return { ...album, isSelected: false }
-      })
-      setAlbumData(nextAlbums)
-    } else {
-      setSelectedAlbum(albumData[idx])
-      const nextAlbums = albumData?.map((album, i) =>
-        i !== idx
-          ? { ...album, isSelected: false }
-          : { ...album, isSelected: true }
-      )
-      setAlbumData(nextAlbums)
+    if (selectedAlbum && albums[idx].albumId === selectedAlbum.albumId) {
+      setSelectedAlbum(() => null)
+      return
     }
+
+    const nextAlbums = albums?.map((album, i) =>
+      i !== idx
+        ? { ...album, isSelected: false }
+        : { ...album, isSelected: true }
+    )
+    setSelectedAlbum(() => albums[idx])
+    setAlbums(() => nextAlbums)
   }
 
   const onSubmit = async () => {
-    if (!selectedAlbum?.albumId || !photoId) return
-    const { albumId } = selectedAlbum
+    if (!selectedAlbum || !photoId) return
 
-    patchPhotoAlbum({ photoId, albumId })
+    const { albumId } = await patchPhotoAlbum(photoId, selectedAlbum.albumId!)
     router.push(`/album/${albumId}`)
   }
 
   useEffect(() => {
-    if (!albums) return
+    const initAlbums = async () => {
+      const data = await getAlbums()
+      const albums = data.map((v) => {
+        return {
+          ...v,
+          photoCount: Number(v.photoCount),
+          isNew: false,
+          isSelected: false,
+          isEditable: false,
+        }
+      }) as AlbumValue[]
+      setAlbums(() => albums)
+    }
+    initAlbums()
+  }, [])
 
-    const albumArray = albums.map((v) => {
-      return {
-        ...v,
-        photoCount: Number(v.photoCount),
-        isNew: false,
-        isSelected: false,
-        isEditable: false,
-      }
-    }) as AlbumValue[]
-    setAlbumData(albumArray)
-  }, [albums])
-
-  if (!albumData) {
+  if (!albums) {
     return <></>
   }
   return (
     <main className="relative h-dvh w-full">
       <Header />
       <section className="flex w-full flex-wrap justify-between gap-y-4 p-6">
-        {albumData.map((album, i) => (
-          <div
+        {albums.map((album, i) => (
+          <AlbumItem
             key={i}
+            value={album}
+            handleValue={() => {}}
             className="aspect-[164/150] w-[calc((100%-1rem)/2)]"
-            onClick={() => handleSelectAlbum(i)}>
-            <AlbumItem
-              value={album}
-              handleValue={() => {}}
-              className="h-full w-full"
-            />
-          </div>
+            onClick={() => handleSelectAlbum(i)}
+          />
         ))}
       </section>
       <div className="absolute bottom-0 w-full p-6 pb-11 pt-3">
