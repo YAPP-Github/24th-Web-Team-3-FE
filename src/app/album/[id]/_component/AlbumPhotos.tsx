@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { useDeletePhoto, useGetPhotos } from "@/app/scanner/hooks/usePhoto"
 
@@ -27,11 +27,13 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
   const handleDelete = async (photoIdx: number) => {
     deletePhoto(photos[photoIdx].photoId)
     photosRefetch()
+  }
 
+  useEffect(() => {
     if (!photos.length) {
       setImageDetailShown(false)
     }
-  }
+  }, [photos])
 
   return (
     <>
