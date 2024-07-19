@@ -52,11 +52,12 @@ export function AlbumEditSection({
   }
 
   useEffect(() => {
-    if (!albumInfo || !photoId) return
-
+    if (!albumInfo) return
     const { albumId } = albumInfo
 
-    patchPhotoAlbum({ photoId, albumId })
+    if (photoId) {
+      patchPhotoAlbum({ photoId, albumId })
+    }
 
     router.push(`/album/${albumId}`)
   }, [albumInfo, patchPhotoAlbum, photoId, router])
