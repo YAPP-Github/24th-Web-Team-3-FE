@@ -44,10 +44,12 @@ export const useGetAlbum = (albumId: string) => {
 
 export const useDeleteAlbum = () => {
   const { showAlert } = useAlert()
+  const { getAlbumsRefetch } = useGetAlbums()
 
   const { mutate } = useMutation({
     mutationFn: ({ albumId }: { albumId: string }) => deleteAlbum(albumId),
     mutationKey: ["deleteAlbum"],
+    onSuccess: () => getAlbumsRefetch(),
     onError: (error) => {
       showAlert("앗! 앨범을 삭제하지 못했어요", error.message)
     },
