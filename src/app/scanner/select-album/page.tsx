@@ -27,16 +27,19 @@ const ScannerSelectAlbumPage = () => {
 
     if (selectedAlbum && albumData[idx].albumId === selectedAlbum.albumId) {
       setSelectedAlbum(null)
-      return
+      const nextAlbums = albumData?.map((album) => {
+        return { ...album, isSelected: false }
+      })
+      setAlbumData(nextAlbums)
+    } else {
+      setSelectedAlbum(albumData[idx])
+      const nextAlbums = albumData?.map((album, i) =>
+        i !== idx
+          ? { ...album, isSelected: false }
+          : { ...album, isSelected: true }
+      )
+      setAlbumData(nextAlbums)
     }
-
-    const nextAlbums = albumData?.map((album, i) =>
-      i !== idx
-        ? { ...album, isSelected: false }
-        : { ...album, isSelected: true }
-    )
-    setSelectedAlbum(albumData[idx])
-    setAlbumData(nextAlbums)
   }
 
   const onSubmit = async () => {
