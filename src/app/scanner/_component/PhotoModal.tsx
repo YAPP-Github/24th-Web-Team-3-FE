@@ -44,7 +44,7 @@ export const PhotoModal = ({ scanInfo, onClose }: PhotoModalProps) => {
           src={photoUrl}
           width={WIDTH}
           height={height}
-          style={{ height: "350px", width: "auto" }}
+          style={{ width: "auto", height: "auto" }}
           alt="scanner_image"
           onLoad={(e) => {
             handleLoadingComplete(

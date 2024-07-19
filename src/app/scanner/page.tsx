@@ -8,9 +8,12 @@ import { BottomBar } from "@/common/BottomBar"
 import Loading from "@/common/Loading"
 import { isUrlIncluded } from "@/libs"
 
-import { useGetAlbums } from "../album/create/hooks/useAlbum"
 import { PhotoModal } from "./_component/PhotoModal"
-import { usePatchPhotoAlbum, usePostQrCode } from "./hooks/usePhoto"
+import {
+  useGetAlbums,
+  usePatchPhotoAlbum,
+  usePostQrCode,
+} from "./hooks/usePhoto"
 
 const style = {
   container: {
@@ -31,7 +34,7 @@ const ScannerPage = () => {
   const searchParams = useSearchParams()
   const defaultAlbumId = searchParams.get("defaultAlbumId")
   const { scanInfo, postQrCodeQuery, isPending } = usePostQrCode()
-  const { albums } = useGetAlbums()
+  const { albumLength } = useGetAlbums()
   const { patchPhotoAlbum } = usePatchPhotoAlbum()
   const [isPhotoModalShown, setIsPhotoModalShown] = useState(false)
 
@@ -55,20 +58,20 @@ const ScannerPage = () => {
     const { photoId } = scanInfo
 
     // 만든 앨범이 하나도 없다면 앨범 생성 페이지로 바로 이동
-    if (!albums.length) {
+    if (!albumLength) {
       router.push(`/album/create?photoId=${photoId}`)
       return
     }
 
     // 기본 앨범이 있다면 기본 앨범에 사진 추가
     if (defaultAlbumId) {
-      patchPhotoAlbum({ photoId, albumId: defaultAlbumId })
+      patchPhotoAlbum({ photoId, defaultAlbumId })
       router.push(`/album/${defaultAlbumId}`)
       return
     }
 
     setIsPhotoModalShown(true)
-  }, [albums.length, defaultAlbumId, patchPhotoAlbum, router, scanInfo])
+  }, [albumLength, defaultAlbumId, patchPhotoAlbum, router, scanInfo])
 
   const closePhotoModal = () => {
     setIsPhotoModalShown(false)
