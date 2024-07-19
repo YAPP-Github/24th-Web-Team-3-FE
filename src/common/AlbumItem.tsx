@@ -64,18 +64,18 @@ function AlbumItem({
       {isEditable ? (
         <>
           <input
-            className="w-full rounded-lg bg-gray-100 py-1 pl-3 pr-4 text-header-1 font-bold caret-green-600 mix-blend-multiply outline-none"
+            className="tp-header1-semibold w-full rounded-lg bg-gray-100 py-1 pl-3 pr-4 caret-green-600 mix-blend-multiply outline-none"
             value={name}
             onChange={handleName}
             placeholder="새 앨범"
           />
-          <div className="mt-1 text-right text-body-2 font-medium text-gray-500">
+          <div className="tp-body2-regular mt-1 text-right text-gray-500">
             {Array.from(name).length}/8자
           </div>
         </>
       ) : (
         <>
-          <h3 className="text-title-2 font-bold text-gray-800">{name}</h3>
+          <h3 className="tp-title2-semibold text-gray-800">{name}</h3>
           <div className={`${cn(photoCountVariants({ type }))}`}>
             사진 {photoCount}장
           </div>
