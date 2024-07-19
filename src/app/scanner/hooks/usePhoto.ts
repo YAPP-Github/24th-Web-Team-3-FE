@@ -1,6 +1,6 @@
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 
-import { getAlbums, patchPhotoAlbum, postQrCode } from "@/app/api/photo"
+import { patchPhotoAlbum, postQrCode } from "@/app/api/photo"
 import { useAlert } from "@/store/AlertContext"
 
 export const usePostQrCode = () => {
@@ -20,17 +20,6 @@ export const usePostQrCode = () => {
     scanInfo: data,
     postQrCodeQuery: mutate,
     isPending,
-  }
-}
-
-export const useGetAlbums = () => {
-  const { data } = useSuspenseQuery({
-    queryKey: ["getAlbums"],
-    queryFn: getAlbums,
-  })
-
-  return {
-    albums: data,
   }
 }
 

@@ -8,12 +8,9 @@ import { BottomBar } from "@/common/BottomBar"
 import Loading from "@/common/Loading"
 import { isUrlIncluded } from "@/libs"
 
+import { useGetAlbums } from "../album/create/hooks/useAlbum"
 import { PhotoModal } from "./_component/PhotoModal"
-import {
-  useGetAlbums,
-  usePatchPhotoAlbum,
-  usePostQrCode,
-} from "./hooks/usePhoto"
+import { usePatchPhotoAlbum, usePostQrCode } from "./hooks/usePhoto"
 
 const style = {
   container: {

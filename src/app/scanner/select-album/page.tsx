@@ -4,11 +4,12 @@ import { useSearchParams } from "next/navigation"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
+import { useGetAlbums } from "@/app/album/create/hooks/useAlbum"
 import { AlbumValue } from "@/app/album/types"
 import AlbumItem from "@/common/AlbumItem"
 import Button from "@/common/Button"
 
-import { useGetAlbums, usePatchPhotoAlbum } from "../hooks/usePhoto"
+import { usePatchPhotoAlbum } from "../hooks/usePhoto"
 import { Header } from "./_component/Header"
 
 const ScannerSelectAlbumPage = () => {
