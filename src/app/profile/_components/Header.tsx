@@ -18,9 +18,8 @@ const Header = () => {
           alt="프로필 이미지"
           width={108}
           height={108}
-          className="rounded-full"
+          className="h-[108px] w-[108px] rounded-full object-cover"
         />
-
         <p className="tp-header2-semibold text-gray-700">{userInfo.name}</p>
       </div>
     </>

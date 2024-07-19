@@ -17,7 +17,7 @@ const nextConfig = {
       },
       {
         protocol: "http",
-        hostname: "t1.kakaocdn.net",
+        hostname: "*.kakaocdn.net",
         pathname: "/**",
       },
     ],
