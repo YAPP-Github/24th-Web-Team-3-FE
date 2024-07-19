@@ -73,13 +73,16 @@ const ScannerSelectAlbumPage = () => {
       <Header />
       <section className="flex w-full flex-wrap justify-between gap-y-4 p-6">
         {albumData.map((album, i) => (
-          <AlbumItem
+          <div
             key={i}
-            value={album}
-            handleValue={() => {}}
             className="aspect-[164/150] w-[calc((100%-1rem)/2)]"
-            onClick={() => handleSelectAlbum(i)}
-          />
+            onClick={() => handleSelectAlbum(i)}>
+            <AlbumItem
+              value={album}
+              handleValue={() => {}}
+              className="h-full w-full"
+            />
+          </div>
         ))}
       </section>
       <div className="absolute bottom-0 w-full p-6 pb-11 pt-3">
