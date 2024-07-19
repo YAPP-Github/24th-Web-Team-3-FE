@@ -53,7 +53,7 @@ export const Header = ({ albumId }: { albumId: string }) => {
         {name}
       </div>
       <button
-        className="text-body-1 font-medium text-red-600"
+        className="tp-body1-regular text-red-600"
         onClick={onDialogOpenClick}>
         삭제
       </button>

@@ -8,7 +8,7 @@ export const Albums = () => {
 
   if (!albums.length)
     return (
-      <div className="text-center text-caption-1 font-light text-gray-500">
+      <div className="tp-caption1-extralight text-center text-gray-500">
         앨범이 없습니다
       </div>
     )
