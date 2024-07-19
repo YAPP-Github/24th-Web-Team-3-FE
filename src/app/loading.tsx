@@ -1,5 +1,7 @@
-const Loading = () => {
-  return <div>전역 loding...</div>
+import Loading from "@/common/Loading"
+
+const LoadingPage = () => {
+  return <Loading />
 }
 
-export default Loading
+export default LoadingPage
