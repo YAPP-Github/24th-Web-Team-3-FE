@@ -1,0 +1,34 @@
+{
+  "name": "MAFOO",
+  "short_name": "MAFOO",
+  "description": "MAFOO client service",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/splash/192.png",
+      "sizes": "192x192",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "/splash/256.png",
+      "sizes": "256x256",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "/splash/512.png",
+      "sizes": "512x512",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "/splash/512.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
