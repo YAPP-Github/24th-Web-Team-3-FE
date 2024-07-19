@@ -22,13 +22,14 @@ export const usePostAlbum = () => {
 }
 
 export const useGetAlbums = () => {
-  const { data } = useSuspenseQuery({
+  const { data, refetch } = useSuspenseQuery({
     queryKey: ["getAlbums"],
     queryFn: getAlbums,
   })
 
   return {
     albums: data,
+    getAlbumsRefetch: refetch,
   }
 }
 

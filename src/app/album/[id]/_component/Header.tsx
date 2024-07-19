@@ -8,12 +8,17 @@ import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
 import { albumDetailHeaderVariants as headerVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
-import { useDeleteAlbum, useGetAlbum } from "../../create/hooks/useAlbum"
+import {
+  useDeleteAlbum,
+  useGetAlbum,
+  useGetAlbums,
+} from "../../create/hooks/useAlbum"
 import { Dialog } from "./Dialog"
 
 export const Header = ({ albumId }: { albumId: string }) => {
   const { albumInfo } = useGetAlbum(albumId)
   const { deleteAlbum } = useDeleteAlbum()
+  const { getAlbumsRefetch } = useGetAlbums()
   const [isModalShown, setIsModalShown] = useState(false)
   const router = useRouter()
 
@@ -26,6 +31,8 @@ export const Header = ({ albumId }: { albumId: string }) => {
 
   const handleDeleteAlbum = async () => {
     deleteAlbum({ albumId: albumInfo.albumId })
+    getAlbumsRefetch()
+
     router.push("/album")
   }
 
