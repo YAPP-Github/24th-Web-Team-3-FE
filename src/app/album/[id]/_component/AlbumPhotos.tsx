@@ -2,17 +2,18 @@
 
 import { useEffect, useRef, useState } from "react"
 
-import { deletePhoto, getPhotos } from "@/app/api/photo"
+import { useDeletePhoto, useGetPhotos } from "@/app/scanner/hooks/usePhoto"
 
-import { PhotoInfo } from "../../types"
 import { ImageDetail } from "./ImageDetail"
 import { Photo } from "./Photo"
 import { PhotoAddButton } from "./PhotoAddButton"
 
 export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
-  const [photos, setPhotos] = useState<PhotoInfo[]>([])
   const [imageDetailShown, setImageDetailShown] = useState(false)
   const carouselStartIdx = useRef(0)
+  const { deletePhoto } = useDeletePhoto()
+
+  const { photos, photosRefetch } = useGetPhotos(albumId)
 
   const onPhotoClick = (startIdx: number) => {
     carouselStartIdx.current = startIdx
@@ -24,26 +25,15 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
   }
 
   const handleDelete = async (photoIdx: number) => {
-    await deletePhoto(photos[photoIdx].photoId)
-
-    const nextPhotos = photos.filter((v, i) => i !== photoIdx)
-    setPhotos(nextPhotos)
-
-    if (!nextPhotos.length) {
-      setImageDetailShown(false)
-    }
+    deletePhoto(photos[photoIdx].photoId)
+    photosRefetch()
   }
 
   useEffect(() => {
-    const fetchAlbums = async () => {
-      const data = await getPhotos(albumId)
-      if (data.length) {
-        setPhotos(() => data)
-      }
+    if (!photos.length) {
+      setImageDetailShown(false)
     }
-
-    fetchAlbums()
-  }, [albumId])
+  }, [photos])
 
   return (
     <>

@@ -1,25 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
-
-import { getAlbums } from "@/app/api/photo"
-
-import { AlbumInfo } from "../types"
+import { useGetAlbums } from "../create/hooks/useAlbum"
 import { Album } from "./Album"
 
 export const Albums = () => {
-  const [albums, setAlbums] = useState<AlbumInfo[] | null>(null)
-
-  useEffect(() => {
-    const albumsInit = async () => {
-      const albums = await getAlbums()
-
-      setAlbums(() => albums)
-    }
-    albumsInit()
-  }, [])
-
-  if (!albums) return <></>
+  const { albums } = useGetAlbums()
 
   if (!albums.length)
     return (

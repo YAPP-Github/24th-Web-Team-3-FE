@@ -14,9 +14,11 @@ function makeQueryClient() {
       queries: {
         // With SSR, we usually want to set some default staleTime
         // above 0 to avoid refetching immediately on the client
-        staleTime: 60 * 1000,
+        // staleTime: 60 * 1000, // 1 minute
+        staleTime: 0,
+        gcTime: 0,
         throwOnError: true,
-        retry: 0,
+        retry: 1,
       },
     },
   })
