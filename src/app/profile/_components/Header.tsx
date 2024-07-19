@@ -1,22 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useState } from "react"
 
-import { getMyProfile, GetMyProfileResponse } from "@/app/api/login"
+import { useGetMyProfile } from "../hooks/useProfile"
 
 const Header = () => {
-  const [userInfo, setUserInfo] = useState<GetMyProfileResponse>()
-  useEffect(() => {
-    const fetchGetMyProfile = async () => {
-      const data = await getMyProfile()
-      setUserInfo(data)
-    }
-
-    fetchGetMyProfile()
-  }, [])
-
-  if (!userInfo) return null
+  const { userInfo } = useGetMyProfile()
 
   return (
     <>
