@@ -5,7 +5,7 @@ import {
   BrowserMultiFormatReader,
   DecodeHintType,
 } from "@zxing/library"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 const Reader = () => {
   const [localStream, setLocalStream] = useState<MediaStream>()
@@ -22,32 +22,19 @@ const Reader = () => {
     BarcodeFormat.CODE_93,
   ]
   hints.set(DecodeHintType.POSSIBLE_FORMATS, formats)
+
   const Scan = new BrowserMultiFormatReader(hints, 500)
 
-  useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({
-        video: { facingMode: "user" }, //전면
-        // video: { facingMode: { exact: "environment" } }, //후면
+  const Stop = useCallback(() => {
+    if (localStream) {
+      const vidTrack = localStream.getVideoTracks()
+      vidTrack.forEach((track) => {
+        localStream.removeTrack(track)
       })
-      .then((stream) => {
-        console.log(stream)
-        setLocalStream(stream)
-      })
-    return () => {
-      Stop()
-    }
-  }, [])
-  useEffect(() => {
-    if (!Camera.current) return
-    if (localStream && Camera.current) {
-      Scanning()
-    }
-    return () => {
-      Stop()
     }
   }, [localStream])
-  const Scanning = async () => {
+
+  const Scanning = useCallback(async () => {
     // const t = await Scan.decodeOnce();
     console.log("scan")
     if (localStream && Camera.current) {
@@ -64,15 +51,31 @@ const Reader = () => {
         alert(error)
       }
     }
-  }
-  const Stop = () => {
-    if (localStream) {
-      const vidTrack = localStream.getVideoTracks()
-      vidTrack.forEach((track) => {
-        localStream.removeTrack(track)
+  }, [Scan, localStream])
+
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: { facingMode: { exact: "environment" } }, //후면
       })
+      .then((stream) => {
+        console.log(stream)
+        setLocalStream(stream)
+      })
+    return () => {
+      Stop()
     }
-  }
+  }, [Stop])
+  useEffect(() => {
+    if (!Camera.current) return
+    if (localStream && Camera.current) {
+      Scanning()
+    }
+    return () => {
+      Stop()
+    }
+  }, [Scanning, Stop, localStream])
+
   const [text, setText] = useState("")
   return (
     <div>
