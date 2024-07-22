@@ -1,27 +1,30 @@
 "use client"
 
-import { useState } from "react"
-import { OnResultFunction, QrReader } from "react-qr-reader"
+import { useEffect, useRef } from "react"
 
 const Test3Page = () => {
-  const [data, setData] = useState<string | null>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
-  const handleResult: OnResultFunction = (result) => {
-    if (result) {
-      setData(result.getText())
-    }
-  }
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          facingMode: { exact: "environment" },
+        },
+      })
+      .then((stream) => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream
+        }
+      })
+      .catch((err) => {
+        console.error("Error accessing the camera: " + err)
+      })
+  }, [])
 
-  return (
-    <div>
-      <h1>QR Code Scanner</h1>
-      <QrReader
-        constraints={{ facingMode: { exact: "environment" } }} // Use the back camera on mobile devices
-        onResult={handleResult}
-      />
-      <p>{data}</p>
-    </div>
-  )
+  return <video ref={videoRef} autoPlay />
 }
 
 export default Test3Page
