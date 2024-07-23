@@ -86,10 +86,12 @@ const ScannerPage = () => {
         styles={{ ...style }}
         allowMultiple={true}
         components={{
-          onOff: true,
           audio: true,
-          finder: false,
+          onOff: true,
+          torch: true,
           zoom: true,
+          finder: true,
+          // tracker: getTracker(),
         }}>
         <>
           <p className="tp-header2-semibold relative z-[1] px-4 py-3.5 text-white">
