@@ -1,6 +1,6 @@
 "use client"
 
-import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
+import { IDetectedBarcode, Scanner, useDevices } from "@yudiel/react-qr-scanner"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -37,6 +37,10 @@ const ScannerPage = () => {
   const { albumLength } = useGetAlbums()
   const { patchPhotoAlbum } = usePatchPhotoAlbum()
   const [isPhotoModalShown, setIsPhotoModalShown] = useState(false)
+
+  const [deviceId, setDeviceId] = useState<string | undefined>(undefined)
+
+  const devices = useDevices()
 
   const onScan = (result: IDetectedBarcode[]) => {
     const { rawValue } = result[0]
@@ -80,19 +84,28 @@ const ScannerPage = () => {
   return (
     <div className="h-[100vh] overflow-hidden">
       {isPending && <Loading />}
-
+      <select onChange={(e) => setDeviceId(e.target.value)}>
+        {devices.map((device, index) => (
+          <option key={index} value={device.deviceId}>
+            {device.label}
+          </option>
+        ))}
+      </select>
       <Scanner
-        onScan={onScan}
         styles={{ ...style }}
-        allowMultiple={true}
+        constraints={{
+          deviceId: deviceId,
+        }}
+        onScan={onScan}
         components={{
           audio: true,
-          onOff: true,
           torch: true,
           zoom: true,
-          finder: true,
-          // tracker: getTracker(),
-        }}>
+          finder: false,
+          tracker: () => "centerText",
+        }}
+        allowMultiple={true}
+        scanDelay={500}>
         <>
           <p className="tp-header2-semibold relative z-[1] px-4 py-3.5 text-white">
             홈
