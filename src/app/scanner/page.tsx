@@ -96,7 +96,7 @@ const ScannerPage = () => {
           audio: true,
           torch: true,
           zoom: true,
-          finder: false,
+          finder: true,
           tracker: () => "centerText",
         }}
         allowMultiple={true}
