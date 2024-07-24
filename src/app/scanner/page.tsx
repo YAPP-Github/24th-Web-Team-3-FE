@@ -1,6 +1,6 @@
 "use client"
 
-import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
+import { IDetectedBarcode, Scanner, useDevices } from "@yudiel/react-qr-scanner"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -18,7 +18,6 @@ import {
 const style = {
   container: {
     display: "flex",
-    color: "red",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -37,6 +36,14 @@ const ScannerPage = () => {
   const { albumLength } = useGetAlbums()
   const { patchPhotoAlbum } = usePatchPhotoAlbum()
   const [isPhotoModalShown, setIsPhotoModalShown] = useState(false)
+
+  const devices = useDevices()
+  const [deviceId, setDeviceId] = useState<string | undefined>()
+
+  useEffect(() => {
+    if (devices.length < 1) return
+    setDeviceId(devices[devices.length - 1].deviceId)
+  }, [devices])
 
   const onScan = (result: IDetectedBarcode[]) => {
     const { rawValue } = result[0]
@@ -78,41 +85,59 @@ const ScannerPage = () => {
   }
 
   return (
-    <div className="h-[100vh] overflow-hidden">
-      {isPending && <Loading />}
+    <>
+      <select onChange={(e) => setDeviceId(e.target.value)}>
+        <option value={undefined}>
+          {devices.length > 0 ? "카메라 선택" : "카메라 없음"}
+        </option>
+        {devices.map((device, index) => (
+          <option key={index} value={device.deviceId}>
+            {device.label}
+          </option>
+        ))}
+      </select>
+      <div className="h-[calc(100vh-24px)] overflow-hidden">
+        {isPending && <Loading />}
 
-      <Scanner
-        onScan={onScan}
-        styles={{ ...style }}
-        allowMultiple={true}
-        components={{
-          onOff: true,
-          audio: true,
-          finder: false,
-          zoom: true,
-        }}>
-        <>
-          <p className="tp-header2-semibold relative z-[1] px-4 py-3.5 text-white">
-            홈
-          </p>
-          <div className="relative z-[1] flex flex-col items-center justify-center p-6">
-            <p className="tp-title1-semibold whitespace-pre text-center text-border text-white">
-              {`QR코드를 스캔해\n인생네컷을 저장해요`}
+        <Scanner
+          styles={{ ...style }}
+          constraints={{
+            deviceId: deviceId,
+            aspectRatio: 1.7778, // exact 16:9 aspect ratio
+          }}
+          onScan={onScan}
+          components={{
+            audio: true,
+            torch: true,
+            zoom: true,
+            finder: false,
+            tracker: () => "centerText",
+          }}
+          allowMultiple={true}
+          scanDelay={500}>
+          <>
+            <p className="tp-header2-semibold relative z-[1] px-4 py-3.5 text-white">
+              홈
             </p>
-          </div>
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-            <div className="bor h-[345px] w-[345px] rounded-3xl border-4 border-solid border-green-600 shadow-[0_0_0_100vh_rgba(24,28,35,0.8)]" />
-            <p className="tp-body2-regular p-6 text-center text-white">
-              지원하지 않는 브랜드라면 웹사이트를 열어드려요.
-            </p>
-          </div>
-          <BottomBar variant="scanner" />
-        </>
-      </Scanner>
-      {isPhotoModalShown && scanInfo && (
-        <PhotoModal scanInfo={scanInfo} onClose={closePhotoModal} />
-      )}
-    </div>
+            <div className="relative z-[1] flex flex-col items-center justify-center p-6">
+              <p className="tp-title1-semibold whitespace-pre text-center text-border text-white">
+                {`QR코드를 스캔해\n인생네컷을 저장해요`}
+              </p>
+            </div>
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+              <div className="bor h-[245px] w-[245px] rounded-3xl border-4 border-solid border-green-600 shadow-[0_0_0_100vh_rgba(24,28,35,0.8)]" />
+              <p className="tp-body2-regular p-6 text-center text-white">
+                지원하지 않는 브랜드라면 웹사이트를 열어드려요.
+              </p>
+            </div>
+            <BottomBar variant="scanner" />
+          </>
+        </Scanner>
+        {isPhotoModalShown && scanInfo && (
+          <PhotoModal scanInfo={scanInfo} onClose={closePhotoModal} />
+        )}
+      </div>
+    </>
   )
 }
 
