@@ -85,7 +85,9 @@ const ScannerPage = () => {
   }
 
   return (
-    <>
+    <div className="flex h-screen flex-col">
+      {isPending && <Loading />}
+
       <select onChange={(e) => setDeviceId(e.target.value)}>
         <option value={undefined}>
           {devices.length > 0 ? "카메라 선택" : "카메라 없음"}
@@ -96,9 +98,8 @@ const ScannerPage = () => {
           </option>
         ))}
       </select>
-      <div className="h-[calc(100vh-24px)] overflow-hidden">
-        {isPending && <Loading />}
 
+      <div className="h-full overflow-hidden">
         <Scanner
           styles={{ ...style }}
           constraints={{
@@ -130,14 +131,16 @@ const ScannerPage = () => {
                 지원하지 않는 브랜드라면 웹사이트를 열어드려요.
               </p>
             </div>
-            <BottomBar variant="scanner" />
           </>
         </Scanner>
-        {isPhotoModalShown && scanInfo && (
-          <PhotoModal scanInfo={scanInfo} onClose={closePhotoModal} />
-        )}
       </div>
-    </>
+
+      <BottomBar variant="scanner" />
+
+      {isPhotoModalShown && scanInfo && (
+        <PhotoModal scanInfo={scanInfo} onClose={closePhotoModal} />
+      )}
+    </div>
   )
 }
 
