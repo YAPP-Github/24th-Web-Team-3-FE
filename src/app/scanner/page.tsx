@@ -2,7 +2,7 @@
 
 import { IDetectedBarcode, Scanner, useDevices } from "@yudiel/react-qr-scanner"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 import { BottomBar } from "@/common/BottomBar"
 import Loading from "@/common/Loading"
@@ -46,21 +46,24 @@ const ScannerPage = () => {
     setDeviceId(devices[devices.length - 1].deviceId)
   }, [devices])
 
-  const onScan = (result: IDetectedBarcode[]) => {
-    if (isPhotoModalShown) return
+  const onScan = useCallback(
+    (result: IDetectedBarcode[]) => {
+      if (isPhotoModalShown) return
 
-    const { rawValue } = result[0]
+      const { rawValue } = result[0]
 
-    if (!isUrlIncluded(rawValue)) {
-      if (confirm("지원하지 않는 QR코드입니다. 웹사이트를 열어드릴까요?")) {
-        window.open(rawValue, "_blank")
+      if (!isUrlIncluded(rawValue)) {
+        if (confirm("지원하지 않는 QR코드입니다. 웹사이트를 열어드릴까요?")) {
+          window.open(rawValue, "_blank")
+        }
+
+        return
       }
 
-      return
-    }
-
-    postQrCodeQuery(rawValue)
-  }
+      postQrCodeQuery(rawValue)
+    },
+    [isPhotoModalShown, postQrCodeQuery]
+  )
 
   useEffect(() => {
     if (!scanInfo) return
@@ -101,10 +104,7 @@ const ScannerPage = () => {
         onScan={onScan}
         components={{
           audio: true,
-          torch: true,
-          zoom: true,
           finder: false,
-          tracker: () => "centerText",
         }}
         allowMultiple={false}
         scanDelay={500}>
