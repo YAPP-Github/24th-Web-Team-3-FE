@@ -1,8 +1,8 @@
 "use client"
 
-import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner"
+import { IDetectedBarcode, Scanner, useDevices } from "@yudiel/react-qr-scanner"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 import { BottomBar } from "@/common/BottomBar"
 import Loading from "@/common/Loading"
@@ -18,7 +18,6 @@ import {
 const style = {
   container: {
     display: "flex",
-    color: "red",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -38,19 +37,33 @@ const ScannerPage = () => {
   const { patchPhotoAlbum } = usePatchPhotoAlbum()
   const [isPhotoModalShown, setIsPhotoModalShown] = useState(false)
 
-  const onScan = (result: IDetectedBarcode[]) => {
-    const { rawValue } = result[0]
+  const devices = useDevices()
+  const [deviceId, setDeviceId] = useState<string | undefined>()
 
-    if (!isUrlIncluded(rawValue)) {
-      if (confirm("지원하지 않는 QR코드입니다. 웹사이트를 열어드릴까요?")) {
-        window.open(rawValue, "_blank")
+  useEffect(() => {
+    if (!devices.length) return
+
+    setDeviceId(devices[devices.length - 1].deviceId)
+  }, [devices])
+
+  const onScan = useCallback(
+    (result: IDetectedBarcode[]) => {
+      if (isPhotoModalShown) return
+
+      const { rawValue } = result[0]
+
+      if (!isUrlIncluded(rawValue)) {
+        if (confirm("지원하지 않는 QR코드입니다. 웹사이트를 열어드릴까요?")) {
+          window.open(rawValue, "_blank")
+        }
+
+        return
       }
 
-      return
-    }
-
-    postQrCodeQuery(rawValue)
-  }
+      postQrCodeQuery(rawValue)
+    },
+    [isPhotoModalShown, postQrCodeQuery]
+  )
 
   useEffect(() => {
     if (!scanInfo) return
@@ -77,20 +90,24 @@ const ScannerPage = () => {
     setIsPhotoModalShown(false)
   }
 
+  if (!deviceId) return <Loading />
+
   return (
-    <div className="h-[100vh] overflow-hidden">
+    <div className="flex h-screen flex-col overflow-hidden">
       {isPending && <Loading />}
 
       <Scanner
-        onScan={onScan}
         styles={{ ...style }}
-        allowMultiple={true}
+        constraints={{
+          deviceId: deviceId,
+        }}
+        onScan={onScan}
         components={{
-          onOff: true,
           audio: true,
           finder: false,
-          zoom: true,
-        }}>
+        }}
+        allowMultiple={false}
+        scanDelay={500}>
         <>
           <p className="tp-header2-semibold relative z-[1] px-4 py-3.5 text-white">
             홈
@@ -101,14 +118,16 @@ const ScannerPage = () => {
             </p>
           </div>
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-            <div className="bor h-[345px] w-[345px] rounded-3xl border-4 border-solid border-green-600 shadow-[0_0_0_100vh_rgba(24,28,35,0.8)]" />
+            <div className="bor h-[280px] w-[280px] rounded-3xl border-4 border-solid border-green-600 shadow-[0_0_0_100vh_rgba(24,28,35,0.8)]" />
             <p className="tp-body2-regular p-6 text-center text-white">
               지원하지 않는 브랜드라면 웹사이트를 열어드려요.
             </p>
           </div>
-          <BottomBar variant="scanner" />
         </>
       </Scanner>
+
+      <BottomBar variant="scanner" />
+
       {isPhotoModalShown && scanInfo && (
         <PhotoModal scanInfo={scanInfo} onClose={closePhotoModal} />
       )}

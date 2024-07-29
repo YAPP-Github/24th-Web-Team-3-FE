@@ -11,7 +11,14 @@ export const FOUR_CUT_BRAND = {
   HARUFILM: "http://haru\\d+\\.mx\\d+\\.co\\.kr",
   MAFOO: "https://mafoo.kr",
   LIFE4CUT: "https://api.life4cut.net",
+  MY_FOUR_CUT:
+    "https://firebasestorage.googleapis.com:443/v0/b/my4ccu.appspotcom",
+  PHOTOGRAY: "https://pgshort.aprd.io",
+  MONOMANSION: "https://monomansion.net",
+  PHOTO_SIGNATURE: "http://photoqr3.kr",
+  PICDOT: "https://picdot.kr",
 }
+
 // 객체의 value들을 정규표현식 패턴으로 변환
 const urlPatterns = Object.values(FOUR_CUT_BRAND)
   .map((url) => url.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + ".*")
