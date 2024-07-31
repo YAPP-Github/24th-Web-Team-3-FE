@@ -35,10 +35,10 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
       },
       {
         label: "탈퇴하기",
-        action: async () => {
-          await setTimeout(() => {
-            alert("탈퇴 성공")
-          }, 100)
+        action: () => {
+          alert(
+            "아직 지원하는 기능이 아니에요. 다음 업데이트를 기다려주세요 😉"
+          )
         },
       },
     ],
@@ -48,7 +48,12 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
     items: [
       {
         label: "개발팀 소개",
-        link: "/",
+        action: () => {
+          alert(
+            "아직 지원하는 기능이 아니에요. 다음 업데이트를 기다려주세요 😉"
+          )
+        },
+        // link: "/",
       },
       {
         label: "1:1 문의",
@@ -56,7 +61,12 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
       },
       {
         label: "서비스 이용약관",
-        link: "/",
+        action: () => {
+          alert(
+            "아직 지원하는 기능이 아니에요. 다음 업데이트를 기다려주세요 😉"
+          )
+        },
+        // link: "/",
       },
     ],
   },
