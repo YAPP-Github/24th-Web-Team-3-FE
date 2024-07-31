@@ -90,7 +90,7 @@ const ScannerPage = () => {
     setIsPhotoModalShown(false)
   }
 
-  if (!deviceId) return <Loading />
+  if (deviceId === undefined) return <Loading />
 
   return (
     <div className="flex h-screen flex-col overflow-hidden">
