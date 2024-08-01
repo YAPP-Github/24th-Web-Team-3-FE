@@ -7,18 +7,23 @@ import Button from "./Button"
 import { FallbackProps } from "./ErrorBoundary"
 import Icon from "./Icon"
 
-const Fallback: ComponentType<FallbackProps> = ({ resetErrorBoundary }) => {
+const Fallback: ComponentType<FallbackProps> = ({
+  errorHandler,
+  resetErrorBoundary,
+}) => {
   const router = useRouter()
+  const { errorTitle, errorDescription, buttonContext, buttonAction } =
+    errorHandler
 
   return (
     <div className="flex h-[100vh] flex-col items-center">
       <div className="grow"></div>
       <div className="grow">
         <p className="text-center text-header-2 font-semibold text-gray-500">
-          앗! 마푸를 불러오지 못했어요
+          {errorTitle}
         </p>
         <p className="text-center text-header-2 font-semibold text-gray-800">
-          다시 시도해볼까요?
+          {errorDescription}
         </p>
         <Icon
           name="errorLogo"
@@ -31,10 +36,9 @@ const Fallback: ComponentType<FallbackProps> = ({ resetErrorBoundary }) => {
           <Button
             className="bg-green-200 text-green-700"
             onClick={() => {
-              router.replace("/profile")
-              resetErrorBoundary()
+              buttonAction(router, resetErrorBoundary)
             }}>
-            홈으로 돌아가기
+            {buttonContext}
           </Button>
           <Button onClick={resetErrorBoundary}>새로고침하기</Button>
         </div>
