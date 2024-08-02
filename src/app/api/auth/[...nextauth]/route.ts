@@ -4,7 +4,7 @@ import KakaoProvider from "next-auth/providers/kakao"
 
 import { ACCESS_TOKEN_KEY } from "@/constants"
 
-import { authLogin } from "../../login"
+import { authLogin } from "../../signIn"
 
 export const {
   handlers: { GET, POST },
