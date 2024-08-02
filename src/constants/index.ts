@@ -1,4 +1,4 @@
-import Cookies from "js-cookie"
+import { signOut } from "next-auth/react"
 
 import { ListItemProps } from "@/app/profile/_components/ListItem"
 
@@ -28,10 +28,12 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
     items: [
       {
         label: "로그아웃",
-        action: () => {
-          Cookies.remove("accessToken")
+        action: async () => {
+          await signOut()
+          await fetch("/api/signout", {
+            method: "GET",
+          })
         },
-        link: "/",
       },
       {
         label: "탈퇴하기",
@@ -61,3 +63,5 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
     ],
   },
 ]
+
+export const ACCESS_TOKEN_KEY = "connect.sid"
