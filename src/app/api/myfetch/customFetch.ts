@@ -6,6 +6,7 @@ type ReturnFetchDefaultOptions = {
   fetch?: ReturnType<ReturnFetch>
   baseUrl?: string | URL
   headers?: HeadersInit
+  credentials?: RequestCredentials
   interceptors?: {
     request?: (
       requestArgs: FetchArgs,
