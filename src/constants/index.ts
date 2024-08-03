@@ -2,8 +2,6 @@ import { signOut } from "next-auth/react"
 
 import { ListItemProps } from "@/app/profile/_components/ListItem"
 
-export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&prompt=select_account`
-
 export const ICON_NAME = {
   HEART: "heartAngleBold",
   FIRE: "fireBold",

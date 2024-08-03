@@ -16,8 +16,8 @@ export const {
   },
   providers: [
     KakaoProvider({
-      clientId: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID,
-      clientSecret: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET,
+      clientId: process.env.AUTH_KAKAO_ID,
+      clientSecret: process.env.AUTH_KAKAO_SECRET,
     }),
   ],
   callbacks: {
