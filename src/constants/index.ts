@@ -28,11 +28,8 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
     items: [
       {
         label: "로그아웃",
-        action: async () => {
-          await signOut()
-          await fetch("/api/signout", {
-            method: "GET",
-          })
+        action: () => {
+          signOut()
         },
       },
       {
