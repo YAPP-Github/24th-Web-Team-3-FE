@@ -18,9 +18,7 @@ const LoginButton = () => {
   }, [router, session])
 
   const handleSignIn = async () => {
-    await signIn("kakao", {
-      redirect: false,
-    })
+    await signIn("kakao", { callbackUrl: "/scanner" })
   }
 
   return (
