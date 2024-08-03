@@ -1,6 +1,8 @@
 import Cookies from "js-cookie"
 
-export const getAccessToken = () => Cookies.get("accessToken")
+import { ACCESS_TOKEN_KEY } from "@/constants"
+
+export const getAccessToken = () => Cookies.get(ACCESS_TOKEN_KEY)
 
 // 하루 필름인 경우는 지점별 도메인이 가변적
 // HARUFILM: "http://haru{숫자}.mx{숫자}.co.kr",

@@ -7,6 +7,7 @@ export const myFetch = customFetch({
   headers: {
     "Content-Type": "application/json",
   },
+  credentials: "include",
   interceptors: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     request: async ([url, options], fetch) => {

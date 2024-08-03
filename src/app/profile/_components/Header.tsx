@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-import { getMyProfile, GetMyProfileResponse } from "@/app/api/login"
+import { getMyProfile, GetMyProfileResponse } from "@/app/api/signIn"
 
 const Header = () => {
   const [userInfo, setUserInfo] = useState<GetMyProfileResponse>()
