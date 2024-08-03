@@ -8,7 +8,11 @@ interface Props {
 }
 
 const AuthProvider = ({ children }: Props) => {
-  return <SessionProvider>{children}</SessionProvider>
+  return (
+    <SessionProvider basePath={process.env.NEXT_PUBLIC_NEXTAUTH_URL}>
+      {children}
+    </SessionProvider>
+  )
 }
 
 export default AuthProvider
