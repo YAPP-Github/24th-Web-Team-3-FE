@@ -60,4 +60,5 @@ export const {
       return
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 })
