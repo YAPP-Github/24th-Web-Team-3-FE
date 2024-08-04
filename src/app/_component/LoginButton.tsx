@@ -1,22 +1,11 @@
 "use client"
 
-import { useRouter } from "next/navigation"
-import { signIn, useSession } from "next-auth/react"
-import { useEffect } from "react"
+import { signIn } from "next-auth/react"
 
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 
 const LoginButton = () => {
-  const router = useRouter()
-  const { data: session } = useSession()
-
-  useEffect(() => {
-    if (!session || !session.user.accessToken) return
-
-    router.push("/scanner")
-  }, [router, session])
-
   const handleSignIn = async () => {
     await signIn("kakao", { callbackUrl: "/scanner" })
   }
