@@ -1,8 +1,16 @@
 import Image from "next/image"
+import { redirect } from "next/navigation"
+
+import { auth } from "@/auth"
 
 import LoginButton from "./_component/LoginButton"
 
-const Home = () => {
+const Home = async () => {
+  const session = await auth()
+  if (session) {
+    return redirect("/scanner")
+  }
+
   return (
     <div className="flex flex-col justify-between pb-24">
       <div className="flex w-full flex-1 flex-col">
