@@ -2,6 +2,7 @@ import "@/styles/main.css"
 
 import type { Metadata } from "next"
 
+import AuthProvider from "@/common/AuthProvider"
 import ErrorHandlingWrapper from "@/common/ErrorHandlingWrapper"
 import { QueryProviders } from "@/common/QueryProviders"
 import { pretendard } from "@/font"
@@ -32,12 +33,14 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard}`}>
       <body className={pretendard.className}>
-        <QueryProviders>
-          <ErrorHandlingWrapper>
-            <AlertContainer />
-            {children}
-          </ErrorHandlingWrapper>
-        </QueryProviders>
+        <AuthProvider>
+          <QueryProviders>
+            <ErrorHandlingWrapper>
+              <AlertContainer />
+              {children}
+            </ErrorHandlingWrapper>
+          </QueryProviders>
+        </AuthProvider>
       </body>
     </html>
   )

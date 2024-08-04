@@ -1,8 +1,6 @@
-import Cookies from "js-cookie"
+import { signOut } from "next-auth/react"
 
 import { ListItemProps } from "@/app/profile/_components/ListItem"
-
-export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&prompt=select_account`
 
 export const ICON_NAME = {
   HEART: "heartAngleBold",
@@ -29,9 +27,8 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
       {
         label: "로그아웃",
         action: () => {
-          Cookies.remove("accessToken")
+          signOut()
         },
-        link: "/",
       },
       {
         label: "탈퇴하기",
@@ -61,3 +58,5 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
     ],
   },
 ]
+
+export const ACCESS_TOKEN_KEY = "connect.sid"

@@ -1,11 +1,16 @@
 import Image from "next/image"
-import Link from "next/link"
+import { redirect } from "next/navigation"
 
-import Button from "@/common/Button"
-import Icon from "@/common/Icon"
-import { KAKAO_AUTH_URL } from "@/constants"
+import { auth } from "@/auth"
 
-export default function Home() {
+import LoginButton from "./_component/LoginButton"
+
+const Home = async () => {
+  const session = await auth()
+  if (session) {
+    return redirect("/scanner")
+  }
+
   return (
     <div className="flex flex-col justify-between pb-24">
       <div className="flex w-full flex-1 flex-col">
@@ -31,13 +36,10 @@ export default function Home() {
       </div>
 
       <div className="fixed bottom-11 w-full max-w-[430px] px-8">
-        <Link href={KAKAO_AUTH_URL} replace>
-          <Button className="w-full bg-kakao-600 text-gray-1000 active:bg-kakao-700">
-            <Icon name={"kakaoLogo"} size={28}></Icon>
-            카카오로 3초만에 계속하기
-          </Button>
-        </Link>
+        <LoginButton />
       </div>
     </div>
   )
 }
+
+export default Home
