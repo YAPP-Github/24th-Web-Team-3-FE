@@ -1,12 +1,11 @@
 "use client"
 
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 
 import AlbumItem from "@/common/AlbumItem"
 import Button from "@/common/Button"
 
-import { usePatchPhotoAlbum } from "../../../scanner/hooks/usePhoto"
 import { AlbumType, AlbumValue } from "../../types"
 import { usePostAlbum } from "../hooks/useAlbum"
 import AlbumTypeSelectTab from "./AlbumTypeSelectTab"
@@ -29,11 +28,9 @@ export function AlbumEditSection({
 }: AlbumCreateSectionProps) {
   const [value, setValue] = useState(albumValueInit)
   const { type } = value
-  const router = useRouter()
   const searchParams = useSearchParams()
   const photoId = searchParams.get("photoId")
-  const { albumInfo, postAlbum } = usePostAlbum()
-  const { patchPhotoAlbum } = usePatchPhotoAlbum()
+  const { postAlbum } = usePostAlbum()
 
   const handleType = (type: AlbumType) => {
     const nextValue = {
@@ -49,13 +46,7 @@ export function AlbumEditSection({
 
   const handleSubmit = async () => {
     const { name, type } = value
-    postAlbum({ name, type })
-
-    if (photoId) {
-      patchPhotoAlbum({ photoId, defaultAlbumId: albumInfo!.albumId })
-    }
-
-    router.push(`/album/${albumInfo!.albumId}`)
+    postAlbum({ name, type, photoId })
   }
 
   return (
