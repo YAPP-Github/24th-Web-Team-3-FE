@@ -3,11 +3,12 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 
-import { patchPhotoAlbum, postAlbum } from "@/app/api/photo"
 import AlbumItem from "@/common/AlbumItem"
 import Button from "@/common/Button"
 
+import { usePatchPhotoAlbum } from "../../../scanner/hooks/usePhoto"
 import { AlbumType, AlbumValue } from "../../types"
+import { usePostAlbum } from "../hooks/useAlbum"
 import AlbumTypeSelectTab from "./AlbumTypeSelectTab"
 
 interface AlbumCreateSectionProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -31,6 +32,8 @@ export function AlbumEditSection({
   const router = useRouter()
   const searchParams = useSearchParams()
   const photoId = searchParams.get("photoId")
+  const { albumInfo, postAlbum } = usePostAlbum()
+  const { patchPhotoAlbum } = usePatchPhotoAlbum()
 
   const handleType = (type: AlbumType) => {
     const nextValue = {
@@ -46,11 +49,13 @@ export function AlbumEditSection({
 
   const handleSubmit = async () => {
     const { name, type } = value
-    const { albumId } = await postAlbum(name, type)
+    postAlbum({ name, type })
+
     if (photoId) {
-      await patchPhotoAlbum(photoId, albumId)
+      patchPhotoAlbum({ photoId, defaultAlbumId: albumInfo!.albumId })
     }
-    router.push(`/album/${albumId}`)
+
+    router.push(`/album/${albumInfo!.albumId}`)
   }
 
   return (
