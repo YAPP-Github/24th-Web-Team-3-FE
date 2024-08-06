@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 
 import AlbumItem from "@/common/AlbumItem"
-import Button from "@/common/Button"
+import SquareButton from "@/common/SquareButton"
 
 import { usePatchPhotoAlbum } from "../../../scanner/hooks/usePhoto"
 import { AlbumType, AlbumValue } from "../../types"
@@ -65,12 +65,12 @@ export function AlbumEditSection({
       </div>
       <div className="fixed bottom-0 flex w-full max-w-[430px] flex-col items-center">
         <AlbumTypeSelectTab type={type} handleType={handleType} />
-        <Button
+        <SquareButton
           className="mb-11 mt-3 w-[calc(100%-3rem)]"
           onClick={handleSubmit}
           disabled={!value.name.length}>
           다음으로
-        </Button>
+        </SquareButton>
       </div>
     </>
   )

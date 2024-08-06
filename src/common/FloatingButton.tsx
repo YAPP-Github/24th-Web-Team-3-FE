@@ -1,7 +1,9 @@
-import Button, { ButtonProps as FloatingButtonProps } from "./Button"
+import SquareButton, {
+  ButtonProps as FloatingButtonProps,
+} from "./SquareButton"
 
 const FloatingButton = ({ className, ...props }: FloatingButtonProps) => {
-  return <Button className={`${className} rounded-full`} {...props} />
+  return <SquareButton className={`${className} rounded-full`} {...props} />
 }
 
 export default FloatingButton

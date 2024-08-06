@@ -4,8 +4,8 @@ import Image from "next/image"
 import { useState } from "react"
 import Slider from "react-slick"
 
-import Button from "@/common/Button"
 import Icon from "@/common/Icon"
+import SquareButton from "@/common/SquareButton"
 import { fullDateStr } from "@/utils"
 
 import { PhotoInfo } from "../../types"
@@ -101,13 +101,13 @@ export const ImageDetail = ({
             </Slider>
           </div>
           <div className="w-full p-6 pb-11 pt-3">
-            <Button
+            <SquareButton
               color="green"
               className="w-full"
               onClick={() => handleDownload(photos[idx].photoUrl)}>
               <Icon name="downloadBold" size={28} color="white" />
               <span className="mr-[6px]">다운로드 받기</span>
-            </Button>
+            </SquareButton>
           </div>
         </div>
       </div>
