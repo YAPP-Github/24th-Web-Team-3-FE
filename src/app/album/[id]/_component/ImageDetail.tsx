@@ -71,12 +71,9 @@ export const ImageDetail = ({
       <div className="fixed left-0 top-0 z-10 flex h-dvh w-dvw justify-center bg-gray-900">
         <div className="flex w-full max-w-[390px] flex-col">
           <header className="tp-body1-regular flex w-full items-center justify-between p-4 py-[14px]">
-            <Icon
-              name="altArrowLeftOutline"
-              size={28}
-              color="white"
-              onClick={onClose}
-            />
+            <button onClick={onClose}>
+              <Icon name="altArrowLeftOutline" size={28} color="white" />
+            </button>
             <span className="text-white">
               {idx + 1} / {photos.length}
             </span>

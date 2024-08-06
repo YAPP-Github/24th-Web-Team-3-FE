@@ -7,3 +7,7 @@
 @tailwind utilities;
 @tailwind base;
 @tailwind components;
+
+header > button:active {
+  opacity: 70%;
+}
