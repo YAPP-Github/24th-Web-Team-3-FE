@@ -6,13 +6,13 @@ import { forwardRef } from "react"
 import { buttonVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
-export interface ButtonProps
+export interface SquareButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const SquareButton = forwardRef<HTMLButtonElement, SquareButtonProps>(
   (
     {
       className,
@@ -22,28 +22,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       type = "button",
       asChild = false,
-      children,
       ...props
     },
     ref
   ) => {
     const Comp = asChild ? Slot : "button"
-    if (children) {
-      return (
-        <Comp
-          className={cn(
-            className,
-            disabled && "bg-gray-100 text-gray-400",
-            "align-center group relative inline-flex justify-center"
-          )}
-          disabled={disabled}
-          ref={ref}
-          {...props}>
-          <div className="absolute inset-0 bg-gray-100 opacity-0 mix-blend-multiply content-none group-active:opacity-100" />
-          {children}
-        </Comp>
-      )
-    }
+
     return (
       <Comp
         className={cn(
@@ -51,14 +35,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className,
           disabled && "bg-gray-100 text-gray-400"
         )}
-        disabled={disabled}
         ref={ref}
         type={type}
+        disabled={disabled}
         {...props}
       />
     )
   }
 )
-Button.displayName = "Button"
+SquareButton.displayName = "SquareButton"
 
-export default Button
+export default SquareButton

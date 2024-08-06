@@ -13,49 +13,21 @@ export interface ButtonProps
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      variant,
-      size,
-      theme,
-      disabled,
-      type = "button",
-      asChild = false,
-      children,
-      ...props
-    },
-    ref
-  ) => {
+  ({ className, disabled, asChild = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
-    if (children) {
-      return (
-        <Comp
-          className={cn(
-            className,
-            disabled && "bg-gray-100 text-gray-400",
-            "align-center group relative inline-flex justify-center"
-          )}
-          disabled={disabled}
-          ref={ref}
-          {...props}>
-          <div className="absolute inset-0 bg-gray-100 opacity-0 mix-blend-multiply content-none group-active:opacity-100" />
-          {children}
-        </Comp>
-      )
-    }
     return (
       <Comp
         className={cn(
-          buttonVariants({ variant, size, theme }),
           className,
-          disabled && "bg-gray-100 text-gray-400"
+          disabled && "bg-gray-100 text-gray-400",
+          "align-center group relative inline-flex justify-center"
         )}
         disabled={disabled}
         ref={ref}
-        type={type}
-        {...props}
-      />
+        {...props}>
+        <div className="absolute inset-0 bg-gray-100 opacity-0 mix-blend-multiply content-none group-active:opacity-100" />
+        {children}
+      </Comp>
     )
   }
 )
