@@ -9,7 +9,7 @@ import { pretendard } from "@/font"
 import AlertContainer from "@/store/AlertContext"
 
 export const metadata: Metadata = {
-  title: "마푸 - 지금 함께 찍은 네컷사진을 올려보세요",
+  title: "마푸-네컷사진 전용 앨범",
   description: "마푸를 켜고 QR을 가져다 대면 바로 업로드",
   keywords: [
     "인생네컷",
@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     "앨범 서비스",
     "모바일 앨범",
   ],
+  openGraph: {
+    title: "마푸 - 지금 함께 찍은 네컷사진을 올려보세요",
+    description: "마푸를 켜고 QR을 가져다 대면 바로 업로드",
+  },
 }
 
 export default function RootLayout({
