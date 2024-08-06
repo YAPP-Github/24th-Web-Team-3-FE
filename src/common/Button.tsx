@@ -19,8 +19,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(
           className,
-          disabled && "bg-gray-100 text-gray-400",
-          "align-center group relative inline-flex justify-center"
+          "align-center relative inline-flex justify-center overflow-hidden",
+          !disabled && "group"
         )}
         disabled={disabled}
         ref={ref}

@@ -50,11 +50,11 @@ const ListItem = () => {
 
           {items.map((item, index) => (
             <li key={index}>
-              <Button
-                onClick={() => handleClick(item)}
-                className="flex h-[54px] w-full items-center justify-between bg-white pl-[32px] pr-[24px]">
-                <p className="tp-body1-regular text-gray-600">{item.label}</p>
-                <Icon name="arrowRight" size={24} color="gray-500" />
+              <Button onClick={() => handleClick(item)} className="w-full">
+                <div className="flex h-[54px] w-full items-center justify-between px-6">
+                  <p className="tp-body1-regular text-gray-600">{item.label}</p>
+                  <Icon name="arrowRight" size={24} color="gray-500" />
+                </div>
               </Button>
             </li>
           ))}
