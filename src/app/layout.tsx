@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     "앨범 서비스",
     "모바일 앨범",
   ],
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+  },
 }
 
 export default function RootLayout({
