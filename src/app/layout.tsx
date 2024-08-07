@@ -33,6 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "마푸",
   },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_METADATABASE!),
 }
 
 export default function RootLayout({
