@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "모바일 앨범",
   ],
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION,
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   openGraph: {
     title: "마푸 - 지금 함께 찍은 네컷사진을 올려보세요",
