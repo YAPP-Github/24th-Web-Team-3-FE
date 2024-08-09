@@ -65,6 +65,10 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
         },
         // link: "/",
       },
+      {
+        label: "마푸를 소개해요",
+        link: "/profile/introduction",
+      },
     ],
   },
 ]
