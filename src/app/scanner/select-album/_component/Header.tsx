@@ -7,12 +7,9 @@ export const Header = () => {
   const router = useRouter()
   return (
     <header className="w-full p-4 py-[14px]">
-      <Icon
-        name="altArrowLeftOutline"
-        size={28}
-        color="gray-800"
-        onClick={() => router.back()}
-      />
+      <button onClick={() => router.back()}>
+        <Icon name="altArrowLeftOutline" size={28} color="gray-800" />
+      </button>
     </header>
   )
 }

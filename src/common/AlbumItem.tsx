@@ -60,7 +60,11 @@ function AlbumItem({
   return (
     <div
       {...props}
-      className={cn(albumItemVariants({ type, isEditable }), className)}>
+      className={cn(
+        albumItemVariants({ type, isEditable }),
+        !isEditable && "group",
+        className
+      )}>
       {isEditable ? (
         <>
           <input
@@ -79,10 +83,10 @@ function AlbumItem({
           <div className={`${cn(photoCountVariants({ type }))}`}>
             사진 {photoCount}장
           </div>
+          <div
+            className={`absolute left-0 top-0 h-full w-full rounded-2xl border-[3px] border-green-600 opacity-0 ${isSelected && "opacity-100"} group-active:opacity-100`}
+          />
 
-          {isSelected && (
-            <div className="absolute left-0 top-0 h-full w-full rounded-2xl border-[3px] border-green-600" />
-          )}
           {isNew && (
             <Badge className="absolute -left-2 -top-[10px]">New!</Badge>
           )}

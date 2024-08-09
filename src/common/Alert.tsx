@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom"
 
-import Button from "./Button"
+import SquareButton from "./SquareButton"
 
 interface AlertProps {
   title: string
@@ -18,7 +18,7 @@ const Alert = ({ title, description, onClose }: AlertProps) => {
             {description}
           </p>
         </div>
-        <Button onClick={onClose}>확인</Button>
+        <SquareButton onClick={onClose}>확인</SquareButton>
       </div>
     </div>,
     document.body
