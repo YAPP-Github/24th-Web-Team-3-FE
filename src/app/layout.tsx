@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     siteName: "마푸",
   },
   metadataBase: new URL(process.env.NEXT_PUBLIC_METADATABASE!),
+  icons: { icon: "/images/favicon.png" },
 }
 
 export default function RootLayout({
