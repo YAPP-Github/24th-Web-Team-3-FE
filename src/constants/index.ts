@@ -70,3 +70,16 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
 ]
 
 export const ACCESS_TOKEN_KEY = "connect.sid"
+
+export const MAFOO_KEYWORDS = [
+  "인생네컷",
+  "포토이즘",
+  "하루필름",
+  "인생네컷 앨범",
+  "인생네컷 정리",
+  "인생네컷 보관",
+  "즉석사진 앨범",
+  "인생네컷 앨범 서비스",
+  "앨범 서비스",
+  "모바일 앨범",
+]
