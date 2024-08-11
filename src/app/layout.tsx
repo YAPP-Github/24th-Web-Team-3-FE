@@ -1,12 +1,15 @@
 import "@/styles/main.css"
 
 import type { Metadata } from "next"
+import { cookies } from "next/headers"
 
 import ErrorHandlingWrapper from "@/common/ErrorHandlingWrapper"
 import NextAuthProvider from "@/common/NextAuthProvider"
 import { QueryProviders } from "@/common/QueryProviders"
+import { ACCESS_TOKEN_KEY } from "@/constants"
 import { pretendard } from "@/font"
-import AlertContainer from "@/store/AlertContext"
+import { AlertProvider } from "@/store/alert"
+import { AuthProvider } from "@/store/auth"
 
 export const metadata: Metadata = {
   title: "마푸-네컷사진 전용 앨범",
@@ -41,13 +44,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const accessToken = cookies().get(ACCESS_TOKEN_KEY)?.value || null
+
   return (
     <html lang="ko" className={`${pretendard}`}>
       <body className={pretendard.className}>
         <NextAuthProvider>
           <QueryProviders>
             <ErrorHandlingWrapper>
-              <AlertContainer />
+              <AlertProvider />
+              <AuthProvider accessToken={accessToken} />
               {children}
             </ErrorHandlingWrapper>
           </QueryProviders>

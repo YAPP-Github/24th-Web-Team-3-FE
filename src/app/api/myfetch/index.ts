@@ -1,4 +1,4 @@
-import { getAccessToken } from "@/libs"
+import { useAuthStore } from "@/store/auth"
 
 import customFetch from "./customFetch"
 
@@ -13,10 +13,12 @@ export const myFetch = customFetch({
     request: async ([url, options], fetch) => {
       // 요청 인터셉터 로직 추가 (예: 로깅, 인증 토큰 추가)
       //   console.log("Request Interceptor:", url, options)
-      const token = getAccessToken()
-      if (token && options) {
+
+      const { accessToken } = useAuthStore.getState()
+
+      if (accessToken && options) {
         const headers = new Headers(options.headers || {})
-        headers.set("Authorization", `Bearer ${token}`)
+        headers.set("Authorization", `Bearer ${accessToken}`)
         options.headers = headers
       }
       return [url, options]
