@@ -1,0 +1,38 @@
+name: lighthouse
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - "main"
+      - "develop"
+    types:
+      - opened
+      - synchronize
+jobs:
+  lighthouseci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run lighthouse
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.0
+      - run: |
+          npm install -g pnpm
+          pnpm install && pnpm add -g @lhci/cli
+          pnpm run build
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      - name: Format lighthouse score
+        id: format_lighthouse_score
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const script = require('./scripts/lhciFormat.js')
+            await script({core})
+      - name: comment result
+        uses: unsplash/comment-on-pr@v1.3.0
+        with:
+          msg: ${{ steps.format_lighthouse_score.outputs.comments}}
