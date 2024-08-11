@@ -17,11 +17,10 @@ jobs:
       - name: Run lighthouse
         uses: actions/setup-node@v4
         with:
-          node-version: 20.11.0
+          node-version: "lts/*"
       - run: |
-          npm install -g pnpm
-          pnpm install && pnpm add -g @lhci/cli
-          pnpm run build
+          npm install && npm add -g @lhci/cli
+          npm run build
           lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
