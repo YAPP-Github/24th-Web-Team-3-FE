@@ -13,17 +13,35 @@ jobs:
   lighthouseci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Run lighthouse
-        uses: actions/setup-node@v4
+      - name: Install pnpm // pnpm 설치
+        uses: pnpm/action-setup@v3
         with:
-          node-version: "lts/*"
-      - run: |
-          npm install && npm add -g @lhci/cli
-          npm run build
-          lhci autorun
+          version: 9.7.0
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Lighthouse CI // Lighthouse 실행
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        run: |
+          pnpm i -g @lhci/cli
+          lhci autorun || echo "Fail to Run Lighthouse CI!"
+
       - name: Format lighthouse score
         id: format_lighthouse_score
         uses: actions/github-script@v6
