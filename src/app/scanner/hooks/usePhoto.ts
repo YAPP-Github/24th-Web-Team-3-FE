@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 
 import { getAlbums, patchPhotoAlbum, postQrCode } from "@/app/api/photo"
-import { useAlert } from "@/store/AlertContext"
+import { useAlertStore } from "@/store/alert"
 
 export const usePostQrCode = () => {
-  const { showAlert } = useAlert()
+  const { showAlert } = useAlertStore()
 
   const { data, mutate, isPending } = useMutation({
     mutationFn: (code: string) => postQrCode(code),

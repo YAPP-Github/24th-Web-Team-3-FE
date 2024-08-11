@@ -6,7 +6,7 @@ import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import { LIST_ITEM_INFO } from "@/constants"
 import { isExternalLink, isInternalLink } from "@/libs"
-import { useAlert } from "@/store/AlertContext"
+import { useAlertStore } from "@/store/alert"
 
 interface ItemButtonType {
   label: string
@@ -21,7 +21,7 @@ export interface ListItemProps {
 
 const ListItem = () => {
   const router = useRouter()
-  const { showAlert } = useAlert()
+  const { showAlert } = useAlertStore()
 
   const handleClick = async (item: ItemButtonType) => {
     if (item.action) {
