@@ -5,6 +5,8 @@ import KakaoProvider from "next-auth/providers/kakao"
 import { authLogin } from "@/app/api/signIn"
 import { ACCESS_TOKEN_KEY } from "@/constants"
 
+import { useAuthStore } from "./store/auth"
+
 export const {
   handlers: { GET, POST },
   auth,
@@ -26,7 +28,12 @@ export const {
       if (account?.access_token) {
         const authResponse = await authLogin(account.access_token)
 
-        cookies().set(ACCESS_TOKEN_KEY, authResponse.accessToken)
+        cookies().set(ACCESS_TOKEN_KEY, authResponse.accessToken, {
+          httpOnly: true,
+          sameSite: "lax",
+          path: "/",
+          maxAge: 30 * 24 * 60 * 60, // 30일
+        })
 
         const updatedAccount = {
           ...account,
@@ -58,6 +65,7 @@ export const {
   events: {
     signOut() {
       cookies().delete(ACCESS_TOKEN_KEY)
+      useAuthStore.getState().clearAuth()
       return
     },
   },
