@@ -59,7 +59,6 @@ jobs:
         run: |
           pnpm i -g @lhci/cli
           lhci autorun || echo "Fail to Run Lighthouse CI!"
-          ls -R lhci_reports  # lhci_reports 디렉토리의 구조 출력
 
       - name: Format lighthouse score
         id: format_lighthouse_score

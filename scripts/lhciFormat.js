@@ -1,11 +1,3 @@
-const fs = require("fs")
-const path = require("path")
-
-const workspace = process.env.GITHUB_WORKSPACE
-
-const results = JSON.parse(
-  fs.readFileSync(path.join(workspace, "lhci_reports", "manifest.json"))
-)
 const categories = [
   "first-contentful-paint",
   "interactive",
