@@ -22,17 +22,13 @@ const getComment = (performance) =>
   ].join("\n")
 
 module.exports = async ({ core }) => {
+  const resultsInput = core.getInput("lighthouse-results") // GitHub Actions에서 입력을 받음
+  const results = JSON.parse(resultsInput) // 입력을 JSON으로 파싱
   let comments = ""
 
   results.forEach((result) => {
-    const { summary, jsonPath } = result
-    const details = JSON.parse(fs.readFileSync(jsonPath))
-    const { audits } = details
-    const summaryEntries = Object.entries(summary).map(([key, value]) => [
-      key,
-      formatResult(value),
-    ])
-    const { performance } = Object.fromEntries(summaryEntries)
+    const { audits, categories: summary } = result
+    const performance = formatResult(summary.performance.score * 100)
     const comment = getComment(performance)
     const detailRows = categories
       .map((category) => detailRow(category, audits))
@@ -41,5 +37,5 @@ module.exports = async ({ core }) => {
     comments += comment + "\n" + detail + "\n\n"
   })
 
-  core.setOutput("comments", comments)
+  core.setOutput("comments", comments) // 결과를 PR에 댓글로 남김
 }
