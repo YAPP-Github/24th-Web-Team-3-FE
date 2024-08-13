@@ -14,6 +14,9 @@ jobs:
   lighthouseci:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository // 저장소 체크아웃
+        uses: actions/checkout@v4
+
       - name: Install pnpm // pnpm 설치
         uses: pnpm/action-setup@v3
         with:
@@ -42,6 +45,9 @@ jobs:
         run: |
           pnpm i -g @lhci/cli
           lhci autorun || echo "Fail to Run Lighthouse CI!"
+
       - name: Format Lighthouse CI Results // lhciFormat.js 실행
-        run: |
-          node ./scripts/lhciFormat.js
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const script = require('./scripts/lhciFormat.js')
