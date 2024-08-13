@@ -96,7 +96,7 @@ if (comments && context.issue.number) {
   const issue_number = context.issue.number
   const repo = context.repo.repo
   const owner = context.repo.owner
-  await github.rest.issues.createComment({
+  github.rest.issues.createComment({
     owner,
     repo,
     issue_number,
