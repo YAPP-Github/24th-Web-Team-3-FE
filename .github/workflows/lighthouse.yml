@@ -55,6 +55,8 @@ jobs:
             const path = require('path');
             const resultsPath = path.join(process.env.GITHUB_WORKSPACE, 'lhci_reports', 'manifest.json');
 
+            console.log(`Looking for results in ${resultsPath}`);
+
             const results = JSON.parse(fs.readFileSync(resultsPath));
             let comments = ""
 
