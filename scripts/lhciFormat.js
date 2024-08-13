@@ -1,41 +1,107 @@
-const categories = [
-  "first-contentful-paint",
-  "interactive",
-  "speed-index",
-  "total-blocking-time",
-  "largest-contentful-paint",
-  "cumulative-layout-shift",
-]
+const fs = require("fs")
+const path = require("path")
+const resultsPath = path.join(
+  process.env.GITHUB_WORKSPACE,
+  "lhci_reports",
+  "manifest.json"
+)
+const results = JSON.parse(fs.readFileSync(resultsPath))
+const totalReports = results.length
 
-const formatResult = (res) => Math.round(res * 100)
-const score = (res) => (res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴")
-const detailRow = (category, audits) =>
-  `| ${score(audits[category].score * 100)} ${category} | ${
-    audits[category].displayValue
-  } |`
-const getComment = (performance) =>
-  [
-    `⚡️ Lighthouse report!`,
-    `| Summary | Score |`,
-    `| --- | --- |`,
-    `| ${score(performance)} Performance | ${performance} |`,
-  ].join("\n")
+// best-practices은 문자열로 저장 ( Lighthouse 지표 )
+const averageScores = {
+  performance: 0,
+  accessibility: 0,
+  "best-practices": 0,
+  seo: 0,
+  pwa: 0,
+}
 
-module.exports = async ({ core }) => {
-  const resultsInput = core.getInput("lighthouse-results") // GitHub Actions에서 입력을 받음
-  const results = JSON.parse(resultsInput) // 입력을 JSON으로 파싱
-  let comments = ""
+// Lighthouse 상세 지표
+const auditSummaries = {
+  "first-contentful-paint": 0,
+  "largest-contentful-paint": 0,
+  interactive: 0,
+  "total-blocking-time": 0,
+  "cumulative-layout-shift": 0,
+}
 
-  results.forEach((result) => {
-    const { audits, categories: summary } = result
-    const performance = formatResult(summary.performance.score * 100)
-    const comment = getComment(performance)
-    const detailRows = categories
-      .map((category) => detailRow(category, audits))
-      .join("\n")
-    const detail = [`| Category | Score |`, detailRows].join("\n")
-    comments += comment + "\n" + detail + "\n\n"
+// 점수 평균
+results.forEach((result) => {
+  const { summary } = result
+  for (const key in averageScores) {
+    averageScores[key] += summary[key]
+  }
+
+  const details = JSON.parse(fs.readFileSync(result.jsonPath))
+  ;[
+    "first-contentful-paint",
+    "largest-contentful-paint",
+    "interactive",
+    "total-blocking-time",
+    "cumulative-layout-shift",
+  ].forEach((auditName) => {
+    if (details.audits[auditName]) {
+      const auditDetails = details.audits[auditName]
+      auditSummaries[auditName] += parseFloat(auditDetails.displayValue) || 0
+    }
   })
+})
 
-  core.setOutput("comments", comments) // 결과를 PR에 댓글로 남김
+// 점수에 따른 색상 표시
+const formatScore = (res) => (res >= 90 ? "🟢" : res >= 70 ? "🟠" : "🔴")
+
+// 상세 지표의 표준 점수에 따른 색상 표시
+const detailscore = (value, metric) => {
+  switch (metric) {
+    case "first-contentful-paint":
+      return value <= 1.8 ? "🟢" : value <= 3 ? "🟠" : "🔴"
+    case "largest-contentful-paint":
+      return value <= 2.5 ? "🟢" : value <= 4 ? "🟠" : "🔴"
+    case "interactive":
+      return value <= 3.8 ? "🟢" : value <= 7.3 ? "🟠" : "🔴"
+    case "total-blocking-time":
+      return value <= 300 ? "🟢" : value <= 600 ? "🟠" : "🔴"
+    case "cumulative-layout-shift":
+      return value <= 0.1 ? "🟢" : value <= 0.25 ? "🟠" : "🔴"
+    default:
+      return "🔴" // Default to red if metric is unknown
+  }
+}
+
+let comments =
+  "⚡️ Lighthouse Average Scores Across Reports:\n| Category | Score |\n| --- | --- |\n"
+Object.keys(averageScores).forEach((key) => {
+  const avgScore = Math.round((averageScores[key] / totalReports) * 100)
+  comments += `| ${formatScore(avgScore)}  ${key.replace(/-/g, " ")} | ${avgScore} |\n`
+})
+
+comments +=
+  "\n⚡️ Average Details Across All Reports:\n| Category | Score |\n| --- | --- |\n"
+Object.keys(auditSummaries).forEach((auditName) => {
+  const average = auditSummaries[auditName] / totalReports
+  const formattedName = auditName.replace(/-/g, " ")
+  const colorCode = detailscore(average, auditName)
+  const unit =
+    auditName === "total-blocking-time"
+      ? "ms"
+      : auditName === "cumulative-layout-shift"
+        ? ""
+        : "s"
+  comments += `| ${colorCode}  ${formattedName} | ${average.toFixed(1)}${unit} |\n`
+})
+
+// PR 전송
+if (comments && context.issue.number) {
+  const issue_number = context.issue.number
+  const repo = context.repo.repo
+  const owner = context.repo.owner
+  await github.rest.issues.createComment({
+    owner,
+    repo,
+    issue_number,
+    body: comments,
+  })
+} else {
+  console.log("No PR COMMENT!")
 }
