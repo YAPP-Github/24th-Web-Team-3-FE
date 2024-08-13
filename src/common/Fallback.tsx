@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation"
 import { ComponentType } from "react"
 
-import Button from "./Button"
 import { FallbackProps } from "./ErrorBoundary"
 import Icon from "./Icon"
+import SquareButton from "./SquareButton"
 
 const Fallback: ComponentType<FallbackProps> = ({ resetErrorBoundary }) => {
   const router = useRouter()
@@ -28,15 +28,15 @@ const Fallback: ComponentType<FallbackProps> = ({ resetErrorBoundary }) => {
       </div>
       <div className="relative grow">
         <div className="absolute bottom-0 left-0 flex w-full justify-center gap-3 pb-11">
-          <Button
+          <SquareButton
             className="bg-green-200 text-green-700"
             onClick={() => {
               router.replace("/profile")
               resetErrorBoundary()
             }}>
             홈으로 돌아가기
-          </Button>
-          <Button onClick={resetErrorBoundary}>새로고침하기</Button>
+          </SquareButton>
+          <SquareButton onClick={resetErrorBoundary}>새로고침하기</SquareButton>
         </div>
       </div>
     </div>

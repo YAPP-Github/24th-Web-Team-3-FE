@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 import { AlbumValue } from "@/app/album/types"
 import { getAlbums, patchPhotoAlbum } from "@/app/api/photo"
 import AlbumItem from "@/common/AlbumItem"
-import Button from "@/common/Button"
+import SquareButton from "@/common/SquareButton"
 
 import { Header } from "./_component/Header"
 
@@ -84,13 +84,13 @@ const ScannerSelectAlbumPage = () => {
       </section>
       <div className="absolute bottom-0 w-full p-6 pb-11 pt-3">
         {selectedAlbum ? (
-          <Button className="w-full" onClick={onSubmit}>
+          <SquareButton className="w-full" onClick={onSubmit}>
             선택한 앨범에 추가하기
-          </Button>
+          </SquareButton>
         ) : (
-          <Button className="w-full" disabled>
+          <SquareButton className="w-full" disabled>
             앨범을 선택해주세요
-          </Button>
+          </SquareButton>
         )}
       </div>
     </main>
