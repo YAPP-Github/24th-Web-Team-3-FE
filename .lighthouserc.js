@@ -3,6 +3,7 @@ module.exports = {
     collect: {
       startServerCommand: "pnpm run dev", // 서버 실행
       startServerReadyPattern: "ready on",
+      startServerReadyTimeout: 20000, // 20초로 설정
       url: ["http://localhost:3000"], // 실행할 주소
       numberOfRuns: 3, // 실행 횟수
       settings: {
