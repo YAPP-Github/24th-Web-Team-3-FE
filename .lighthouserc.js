@@ -7,7 +7,13 @@ module.exports = {
       numberOfRuns: 3, // 실행 횟수
       settings: {
         preset: "desktop",
-        chromeFlags: ["--no-sandbox", "--ignore-certificate-errors"], // Chrome 플래그 추가
+        chromeFlags: [
+          "--no-sandbox",
+          "--ignore-certificate-errors",
+          "--disable-web-security",
+          "--allow-insecure-localhost",
+          "--allow-running-insecure-content",
+        ],
       },
     },
     upload: {
