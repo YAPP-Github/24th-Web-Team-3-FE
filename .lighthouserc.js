@@ -3,7 +3,7 @@ module.exports = {
     collect: {
       startServerCommand: "pnpm run dev", // 서버 실행
       startServerReadyPattern: "ready on",
-      url: ["http://localhost:8080"], // 실행할 주소
+      url: ["http://localhost"], // 실행할 주소
       numberOfRuns: 3, // 실행 횟수
       settings: {
         preset: "desktop",
