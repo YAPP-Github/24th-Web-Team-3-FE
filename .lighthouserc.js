@@ -11,7 +11,7 @@ module.exports = {
       },
     },
     upload: {
-      target: "filesystem",
+      target: "temporary-public-storage",
       outputDir: "./lhci_reports",
       reportFilenamePattern: "%%PATHNAME%%-%%DATETIME%%-report.%%EXTENSION%%",
     },
