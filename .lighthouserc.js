@@ -3,10 +3,11 @@ module.exports = {
     collect: {
       startServerCommand: "pnpm run dev", // 서버 실행
       startServerReadyPattern: "ready on",
-      url: ["localhost:3000"], // 실행할 주소
+      url: ["http://localhost:3000"], // 실행할 주소
       numberOfRuns: 3, // 실행 횟수
       settings: {
         preset: "desktop",
+        chromeFlags: ["--no-sandbox", "--ignore-certificate-errors"], // Chrome 플래그 추가
       },
     },
     upload: {
