@@ -7,17 +7,10 @@ module.exports = {
       numberOfRuns: 3, // 실행 횟수
       settings: {
         preset: "desktop",
-        chromeFlags: [
-          "--no-sandbox",
-          "--ignore-certificate-errors",
-          "--disable-web-security",
-          "--allow-insecure-localhost",
-          "--allow-running-insecure-content",
-        ],
+        chromeFlags: ["--no-sandbox", "--ignore-certificate-errors"],
       },
     },
     upload: {
-      // 레포트 생성
       target: "filesystem",
       outputDir: "./lhci_reports",
       reportFilenamePattern: "%%PATHNAME%%-%%DATETIME%%-report.%%EXTENSION%%",

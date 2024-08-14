@@ -39,11 +39,15 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Debug LHCI reports
+        run: ls -al ./lhci_reports
+
       - name: Run Lighthouse CI // Lighthouse 실행
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         run: |
           pnpm i -g @lhci/cli
+          pnpm run build
           lhci autorun || echo "Fail to Run Lighthouse CI!"
 
       - name: Format lighthouse score
