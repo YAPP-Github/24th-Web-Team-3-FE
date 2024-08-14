@@ -67,9 +67,8 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const fs = require('fs');
-            const path = require('path');
-            const resultsPath = path.join(process.env.GITHUB_WORKSPACE, 'lhci_reports', 'manifest.json');
 
+            const resultsPath = JSON.parse(fs.readFileSync('/home/runner/work/24th-Web-Team-3-FE/24th-Web-Team-3-FE/lhci_reports/manifest.json'))
             console.log(`Looking for results in ${resultsPath}`);
 
             const results = JSON.parse(fs.readFileSync(resultsPath));
