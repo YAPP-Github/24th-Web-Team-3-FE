@@ -1,4 +1,4 @@
-import Button from "@/common/Button"
+import SquareButton from "@/common/SquareButton"
 
 interface DeleteDialogProps {
   title: string
@@ -23,22 +23,22 @@ export const Dialog = ({
           <p className="tp-body1-regular mt-3 text-gray-600">{desc}</p>
         </div>
         <div className="mt-7 flex w-full gap-3">
-          <Button
+          <SquareButton
             className="flex-1"
             variant="solid"
             size="large"
             theme="gray"
             onClick={onClose}>
             닫기
-          </Button>
-          <Button
+          </SquareButton>
+          <SquareButton
             className="flex-1"
             variant="solid"
             size="large"
             theme="red"
             onClick={onConfirm}>
             {confirmBtnContext}
-          </Button>
+          </SquareButton>
         </div>
       </div>
     </div>

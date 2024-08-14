@@ -33,6 +33,8 @@ function Back() {
   const router = useRouter()
 
   return (
-    <Icon name="altArrowLeftOutline" size={28} onClick={() => router.back()} />
+    <button onClick={() => router.back()}>
+      <Icon name="altArrowLeftOutline" size={28} />
+    </button>
   )
 }

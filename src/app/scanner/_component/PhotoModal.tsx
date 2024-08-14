@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 import { PostQrCodeResponse } from "@/app/api/photo"
-import Button from "@/common/Button"
 import Icon from "@/common/Icon"
+import SquareButton from "@/common/SquareButton"
 
 interface PhotoModalProps {
   scanInfo: PostQrCodeResponse
@@ -55,15 +55,15 @@ export const PhotoModal = ({ scanInfo, onClose }: PhotoModalProps) => {
           priority
         />
         <div className="flex w-full gap-3 p-6 py-3">
-          <Button
+          <SquareButton
             variant="weak"
             onClick={onAlreadyExistAlbumBtnClick}
             className="w-full">
             이미 만든 앨범
-          </Button>
-          <Button onClick={onNewAlbumBtnClick} className="w-full">
+          </SquareButton>
+          <SquareButton onClick={onNewAlbumBtnClick} className="w-full">
             새 앨범 추가
-          </Button>
+          </SquareButton>
         </div>
         <Icon
           name="closeCircleBold"

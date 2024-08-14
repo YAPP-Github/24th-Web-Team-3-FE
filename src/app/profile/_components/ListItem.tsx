@@ -6,7 +6,7 @@ import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import { LIST_ITEM_INFO } from "@/constants"
 import { isExternalLink, isInternalLink } from "@/libs"
-import { useAlert } from "@/store/AlertContext"
+import { useAlertStore } from "@/store/alert"
 
 interface ItemButtonType {
   label: string
@@ -21,7 +21,7 @@ export interface ListItemProps {
 
 const ListItem = () => {
   const router = useRouter()
-  const { showAlert } = useAlert()
+  const { showAlert } = useAlertStore()
 
   const handleClick = async (item: ItemButtonType) => {
     if (item.action) {
@@ -50,11 +50,11 @@ const ListItem = () => {
 
           {items.map((item, index) => (
             <li key={index}>
-              <Button
-                onClick={() => handleClick(item)}
-                className="flex h-[54px] w-full items-center justify-between bg-white pl-[32px] pr-[24px]">
-                <p className="tp-body1-regular text-gray-600">{item.label}</p>
-                <Icon name="arrowRight" size={24} color="gray-500" />
+              <Button onClick={() => handleClick(item)} className="w-full">
+                <div className="flex h-[54px] w-full items-center justify-between px-6">
+                  <p className="tp-body1-regular text-gray-600">{item.label}</p>
+                  <Icon name="arrowRight" size={24} color="gray-500" />
+                </div>
               </Button>
             </li>
           ))}
