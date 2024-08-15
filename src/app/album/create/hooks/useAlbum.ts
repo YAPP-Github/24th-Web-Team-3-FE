@@ -3,13 +3,13 @@ import { useRouter } from "next/navigation"
 
 import { postAlbum } from "@/app/api/photo"
 import { getQueryClient } from "@/common/QueryProviders"
-import { useAlert } from "@/store/AlertContext"
+import { useAlertStore } from "@/store/alert"
 
 import { usePatchPhotoAlbum } from "../../../scanner/hooks/usePhoto"
 import type { AlbumType } from "../../types"
 
 export const usePostAlbum = () => {
-  const { showAlert } = useAlert()
+  const { showAlert } = useAlertStore()
   const router = useRouter()
   const { patchPhotoAlbum } = usePatchPhotoAlbum()
 
