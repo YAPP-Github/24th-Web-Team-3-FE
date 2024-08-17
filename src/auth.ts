@@ -1,5 +1,6 @@
 import { cookies } from "next/headers"
 import NextAuth from "next-auth"
+import Apple from "next-auth/providers/apple"
 import KakaoProvider from "next-auth/providers/kakao"
 
 import { authLogin } from "@/app/api/signIn"
@@ -13,6 +14,20 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  /**
+   * 애플 로그인 시 쿠키옵션 적용해 주어야 callbackUrl이 정상 작동
+   */
+  cookies: {
+    callbackUrl: {
+      name: `__Secure-next-auth.callback-url`,
+      options: {
+        httpOnly: false,
+        sameSite: "none",
+        path: "/",
+        secure: true,
+      },
+    },
+  },
   trustHost: true,
   pages: {
     signIn: "/",
@@ -21,6 +36,10 @@ export const {
     KakaoProvider({
       clientId: process.env.AUTH_KAKAO_ID,
       clientSecret: process.env.AUTH_KAKAO_SECRET,
+    }),
+    Apple({
+      clientId: process.env.AUTH_APPLE_ID,
+      clientSecret: process.env.AUTH_APPLE_SECRET as string,
     }),
   ],
   callbacks: {
