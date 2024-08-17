@@ -22,11 +22,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "마푸 - 지금 함께 찍은 네컷사진을 올려보세요",
     description: "마푸를 켜고 QR을 가져다 대면 바로 업로드",
-    url: process.env.NEXT_PUBLIC_OPENGRAPH_URL,
+    url: process.env.NEXT_PUBLIC_URL,
     type: "website",
     siteName: "마푸",
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_METADATABASE!),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL as string),
   icons: { icon: "/images/favicon.png" },
 }
 
