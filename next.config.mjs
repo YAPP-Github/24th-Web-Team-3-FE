@@ -9,6 +9,9 @@ const nextConfig = {
     })
     return config
   },
+  experimental: {
+    runtime: "nodejs",
+  },
   images: {
     remotePatterns: [
       {
