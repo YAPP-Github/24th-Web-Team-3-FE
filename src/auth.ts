@@ -27,17 +27,15 @@ export const {
 
     const appleToken = await new SignJWT({})
       .setAudience("https://appleid.apple.com")
-      .setIssuer(process.env.NEXT_PUBLIC_APPLE_TEAM_ID as string)
+      .setIssuer(process.env.AUTH_APPLE_TEAM_ID as string)
       .setIssuedAt(issuedAt)
       .setExpirationTime(expireTime)
-      .setSubject(process.env.NEXT_PUBLIC_APPLE_CLIENT_ID as string)
+      .setSubject(process.env.AUTH_APPLE_CLIENT_ID as string)
       .setProtectedHeader({
         alg: "ES256",
-        kid: process.env.NEXT_PUBLIC_APPLE_KEY_ID,
+        kid: process.env.AUTH_APPLE_KEY_ID,
       })
-      .sign(
-        createPrivateKey(process.env.NEXT_PUBLIC_APPLE_PRIVATE_KEY as string)
-      )
+      .sign(createPrivateKey(process.env.AUTH_APPLE_PRIVATE_KEY as string))
 
     return appleToken
   }
@@ -66,7 +64,7 @@ export const {
         clientSecret: process.env.AUTH_KAKAO_SECRET,
       }),
       AppleProvider({
-        clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID,
+        clientId: process.env.AUTH_APPLE_CLIENT_ID,
         clientSecret: await getAppleToken(),
       }),
     ],
