@@ -55,7 +55,7 @@ const Scanner = () => {
       <Link href="/album">
         <Button className="rounded-lg" tabIndex={-1}>
           <div className={TAB_ITEM_CLASSNAME}>
-            <Icon name="userCircleOutline" size={28} color="gray-400" />
+            <Icon name="albumBold" size={28} color="gray-400" />
             <span>내 앨범</span>
           </div>
         </Button>
@@ -83,7 +83,7 @@ const Profile = () => {
       <Link href="/album">
         <Button className="rounded-lg" tabIndex={-1}>
           <div className={TAB_ITEM_CLASSNAME}>
-            <Icon name="userCircleOutline" size={28} color="gray-400" />
+            <Icon name="albumOutline" size={28} color="gray-400" />
             <span>내 앨범</span>
           </div>
         </Button>
