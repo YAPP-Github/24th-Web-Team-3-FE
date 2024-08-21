@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Masonry from "react-responsive-masonry"
 
 import { deletePhoto, getPhotos } from "@/app/api/photo"
 
@@ -47,14 +48,14 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
 
   return (
     <>
-      <div className={`flex min-h-[165px] w-full flex-wrap gap-[13px]`}>
+      <Masonry columnsCount={2} gutter="12px">
         <PhotoAddButton albumId={albumId} />
         {photos.map((photo, idx) => (
           <div key={photo.photoId} onClick={() => onPhotoClick(idx)}>
             <Photo photo={photo} />
           </div>
         ))}
-      </div>
+      </Masonry>
       {imageDetailShown && (
         <ImageDetail
           photos={photos}
