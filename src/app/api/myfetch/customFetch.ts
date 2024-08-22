@@ -121,8 +121,14 @@ const customFetch =
         fetchProvided
       )
 
-      const responseText = await interceptedResponse.text()
-      return responseText ? JSON.parse(responseText) : {}
+      const contentType = response.headers.get("Content-Type")
+
+      if (contentType && contentType.includes("image/")) {
+        return await response.blob()
+      } else {
+        const responseText = await interceptedResponse.text()
+        return responseText ? JSON.parse(responseText) : {}
+      }
     }
 
     return await response.json()

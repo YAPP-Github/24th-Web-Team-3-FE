@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useState } from "react"
 import Slider from "react-slick"
 
+import { myFetch } from "@/app/api/myfetch"
 import Icon from "@/common/Icon"
 import SquareButton from "@/common/SquareButton"
 import { fullDateStr } from "@/utils"
@@ -33,16 +34,17 @@ export const ImageDetail = ({
     initialSlide: startIdx,
   }
   const handleDownload = async (imageUrl: string) => {
-    const res = await fetch(imageUrl, {
+    const res = await myFetch(imageUrl, {
       method: "GET",
-      mode: "no-cors",
+      headers: {
+        "Content-Type": "image/jpeg",
+      },
     })
-    const blob = await res.blob()
 
-    const url = URL.createObjectURL(blob)
+    const url = URL.createObjectURL(res)
     const a = document.createElement("a")
     a.href = url
-    a.download = `mafoo_${fullDateStr()}.jpg` // 다운로드될 파일명 설정
+    a.download = `mafoo_${fullDateStr()}.jpg`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
