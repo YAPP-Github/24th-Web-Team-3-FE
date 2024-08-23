@@ -29,7 +29,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Setup pnpm cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -39,26 +39,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build the project
-        env:
-          AUTH_KAKAO_ID: ${{ secrets.AUTH_KAKAO_ID }}
-          AUTH_KAKAO_SECRET: ${{ secrets.AUTH_KAKAO_SECRET }}
-          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-          AUTH_URL: ${{ secrets.AUTH_URL }}
-          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_NEXTAUTH_SECRET: ${{ secrets.NEXT_PUBLIC_NEXTAUTH_SECRET }}
-          NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ secrets.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }}
-          NEXT_PUBLIC_METADATABASE: ${{ secrets.NEXT_PUBLIC_METADATABASE }}
-          NEXT_PUBLIC_OPENGRAPH_URL: ${{ secrets.NEXT_PUBLIC_OPENGRAPH_URL }}
-        run: pnpm run build
-
       - name: Run Lighthouse CI // Lighthouse 실행
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         run: |
           pnpm i -g @lhci/cli
           lhci autorun || echo "Fail to Run Lighthouse CI!"
+
+      - name: Generate and Upload Lighthouse Report // 레포트 생성
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        run: |
+          lhci collect --additive
+          lhci upload --target=filesystem --outputDir=./lighthouse-reports
+          lhci upload --target=temporary-public-storage
 
       - name: Format lighthouse score
         id: format_lighthouse_score
@@ -67,40 +61,95 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const fs = require('fs');
-
-            const resultsPath = JSON.parse(fs.readFileSync('/home/runner/work/24th-Web-Team-3-FE/24th-Web-Team-3-FE/lhci_reports/manifest.json'))
-            console.log(`Looking for results in ${resultsPath}`);
-
+            const path = require('path');
+            const resultsPath = path.join(process.env.GITHUB_WORKSPACE, 'lhci_reports', 'manifest.json');
             const results = JSON.parse(fs.readFileSync(resultsPath));
-            let comments = ""
+            const totalReports = results.length;
 
-            results.forEach((result,index) => {
+            // best-practices은 문자열로 저장 ( Lighthouse 지표 )
+            const averageScores = {
+              performance: 0,
+              accessibility: 0,
+              'best-practices': 0,
+              seo: 0,
+              pwa: 0
+            };
+
+            // Lighthouse 상세 지표
+            const auditSummaries = {
+            'first-contentful-paint': 0,
+            'largest-contentful-paint': 0,
+            'interactive': 0,
+            'total-blocking-time': 0,
+            'cumulative-layout-shift': 0
+            };
+
+            // 점수 평균
+            results.forEach(result => {
               const { summary } = result;
+              for (const key in averageScores) {
+                averageScores[key] += summary[key];
+            }
 
-              const formatResult = (res) => Math.round(res * 100);
-
-              Object.keys(summary).forEach(
-                (key) => (summary[key] = formatResult(summary[key]))
-              );
-              
-              const score = (res) => (res >= 90 ? "🟢" : res >= 70 ? "🟠" : "🔴");
-
-              const comment = [
-                `⚡️ **Lighthouse report ${index + 1}**`,
-                `| Category               | Score |`,
-                `|------------------------|-------|`,
-                `| ${score(summary.performance)} Performance       | ${summary.performance} |`,
-                `| ${score(summary.accessibility)} Accessibility    | ${summary.accessibility} |`,
-                `| ${score(summary['best-practices'])} Best practices  | ${summary['best-practices']} |`,
-                `| ${score(summary.seo)} SEO                | ${summary.seo} |`,
-                `| ${score(summary.pwa)} PWA                | ${summary.pwa} |`,
-                `\n`,
-              ].join("\n");
-
-              comments += comment + "\n";
+            const details = JSON.parse(fs.readFileSync(result.jsonPath));
+            ['first-contentful-paint', 'largest-contentful-paint', 'interactive', 'total-blocking-time', 'cumulative-layout-shift'].forEach(auditName => {
+              if (details.audits[auditName]) {
+                const auditDetails = details.audits[auditName];
+                  auditSummaries[auditName] += parseFloat(auditDetails.displayValue) || 0;
+                }
+              });
             });
 
-            core.setOutput('comments', comments)
+            // 점수에 따른 색상 표시
+            const formatScore = res => (res >= 90 ? "🟢" : res >= 70 ? "🟠" : "🔴");
+
+            // 상세 지표의 표준 점수에 따른 색상 표시
+            const detailscore = (value, metric) => {
+              switch (metric) {
+              case 'first-contentful-paint':
+                  return value <= 1.8 ? "🟢" : value <= 3 ? "🟠" : "🔴";
+                case 'largest-contentful-paint':
+                  return value <= 2.5 ? "🟢" : value <= 4 ? "🟠" : "🔴";
+                case 'interactive':
+                  return value <= 3.8 ? "🟢" : value <= 7.3 ? "🟠" : "🔴";
+                case 'total-blocking-time':
+                  return value <= 300 ? "🟢" : value <= 600 ? "🟠" : "🔴";
+                case 'cumulative-layout-shift':
+                  return value <= 0.1 ? "🟢" : value <= 0.25 ? "🟠" : "🔴";
+                default:
+                return "🔴"; // Default to red if metric is unknown
+                }
+            };
+
+            let comments = "⚡️ Lighthouse Average Scores Across Reports:\n| Category | Score |\n| --- | --- |\n";
+            Object.keys(averageScores).forEach(key => {
+              const avgScore = Math.round((averageScores[key] / totalReports) * 100);
+              comments += `| ${formatScore(avgScore)}  ${key.replace(/-/g, ' ')} | ${avgScore} |\n`;
+            });
+
+            comments += "\n⚡️ Average Details Across All Reports:\n| Category | Score |\n| --- | --- |\n";
+            Object.keys(auditSummaries).forEach(auditName => {
+              const average = auditSummaries[auditName] / totalReports;
+              const formattedName = auditName.replace(/-/g, ' ');
+              const colorCode = detailscore(average, auditName);
+              const unit = (auditName === 'total-blocking-time' ? 'ms' : auditName === 'cumulative-layout-shift' ? '' : 's')
+              comments += `| ${colorCode}  ${formattedName} | ${average.toFixed(1)}${unit} |\n`;
+                        });
+
+            // PR 전송
+              if (comments && context.issue.number) {
+                const issue_number = context.issue.number;
+                const repo = context.repo.repo;
+                const owner = context.repo.owner;
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body: comments
+                });
+              } else {
+              console.log("No PR COMMENT!");
+            }
 
       - name: comment PR
         uses: unsplash/comment-on-pr@v1.3.0

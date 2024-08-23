@@ -7,13 +7,22 @@ module.exports = {
       numberOfRuns: 3, // 실행 횟수
       settings: {
         preset: "desktop",
-        chromeFlags: ["--no-sandbox", "--ignore-certificate-errors"],
       },
     },
     upload: {
+      // 레포트 생성
       target: "filesystem",
       outputDir: "./lhci_reports",
       reportFilenamePattern: "%%PATHNAME%%-%%DATETIME%%-report.%%EXTENSION%%",
+    },
+    assert: {
+      // 점수 기준 정리
+      assertions: {
+        "categories:performance": ["warn", { minScore: 0.8 }],
+        "categories:accessibility": ["warn", { minScore: 0.8 }],
+        "categories:best-practices": ["warn", { minScore: 0.8 }],
+        "categories:seo": ["warn", { minScore: 0.8 }],
+      },
     },
   },
 }
