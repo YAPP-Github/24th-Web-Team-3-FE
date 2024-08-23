@@ -20,7 +20,7 @@ jobs:
       - name: Install pnpm // pnpm 설치
         uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 9.7.0
           run_install: false
 
       - name: Get pnpm store directory
