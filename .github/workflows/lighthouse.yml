@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository // 저장소 체크아웃
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Install pnpm // pnpm 설치
         uses: pnpm/action-setup@v3
         with:
-          version: 9.7.0
+          version: 8
           run_install: false
 
       - name: Get pnpm store directory
@@ -29,7 +29,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Setup pnpm cache
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
