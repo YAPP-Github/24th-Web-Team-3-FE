@@ -22,6 +22,23 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Cross-Origin-Embedder-Policy",
+            value: "require-corp",
+          },
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
+          },
+        ],
+      },
+    ]
+  },
 }
 
 const isProd = process.env.NODE_ENV === "production" // 빌드 환경에서만 PWA를 적용합니다.
