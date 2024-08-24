@@ -9,13 +9,15 @@ interface HeaderProps extends React.HTMLAttributes<HTMLHeadElement> {
 }
 
 export function Header({ type = "back", ...props }: HeaderProps) {
-  if (type === "back") {
-    return (
-      <Container {...props}>
-        <Back />
-      </Container>
-    )
+  if (type !== "back") {
+    return null
   }
+
+  return (
+    <Container {...props}>
+      <Back />
+    </Container>
+  )
 }
 
 function Container({

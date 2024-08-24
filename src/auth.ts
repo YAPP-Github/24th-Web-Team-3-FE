@@ -66,7 +66,7 @@ export const {
     }),
     AppleProvider({
       clientId: process.env.AUTH_APPLE_CLIENT_ID,
-      clientSecret: process.env.AUTH_APPLE_PRIVATE_KEY as string,
+      clientSecret: `-----BEGIN PRIVATE KEY-----\n${process.env.AUTH_APPLE_PRIVATE_KEY ?? ""}\n-----END PRIVATE KEY-----\n`,
     }),
   ],
   callbacks: {
