@@ -38,6 +38,7 @@ export const ImageDetail = ({
       method: "GET",
       headers: {
         "Content-Type": "image/jpeg",
+        Authorization: "null",
       },
     })
 
