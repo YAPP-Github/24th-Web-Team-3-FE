@@ -15,9 +15,18 @@ export const FOUR_CUT_BRAND = {
   PICDOT: "https://picdot.kr",
 }
 
-// 객체의 value들을 정규표현식 패턴으로 변환
+// 정규식을 변환할 때 백슬래시 이스케이프 문제를 해결하고,
+// 각 URL에 대해 개별적으로 전체 매칭이 되도록 ^와 $를 추가
 const urlPatterns = Object.values(FOUR_CUT_BRAND)
-  .map((url) => url.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + ".*")
+  .map((url) => {
+    // HARUFILM과 같은 정규식 패턴을 포함한 URL 처리
+    if (url.includes("\\d")) {
+      return url.replace(/\\\\/g, "\\") // HARUFILM과 같이 이미 이스케이프된 정규식을 복원
+    } else {
+      return url.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") // 다른 URL은 이스케이프 처리
+    }
+  })
+  .map((url) => `^${url}.*$`) // 각 URL에 대해 시작과 끝에 ^, $ 추가
   .join("|")
 
 export const isUrlIncluded = (input: string) =>
