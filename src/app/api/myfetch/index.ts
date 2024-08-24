@@ -18,6 +18,11 @@ export const myFetch = customFetch({
 
       if (accessToken && options) {
         const headers = new Headers(options.headers || {})
+
+        if (headers.get("Authorization") === "null") {
+          return [url, options]
+        }
+
         headers.set("Authorization", `Bearer ${accessToken}`)
         options.headers = headers
       }
