@@ -22,6 +22,8 @@ const nextConfig = {
       },
     ],
   },
+  // SharedArrayBuffer를 사용하려면 Cross-Origin-Embedder-Policy 헤더를 require-corp로 설정해야 합니다.
+  // @ffmpeg/ffmpeg 모듈을 사용할 때 SharedArrayBuffer를 사용하므로 설정합니다.
   async headers() {
     return [
       {
