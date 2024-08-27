@@ -7,9 +7,9 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <Header albumId={id} />
-      <section className="w-full p-4 px-6 flex flex-wrap">
-        <AlbumPhotos albumId={id} />
-      </section>
+      {/* <section className="flex w-full flex-wrap p-4 px-6"> */}
+      <AlbumPhotos albumId={id} />
+      {/* </section> */}
     </>
   )
 }
