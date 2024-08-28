@@ -4,13 +4,22 @@ import { signIn } from "next-auth/react"
 
 import Icon from "@/common/Icon"
 import SquareButton from "@/common/SquareButton"
+import { isWebView } from "@/libs"
 
 const LoginButton = () => {
   const handleSignInWithKakao = async () => {
+    if (isWebView()) {
+      window.ReactNativeWebView.postMessage("kakaoLogin")
+      return
+    }
     await signIn("kakao", { callbackUrl: "/scanner" })
   }
 
   const handleSignInWithApple = async () => {
+    if (isWebView()) {
+      window.ReactNativeWebView.postMessage("appleLogin")
+      return
+    }
     await signIn("apple", { callbackUrl: "/scanner" })
   }
 
