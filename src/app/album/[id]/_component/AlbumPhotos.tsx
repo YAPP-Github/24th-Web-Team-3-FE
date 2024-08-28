@@ -13,10 +13,10 @@ import { base64ToBlob, blobToFile } from "@/utils"
 
 import { PhotoInfo } from "../../types"
 import { ImageDetail } from "./ImageDetail"
-import ImageRecap from "./ImageRecap"
 import { Photo } from "./Photo"
 import { PhotoAddButton } from "./PhotoAddButton"
 import VideoLoading from "./VideoLoading"
+import VideoRecap from "./VideoRecap"
 
 const ffmpeg = createFFmpeg({ log: true })
 
@@ -219,7 +219,7 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
       </div>
 
       {isCreateRecap && !videoUrl && <VideoLoading />}
-      {videoUrl && <ImageRecap url={videoUrl} />}
+      {videoUrl && <VideoRecap url={videoUrl} />}
     </>
   )
 }
