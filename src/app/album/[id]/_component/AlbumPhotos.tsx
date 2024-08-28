@@ -9,7 +9,6 @@ import Masonry from "react-responsive-masonry"
 import { deletePhoto, getPhotos } from "@/app/api/photo"
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
-import Loading from "@/common/Loading"
 import { base64ToBlob, blobToFile } from "@/utils"
 
 import { PhotoInfo } from "../../types"
@@ -17,6 +16,7 @@ import { ImageDetail } from "./ImageDetail"
 import ImageRecap from "./ImageRecap"
 import { Photo } from "./Photo"
 import { PhotoAddButton } from "./PhotoAddButton"
+import VideoLoading from "./VideoLoading"
 
 const ffmpeg = createFFmpeg({ log: true })
 
@@ -218,7 +218,7 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
         ))}
       </div>
 
-      {isCreateRecap && !videoUrl && <Loading />}
+      {isCreateRecap && !videoUrl && <VideoLoading />}
       {videoUrl && <ImageRecap url={videoUrl} />}
     </>
   )
