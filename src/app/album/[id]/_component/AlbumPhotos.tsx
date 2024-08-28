@@ -114,7 +114,6 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
       }
 
       try {
-        // 각 이미지를 2초 길이의 비디오로 변환
         for (let index = 0; index < files.length; index++) {
           await ffmpeg.run(
             "-loop",
