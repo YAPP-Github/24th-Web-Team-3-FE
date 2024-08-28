@@ -1,3 +1,7 @@
+export const WEBVIEW_USER_AGENT = "MafooApp"
+export const ANDROID_USER_AGENT = "android|Android"
+export const IOS_USER_AGENT = "iPhone|iPad|iPod"
+
 // 하루 필름인 경우는 지점별 도메인이 가변적
 // HARUFILM: "http://haru{숫자}.mx{숫자}.co.kr",
 export const FOUR_CUT_BRAND: Record<string, string> = {
@@ -38,3 +42,14 @@ export const isInternalLink = (url: string) => {
   const internalLinkRegex = /^\//
   return internalLinkRegex.test(url)
 }
+
+const getUserAgent = () => {
+  if (typeof window === "undefined") {
+    return ""
+  }
+  return window.navigator.userAgent
+}
+
+export const isWebView = () => RegExp(WEBVIEW_USER_AGENT).test(getUserAgent())
+export const isAndroid = () => RegExp(ANDROID_USER_AGENT).test(getUserAgent())
+export const isIOS = () => RegExp(IOS_USER_AGENT).test(getUserAgent())

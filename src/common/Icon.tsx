@@ -22,6 +22,7 @@ export type IconTypes =
   | "closeCircleBold"
   | "arrowRight"
   | "errorLogo"
+  | "appleLogo"
 
 export interface IconProps extends ComponentProps<"svg"> {
   name: IconTypes
