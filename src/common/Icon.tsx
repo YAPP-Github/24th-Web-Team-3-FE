@@ -23,6 +23,7 @@ export type IconTypes =
   | "arrowRight"
   | "errorLogo"
   | "reelOutline"
+  | "insta"
 
 export interface IconProps extends ComponentProps<"svg"> {
   name: IconTypes
