@@ -16,10 +16,6 @@ const LoginButton = () => {
   }
 
   const handleSignInWithApple = async () => {
-    if (isWebView()) {
-      window.ReactNativeWebView.postMessage("appleLogin")
-      return
-    }
     await signIn("apple", { callbackUrl: "/scanner" })
   }
 
