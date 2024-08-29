@@ -81,7 +81,6 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
       )
 
       // Filter out any null values and update the state
-      // setGeneratedImages(newGeneratedImages.filter(Boolean) as string[])
       const filteredImages = newGeneratedImages.filter(Boolean) as string[]
       const newGeneratedFiles = filteredImages
         .filter(Boolean)
@@ -182,14 +181,16 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
           />
         )}
 
-        <Button
-          onClick={() => setIsCreateRecap(true)}
-          className="bg-lightgray m-auto rounded-[100px] bg-[114deg] bg-slate-400 bg-gradient-to-br from-[#C680FF] via-[#F09BF2] to-[#FF82C6] bg-[length:100px_100px] bg-repeat p-14 px-[22px] py-[16px] bg-blend-overlay shadow-[0_16px_20px_0_rgba(101,125,159,0.12),0_0_8px_0_rgba(88,100,117,0.08)]">
-          <div className="flex gap-1 align-middle">
-            <p>리캡 만들기</p>
-            <Icon name="reelOutline" size={24} color="white" />
-          </div>
-        </Button>
+        {photos.length >= 2 && (
+          <Button
+            onClick={() => setIsCreateRecap(true)}
+            className="bg-lightgray m-auto rounded-[100px] bg-[114deg] bg-slate-400 bg-gradient-to-br from-[#C680FF] via-[#F09BF2] to-[#FF82C6] bg-[length:100px_100px] bg-repeat p-14 px-[22px] py-[16px] bg-blend-overlay shadow-[0_16px_20px_0_rgba(101,125,159,0.12),0_0_8px_0_rgba(88,100,117,0.08)]">
+            <div className="flex gap-1 align-middle">
+              <p>리캡 만들기</p>
+              <Icon name="reelOutline" size={24} color="white" />
+            </div>
+          </Button>
+        )}
       </div>
 
       <div className="fixed left-0 top-0 -translate-x-full">
