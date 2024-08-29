@@ -59,6 +59,7 @@ export const ImageDetail = ({
   const handleDelete = async () => {
     await onDelete(idx)
     setDeleteModalShown(false)
+    onClose()
   }
 
   const dialogProps = {
