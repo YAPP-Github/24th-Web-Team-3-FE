@@ -4,7 +4,7 @@ import SquareButton from "./SquareButton"
 
 interface AlertProps {
   title: string
-  description: string
+  description?: string
   onClose: () => void
 }
 
@@ -14,9 +14,11 @@ const Alert = ({ title, description, onClose }: AlertProps) => {
       <div className="relative flex h-[220px] w-[350px] flex-col justify-between rounded-3xl bg-white px-5 py-6">
         <div>
           <p className="tp-title1-semibold text-gray-800">{title}</p>
-          <p className="tp-body1-regular mt-3 px-[6px] text-gray-600">
-            {description}
-          </p>
+          {description && (
+            <p className="tp-body1-regular mt-3 px-[6px] text-gray-600">
+              {description}
+            </p>
+          )}
         </div>
         <SquareButton onClick={onClose}>확인</SquareButton>
       </div>
