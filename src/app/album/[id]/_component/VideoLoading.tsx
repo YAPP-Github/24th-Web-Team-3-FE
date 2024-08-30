@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const VideoLoading = () => {
   return (
-    <div className="absolute left-0 top-0 z-10 h-[100vh] w-full bg-gray-800 bg-opacity-50">
+    <div className="absolute left-0 top-0 z-10 h-dvh w-full bg-gray-800 bg-opacity-50">
       <div
         role="status"
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">

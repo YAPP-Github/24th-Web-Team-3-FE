@@ -131,7 +131,11 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
             "-t",
             "1", // 각 이미지를 1초 동안 표시
             "-vf",
-            "scale=390:670,format=yuv420p", // 이미지 크기를 1920x1080으로 변환
+            "scale=390:670,format=yuv420p", // 이미지 크기를 390x670으로 변환
+            "-c:v",
+            "libx264", // 코덱을 설정 (H.264 코덱)
+            "-b:v",
+            "2M", // 비디오 비트레이트를 2Mbps로 설정 (화질을 높이기 위해 비트레이트를 높게 설정)
             "-y",
             `video${index}.mp4`
           )
