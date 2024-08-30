@@ -53,3 +53,16 @@ const getUserAgent = () => {
 export const isWebView = () => RegExp(WEBVIEW_USER_AGENT).test(getUserAgent())
 export const isAndroid = () => RegExp(ANDROID_USER_AGENT).test(getUserAgent())
 export const isIOS = () => RegExp(IOS_USER_AGENT).test(getUserAgent())
+
+// yyyy-MM-dd 형식의 날짜를 Date 객체로 변환
+export const formattedDate = (date: string) => {
+  const newDate = new Date(date)
+
+  // 연도, 월, 일을 추출
+  const year = newDate.getFullYear()
+  const month = String(newDate.getMonth() + 1).padStart(2, "0") // 월은 0부터 시작하므로 +1
+  const day = String(newDate.getDate()).padStart(2, "0")
+
+  // YYYY-MM-DD 형식으로 반환
+  return `${year}-${month}-${day}`
+}
