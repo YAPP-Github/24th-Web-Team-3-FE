@@ -11,7 +11,7 @@ import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import { base64ToBlob, blobToFile } from "@/utils"
 
-import { PhotoInfo } from "../../types"
+import { AlbumInfo, PhotoInfo } from "../../types"
 import { ImageDetail } from "./ImageDetail"
 import { Photo } from "./Photo"
 import { PhotoAddButton } from "./PhotoAddButton"
@@ -20,7 +20,13 @@ import VideoRecap from "./VideoRecap"
 
 const ffmpeg = createFFmpeg({ log: true })
 
-export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
+interface AlbumPhotosProps {
+  albumInfo: AlbumInfo
+}
+
+export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
+  const { showAlert } = useAlertStore()
+
   const [photos, setPhotos] = useState<PhotoInfo[]>([])
   const [imageDetailShown, setImageDetailShown] = useState(false)
 
@@ -54,14 +60,14 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
 
   useEffect(() => {
     const fetchAlbums = async () => {
-      const data = await getPhotos(albumId)
+      const data = await getPhotos(albumInfo.albumId)
       if (data.length) {
         setPhotos(data)
       }
     }
 
     fetchAlbums()
-  }, [albumId])
+  }, [albumInfo.albumId])
 
   useEffect(() => {
     const generateImages = async () => {
@@ -159,13 +165,13 @@ export const AlbumPhotos = ({ albumId }: { albumId: string }) => {
     }
 
     createVideo()
-  }, [files])
+  }, [files, showAlert])
 
   return (
     <>
       <div className="flex w-full flex-wrap p-4 px-6">
         <Masonry columnsCount={2} gutter="12px">
-          <PhotoAddButton albumId={albumId} />
+          <PhotoAddButton albumId={albumInfo.albumId} />
           {photos.map((photo, idx) => (
             <div key={photo.photoId} onClick={() => onPhotoClick(idx)}>
               <Photo photo={photo} />
