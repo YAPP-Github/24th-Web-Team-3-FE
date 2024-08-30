@@ -11,7 +11,7 @@ export const FOUR_CUT_BRAND: Record<string, string> = {
   MAFOO: "https://mafoo.kr",
   LIFE4CUT: "https://api.life4cut.net",
   MY_FOUR_CUT:
-    "https://firebasestorage.googleapis.com:443/v0/b/my4ccu.appspotcom",
+    "https://firebasestorage.googleapis.com:443/v0/b/my4ccu.appspot.com",
   PHOTOGRAY: "https://pgshort.aprd.io",
   MONOMANSION: "https://monomansion.net",
   PHOTO_SIGNATURE: "http://photoqr3.kr",
