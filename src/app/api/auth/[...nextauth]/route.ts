@@ -1,8 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from "next"
+import { NextRequest, NextResponse } from "next/server"
 
 import authMapper from "@/auth"
 
-async function auth(req: NextApiRequest, res: NextApiResponse) {
+async function auth(req: NextRequest, res: NextResponse) {
   return await authMapper(req, res)
 }
 

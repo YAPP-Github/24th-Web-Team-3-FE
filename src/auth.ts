@@ -1,24 +1,17 @@
 import { createPrivateKey } from "crypto"
 import { SignJWT } from "jose"
-import type { NextApiRequest, NextApiResponse } from "next"
 import { cookies } from "next/headers"
+import { NextRequest } from "next/server"
 import NextAuth from "next-auth"
 import AppleProvider from "next-auth/providers/apple"
 import KakaoProvider from "next-auth/providers/kakao"
 
-import { authLogin } from "@/app/api/signIn"
+import { appleLogin, kakaoLogin } from "@/app/api/signIn"
 import { ACCESS_TOKEN_KEY } from "@/constants"
 
 import { useAuthStore } from "./store/auth"
 
-// export const {
-//   handlers: { GET, POST },
-//   auth,
-//   signIn,
-//   signOut,
-// } = )
-
-export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+export default async function auth(req: NextRequest, res: any) {
   return await NextAuth(req, res, {
     pages: {
       signIn: "/",
@@ -33,10 +26,26 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         clientSecret: await getAppleToken(),
       }),
     ],
+    cookies: {
+      pkceCodeVerifier: {
+        name: "next-auth.pkce.code_verifier",
+        options: {
+          httpOnly: true,
+          sameSite: "none",
+          path: "/",
+          secure: true,
+        },
+      },
+    },
     callbacks: {
       async signIn({ account }) {
         if (account?.access_token) {
-          const authResponse = await authLogin(account.access_token)
+          let authResponse
+          if (account.provider === "apple") {
+            authResponse = await appleLogin(account.id_token ?? "")
+          } else {
+            authResponse = await kakaoLogin(account.access_token)
+          }
 
           cookies().set(ACCESS_TOKEN_KEY, authResponse.accessToken, {
             httpOnly: true,
