@@ -1,14 +1,13 @@
-import { NextResponse } from "next/server"
+import { withAuth } from "next-auth/middleware"
 
-import { auth } from "./auth"
-
-export async function middleware() {
-  const session = await auth()
-  if (!session) {
-    return NextResponse.redirect(process.env.NEXT_PUBLIC_URL as string)
-  }
-}
+export default withAuth({
+  // Matches the pages config in `[...nextauth]`
+  pages: {
+    signIn: "/",
+    error: "/error",
+  },
+})
 
 export const config = {
-  matcher: ["/scanner", "/profile", "/album/:path*"],
+  matcher: "/((?!api|static|.*\\..*|_next).*)",
 }
