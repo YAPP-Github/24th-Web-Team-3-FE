@@ -63,47 +63,47 @@ export const {
         clientSecret: await getAppleToken(),
       }),
     ],
-    callbacks: {
-      async signIn({ account }) {
-        if (account?.provider === "apple") return true
+    // callbacks: {
+    //   async signIn({ account }) {
+    //     if (account?.provider === "apple") return true
 
-        if (account?.access_token) {
-          const authResponse = await authLogin(account.access_token)
+    //     if (account?.access_token) {
+    //       const authResponse = await authLogin(account.access_token)
 
-          cookies().set(ACCESS_TOKEN_KEY, authResponse.accessToken, {
-            httpOnly: true,
-            sameSite: "lax",
-            path: "/",
-            maxAge: 30 * 24 * 60 * 60, // 30일
-          })
+    //       cookies().set(ACCESS_TOKEN_KEY, authResponse.accessToken, {
+    //         httpOnly: true,
+    //         sameSite: "lax",
+    //         path: "/",
+    //         maxAge: 30 * 24 * 60 * 60, // 30일
+    //       })
 
-          const updatedAccount = {
-            ...account,
-            access_token: authResponse.accessToken,
-            refresh_token: authResponse.refreshToken,
-          }
-          account = updatedAccount
-        }
+    //       const updatedAccount = {
+    //         ...account,
+    //         access_token: authResponse.accessToken,
+    //         refresh_token: authResponse.refreshToken,
+    //       }
+    //       account = updatedAccount
+    //     }
 
-        return true
-      },
-      jwt({ token, account }) {
-        if (account) {
-          token.accessToken = account.access_token
-          token.refreshToken = account.refresh_token
-        }
-        return token
-      },
-      session({ session, token }) {
-        return {
-          ...session,
-          user: {
-            ...session.user,
-            ...token,
-          },
-        }
-      },
-    },
+    //     return true
+    //   },
+    // jwt({ token, account }) {
+    //   if (account) {
+    //     token.accessToken = account.access_token
+    //     token.refreshToken = account.refresh_token
+    //   }
+    //   return token
+    // },
+    // session({ session, token }) {
+    //   return {
+    //     ...session,
+    //     user: {
+    //       ...session.user,
+    //       ...token,
+    //     },
+    //   }
+    // },
+    // },
     events: {
       signOut() {
         cookies().delete(ACCESS_TOKEN_KEY)
