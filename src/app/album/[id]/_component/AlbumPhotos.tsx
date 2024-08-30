@@ -9,6 +9,9 @@ import Masonry from "react-responsive-masonry"
 import { deletePhoto, getPhotos } from "@/app/api/photo"
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
+import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
+import { formattedDate } from "@/libs"
+import { useAlertStore } from "@/store/alert"
 import { base64ToBlob, blobToFile } from "@/utils"
 
 import { AlbumInfo, PhotoInfo } from "../../types"
@@ -187,10 +190,10 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
           />
         )}
 
-        {photos.length >= 2 && (
+        {photos.length >= 3 && (
           <Button
             onClick={() => setIsCreateRecap(true)}
-            className="bg-lightgray m-auto rounded-[100px] bg-[114deg] bg-slate-400 bg-gradient-to-br from-[#C680FF] via-[#F09BF2] to-[#FF82C6] bg-[length:100px_100px] bg-repeat p-14 px-[22px] py-[16px] bg-blend-overlay shadow-[0_16px_20px_0_rgba(101,125,159,0.12),0_0_8px_0_rgba(88,100,117,0.08)]">
+            className="bg-lightgray m-auto rounded-[100px] bg-gradient-to-r from-purple-400 via-pink-300 to-pink-500 p-14 px-[22px] py-[16px]">
             <div className="flex gap-1 align-middle">
               <p>리캡 만들기</p>
               <Icon name="reelOutline" size={24} color="white" />
@@ -200,7 +203,7 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
       </div>
 
       <div className="fixed left-0 top-0 -translate-x-full">
-        {photos.map(({ photoUrl }, idx) => (
+        {photos.map(({ photoUrl, createdAt }, idx) => (
           <div
             className="relative inline-block"
             key={`${photoUrl}-${idx}`}
@@ -220,6 +223,32 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
               fill
               alt={`recap_bg_img-${idx}`}
             />
+            <div className="absolute bottom-[31px] w-full">
+              <div className="flex items-center justify-around">
+                <div
+                  style={{
+                    backgroundColor: `rgba(255, 255, 255, 0.70)`,
+                  }}
+                  className="tp-title2-semibold b flex h-11 w-28 items-center justify-center gap-1 rounded-[100px] px-4 py-2 text-gray-800">
+                  <Icon
+                    name={ICON_NAME[albumInfo.type]}
+                    color={ICON_COLOR_STYLE[albumInfo.type]}
+                    size={28}
+                  />
+                  {albumInfo.name}
+                </div>
+                <span
+                  className="text-right text-[18px] font-normal leading-[130%] tracking-[0.36px]"
+                  style={{
+                    color: `var(--White, #FFF)`,
+                    fontFeatureSettings: `'ss10' on`,
+                    fontFamily: `"SB AggroOTF"`,
+                    fontStyle: `normal`,
+                  }}>
+                  {formattedDate(createdAt)}
+                </span>
+              </div>
+            </div>
           </div>
         ))}
       </div>
