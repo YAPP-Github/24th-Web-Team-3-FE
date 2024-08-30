@@ -11,12 +11,23 @@ export interface GetMyProfileResponse {
   profileImageUrl: string
 }
 
-export const authLogin = async (
+export const kakaoLogin = async (
   accessToken: string
 ): Promise<AuthLoginResponse> => {
   const data = await myFetch("user/v1/auth/login/kakao", {
     method: "POST",
     body: JSON.stringify({ accessToken }),
+  })
+
+  return data
+}
+
+export const appleLogin = async (
+  identityToken: string
+): Promise<AuthLoginResponse> => {
+  const data = await myFetch("user/v1/auth/login/apple", {
+    method: "POST",
+    body: JSON.stringify({ identityToken }),
   })
 
   return data

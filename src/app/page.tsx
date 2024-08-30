@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react"
 
 import LoginButton from "./_component/LoginButton"
 
-const Home = async () => {
+const Home = () => {
   const router = useRouter()
   const { data } = useSession()
   if (data) {
