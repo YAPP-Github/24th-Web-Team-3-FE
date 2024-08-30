@@ -1,4 +1,4 @@
-import { AlbumInfo, AlbumType } from "../album/types"
+import { AlbumInfo, AlbumType, PhotoInfo } from "../album/types"
 import { myFetch } from "./myfetch"
 
 export interface PostQrCodeResponse {
@@ -19,11 +19,7 @@ export const postQrCode = async (
   return data
 }
 
-type GetPhotosResponse = {
-  photoId: string
-  photoUrl: string
-  albumId: string
-}[]
+type GetPhotosResponse = PhotoInfo[]
 
 export const getPhotos = async (
   albumId: string

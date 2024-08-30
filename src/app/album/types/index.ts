@@ -20,6 +20,8 @@ export interface PhotoInfo {
   photoId: string
   photoUrl: string
   albumId: string
+  brand: string
+  createdAt: string
 }
 
 export interface AlbumInfo {

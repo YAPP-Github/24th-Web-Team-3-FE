@@ -22,6 +22,25 @@ const nextConfig = {
       },
     ],
   },
+  // SharedArrayBuffer를 사용하려면 Cross-Origin-Embedder-Policy 헤더를 require-corp로 설정해야 합니다.
+  // @ffmpeg/ffmpeg 모듈을 사용할 때 SharedArrayBuffer를 사용하므로 설정합니다.
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Cross-Origin-Embedder-Policy",
+            value: "require-corp",
+          },
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
+          },
+        ],
+      },
+    ]
+  },
 }
 
 const isProd = process.env.NODE_ENV === "production" // 빌드 환경에서만 PWA를 적용합니다.
