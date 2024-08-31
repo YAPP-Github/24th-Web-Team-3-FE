@@ -46,7 +46,7 @@ export const Header = ({ albumInfo }: HeaderProps) => {
 
   return (
     <header className={cn(headerVariants({ type: albumInfo.type }))}>
-      <button onClick={() => router.push("/albumInfo")}>
+      <button onClick={() => router.back()}>
         <Icon name="altArrowLeftOutline" size={28} />
       </button>
       <div className="tp-title2-semibold flex gap-1 text-gray-800">
