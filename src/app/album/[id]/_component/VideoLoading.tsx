@@ -1,13 +1,25 @@
 import Image from "next/image"
 
-const VideoLoading = () => {
+import { recapColorVariants } from "@/styles/variants"
+import { cn } from "@/utils"
+
+import { AlbumType } from "../../types"
+
+interface VideoLoadingProps {
+  type: AlbumType
+}
+
+const VideoLoading = ({ type }: VideoLoadingProps) => {
   return (
     <div className="absolute left-0 top-0 z-10 h-dvh w-full bg-gray-800 bg-opacity-50">
       <div
         role="status"
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
         <div
-          className="flex h-[224px] w-[345px] flex-col items-center rounded-[24px] bg-gradient-to-br from-[#C680FF] via-[#F09BF2] to-[#FF82C6]"
+          className={cn(
+            recapColorVariants({ type }),
+            "flex h-[224px] w-[345px] flex-col items-center rounded-[24px]"
+          )}
           style={{
             borderRadius: "24px",
             boxShadow:

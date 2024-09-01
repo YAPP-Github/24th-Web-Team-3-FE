@@ -167,3 +167,20 @@ export const bottomBarVariants = cva(
     },
   }
 )
+
+export const recapColorVariants = cva("", {
+  variants: {
+    type: {
+      HEART: "bg-gradient-to-r from-[#FF9090] via-[#FFA2BE] to-[#FF8585]",
+      FIRE: "bg-gradient-to-r from-[#FF8E75] via-[#FFC062] to-[#FFA654]",
+      BASKETBALL: "bg-gradient-to-r from-[#38D934] via-[#72DCA3] to-[#46E4D1]",
+      BUILDING: "bg-gradient-to-r from-[#7B80FF] via-[#88B3F4] to-[#44C7E4]",
+      STARFALL: "bg-gradient-to-r from-[#C680FF] via-[#F09BF2] to-[#FF82C6]",
+      SMILE_FACE: "bg-gradient-to-r from-[#FF7BBF] via-[#F488EF] to-[#FF79A9]",
+      false: "bg-gradient-to-r from-[#C680FF] via-[#F09BF2] to-[#FF82C6]",
+    },
+  },
+  defaultVariants: {
+    type: false,
+  },
+})

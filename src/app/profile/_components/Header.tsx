@@ -1,22 +1,13 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useState } from "react"
 
-import { getMyProfile, GetMyProfileResponse } from "@/app/api/signIn"
+import { useGetProfile } from "../hooks/useProfile"
 
 const Header = () => {
-  const [userInfo, setUserInfo] = useState<GetMyProfileResponse>()
-  useEffect(() => {
-    const fetchGetMyProfile = async () => {
-      const data = await getMyProfile()
-      setUserInfo(data)
-    }
+  const { profile } = useGetProfile()
 
-    fetchGetMyProfile()
-  }, [])
-
-  if (!userInfo) return null
+  if (!profile) return null
 
   return (
     <>
@@ -25,14 +16,14 @@ const Header = () => {
       </h1>
       <div className="flex flex-col items-center justify-center gap-[12px] bg-green-200 px-[24px] py-[24px]">
         <Image
-          src={userInfo.profileImageUrl}
+          src={profile.profileImageUrl}
           alt="프로필 이미지"
           width={108}
           height={108}
           className="h-[108px] w-[108px] rounded-full object-cover"
         />
 
-        <p className="tp-header2-semibold text-gray-700">{userInfo.name}</p>
+        <p className="tp-header2-semibold text-gray-700">{profile.name}</p>
       </div>
     </>
   )
