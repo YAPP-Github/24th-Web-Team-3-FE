@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react"
 import Masonry from "react-responsive-masonry"
 
 import { deletePhoto, getPhotos } from "@/app/api/photo"
-import { useGetProfile } from "@/app/profile/hooks/useprofile"
+import { useGetProfile } from "@/app/profile/hooks/useProfile"
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
@@ -268,6 +268,7 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
         ))}
 
         {files.map((file, idx) => (
+          // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
           <img src={URL.createObjectURL(file)} key={idx} />
         ))}
       </div>

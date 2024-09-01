@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 
-import { useGetProfile } from "../hooks/useprofile"
+import { useGetProfile } from "../hooks/useProfile"
 
 const Header = () => {
   const { profile } = useGetProfile()
