@@ -215,9 +215,7 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
         )}
       </div>
 
-      <div
-      // className="fixed left-0 top-0 -translate-x-full"
-      >
+      <div className="fixed left-0 top-0 -translate-x-full">
         {photos.map(({ photoUrl, createdAt }, idx) => (
           <div
             className="relative inline-block"
