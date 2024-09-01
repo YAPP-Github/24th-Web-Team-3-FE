@@ -1,23 +1,26 @@
 "use client"
 
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg"
-import { toPng } from "html-to-image"
+import { toBlob } from "html-to-image"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import Masonry from "react-responsive-masonry"
 
 import { deletePhoto, getPhotos } from "@/app/api/photo"
+import { useGetProfile } from "@/app/profile/hooks/useprofile"
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
 import { formattedDate } from "@/libs"
 import { useAlertStore } from "@/store/alert"
-import { base64ToBlob, blobToFile } from "@/utils"
+import { recapColorVariants } from "@/styles/variants"
+import { cn } from "@/utils"
 
 import { AlbumInfo, PhotoInfo } from "../../types"
 import { ImageDetail } from "./ImageDetail"
 import { Photo } from "./Photo"
 import { PhotoAddButton } from "./PhotoAddButton"
+import RecapContainer from "./RecapContainer"
 import VideoLoading from "./VideoLoading"
 import VideoRecap from "./VideoRecap"
 
@@ -29,14 +32,14 @@ interface AlbumPhotosProps {
 
 export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
   const { showAlert } = useAlertStore()
+  const { profile } = useGetProfile()
 
   const [photos, setPhotos] = useState<PhotoInfo[]>([])
   const [imageDetailShown, setImageDetailShown] = useState(false)
 
-  const [isCreateRecap, setIsCreateRecap] = useState(false)
-
   const carouselStartIdx = useRef(0)
 
+  const [isRecapOpen, setIsRecapOpen] = useState(false)
   const refs = useRef<(HTMLDivElement | null)[]>([])
   const [files, setFiles] = useState<File[]>([])
   const [videoUrl, setVideoUrl] = useState<string | null>()
@@ -61,6 +64,10 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
     }
   }
 
+  const handleCloseRecap = () => {
+    setIsRecapOpen(false)
+  }
+
   useEffect(() => {
     const fetchAlbums = async () => {
       const data = await getPhotos(albumInfo.albumId)
@@ -79,8 +86,12 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
         refs.current.map(async (ref) => {
           if (ref) {
             try {
-              const dataUrl = await toPng(ref)
-              return dataUrl
+              // HTML을 이미지로 변환할 때 더 높은 해상도를 위해 scale 값을 조정
+              const blob = await toBlob(ref, {
+                quality: 1, // 이미지 품질 설정 (0.1 ~ 1)
+                pixelRatio: 3, // 기본값은 1, 값이 클수록 해상도가 높아짐
+              })
+              return blob
             } catch (err) {
               return null
             }
@@ -89,23 +100,16 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
         })
       )
 
-      // Filter out any null values and update the state
-      const filteredImages = newGeneratedImages.filter(Boolean) as string[]
-      const newGeneratedFiles = filteredImages
-        .filter(Boolean)
-        .map((url, idx) => {
-          const base64Data = url.split(",")[1]
-          const blob = base64ToBlob(base64Data, "image/png")
-          return blobToFile(blob, `image-${idx}.png`)
-        })
-
-      setFiles(newGeneratedFiles)
+      const filteredImages = newGeneratedImages.filter(
+        (file): file is File => file !== null
+      )
+      setFiles(filteredImages)
     }
 
-    if (isCreateRecap) {
+    if (isRecapOpen) {
       generateImages()
     }
-  }, [refs, isCreateRecap])
+  }, [refs, isRecapOpen])
 
   useEffect(() => {
     if (!files.length) return
@@ -131,11 +135,13 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
             "-t",
             "1", // 각 이미지를 1초 동안 표시
             "-vf",
-            "scale=390:670,format=yuv420p", // 이미지 크기를 390x670으로 변환
+            `scale=1170:2040:force_original_aspect_ratio=increase,crop=1170:2040,pad=1170:2040:(ow-iw)/2:(oh-ih)/2,format=yuv420p`, //3배수로 해상도 조정
             "-c:v",
-            "libx264", // 코덱을 설정 (H.264 코덱)
-            "-b:v",
-            "2M", // 비디오 비트레이트를 2Mbps로 설정 (화질을 높이기 위해 비트레이트를 높게 설정)
+            "libx264", // H.264 코덱 사용
+            "-crf",
+            "18", // 낮은 값을 사용할수록 품질이 높고 파일 크기가 커짐
+            "-preset",
+            "slow", // 고품질 인코딩을 위한 slow 프리셋
             "-y",
             `video${index}.mp4`
           )
@@ -196,8 +202,11 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
 
         {photos.length >= 3 && (
           <Button
-            onClick={() => setIsCreateRecap(true)}
-            className="bg-lightgray m-auto rounded-[100px] bg-gradient-to-r from-purple-400 via-pink-300 to-pink-500 p-14 px-[22px] py-[16px]">
+            className={cn(
+              recapColorVariants({ type: albumInfo.type }),
+              "m-auto rounded-[100px] p-14 px-[22px] py-[16px]"
+            )}
+            onClick={() => setIsRecapOpen(true)}>
             <div className="flex gap-1 align-middle">
               <p>리캡 만들기</p>
               <Icon name="reelOutline" size={24} color="white" />
@@ -206,7 +215,9 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
         )}
       </div>
 
-      <div className="fixed left-0 top-0 -translate-x-full">
+      <div
+      // className="fixed left-0 top-0 -translate-x-full"
+      >
         {photos.map(({ photoUrl, createdAt }, idx) => (
           <div
             className="relative inline-block"
@@ -214,13 +225,15 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
             ref={(el) => {
               refs.current[idx] = el
             }}>
-            <Image
-              className="block"
-              src="/images/recap_bg_img.png"
-              width={393}
-              height={680}
-              alt="cover-image"
-            />
+            <div className="absolute mb-2 mt-10 flex w-full flex-col items-center justify-center gap-2">
+              <p className="tp-title2-semibold">{profile?.name}님의 Recap</p>
+              <Icon
+                name="mafooLogo"
+                color="white"
+                size={64}
+                className="h-[27px] w-[144px]"></Icon>
+            </div>
+            <RecapContainer type={albumInfo.type} />
             <Image
               src={photoUrl}
               className="absolute left-1/2 top-1/2 mt-[130px] max-h-[433px] transform object-contain"
@@ -255,10 +268,18 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
             </div>
           </div>
         ))}
+
+        {files.map((file, idx) => (
+          <img src={URL.createObjectURL(file)} key={idx} />
+        ))}
       </div>
 
-      {isCreateRecap && !videoUrl && <VideoLoading />}
-      {videoUrl && <VideoRecap url={videoUrl} />}
+      {isRecapOpen &&
+        (videoUrl ? (
+          <VideoRecap url={videoUrl} closeModal={handleCloseRecap} />
+        ) : (
+          <VideoLoading type={albumInfo.type} />
+        ))}
     </>
   )
 }

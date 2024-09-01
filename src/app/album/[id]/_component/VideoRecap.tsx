@@ -8,9 +8,10 @@ import { fullDateStr } from "@/utils"
 
 interface VideoRecapProps {
   url: string
+  closeModal: () => void
 }
 
-const VideoRecap = ({ url }: VideoRecapProps) => {
+const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
   // const { showAlert } = useAlertStore()
 
   const handleDownload = () => {
@@ -42,8 +43,16 @@ const VideoRecap = ({ url }: VideoRecapProps) => {
   return (
     <div className="fixed left-0 top-0 z-10 h-dvh w-dvw justify-center overflow-auto bg-gray-900">
       <div className="m-auto flex h-dvh w-full max-w-[390px] flex-col justify-between">
-        <video className="mt-8" src={url} autoPlay controls></video>
-
+        <div className="mt-8">
+          <Icon
+            className="absolute z-10 ml-2 mt-2"
+            color="gray-300"
+            name="closeCircleBold"
+            size={56}
+            onClick={closeModal}
+          />
+          <video src={url} width="390" height="680" autoPlay controls></video>
+        </div>
         <div className="mb-5 flex gap-3">
           <Button
             onClick={handleDownload}
