@@ -1,6 +1,19 @@
+"use client"
+
+import { useEffect } from "react"
+
 const Loading = () => {
+  useEffect(() => {
+    // 로딩 중일 때 스크롤 비활성화
+    document.body.style.overflow = "hidden"
+    // 컴포넌트가 언마운트될 때 스크롤을 원래 상태로 복구
+    return () => {
+      document.body.style.overflow = "auto"
+    }
+  }, [])
+
   return (
-    <div className="absolute left-0 top-0 z-10 h-[100vh] w-full bg-gray-800 bg-opacity-50">
+    <div className="fixed left-0 top-0 z-10 h-dvh w-full bg-gray-800 bg-opacity-50">
       <div
         role="status"
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">

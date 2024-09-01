@@ -43,7 +43,7 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
   return (
     <div className="fixed left-0 top-0 z-10 h-dvh w-dvw justify-center overflow-auto bg-gray-900">
       <div className="m-auto flex h-dvh w-full max-w-[390px] flex-col justify-between">
-        <div className="mt-8">
+        <div>
           <Icon
             className="absolute z-10 ml-2 mt-2"
             color="gray-300"
