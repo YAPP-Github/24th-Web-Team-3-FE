@@ -41,6 +41,28 @@ const nextConfig = {
       },
     ]
   },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/blog",
+          destination: "https://inblog.ai/mafoo",
+        },
+        {
+          source: "/blog/:path*",
+          destination: "https://inblog.ai/mafoo/:path*",
+        },
+        {
+          source: "/robots.txt",
+          destination: "https://inblog.ai/mafoo/robots.txt",
+        },
+        {
+          source: "/_inblog/:path*",
+          destination: "https://inblog.ai/mafoo/_inblog/:path*",
+        },
+      ],
+    };
+  },
 }
 
 const isProd = process.env.NODE_ENV === "production" // 빌드 환경에서만 PWA를 적용합니다.
