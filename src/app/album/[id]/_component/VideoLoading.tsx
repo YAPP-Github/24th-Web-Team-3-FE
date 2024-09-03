@@ -1,13 +1,37 @@
-import Image from "next/image"
+"use client"
 
-const VideoLoading = () => {
+import Image from "next/image"
+import { useEffect } from "react"
+
+import { recapColorVariants } from "@/styles/variants"
+import { cn } from "@/utils"
+
+import { AlbumType } from "../../types"
+
+interface VideoLoadingProps {
+  type: AlbumType
+}
+
+const VideoLoading = ({ type }: VideoLoadingProps) => {
+  useEffect(() => {
+    // 로딩 중일 때 스크롤 비활성화
+    document.body.style.overflow = "hidden"
+    // 컴포넌트가 언마운트될 때 스크롤을 원래 상태로 복구
+    return () => {
+      document.body.style.overflow = "auto"
+    }
+  }, [])
+
   return (
-    <div className="absolute left-0 top-0 z-10 h-dvh w-full bg-gray-800 bg-opacity-50">
+    <div className="fixed left-0 top-0 z-10 h-dvh w-full overflow-hidden bg-gray-800 bg-opacity-50">
       <div
         role="status"
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
         <div
-          className="flex h-[224px] w-[345px] flex-col items-center rounded-[24px] bg-gradient-to-br from-[#C680FF] via-[#F09BF2] to-[#FF82C6]"
+          className={cn(
+            recapColorVariants({ type }),
+            "flex h-[224px] w-[345px] flex-col items-center rounded-[24px]"
+          )}
           style={{
             borderRadius: "24px",
             boxShadow:
