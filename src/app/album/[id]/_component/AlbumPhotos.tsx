@@ -12,7 +12,6 @@ import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
 import { formattedDate } from "@/libs"
-import { useAlertStore } from "@/store/alert"
 import { recapColorVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
@@ -31,7 +30,6 @@ interface AlbumPhotosProps {
 }
 
 export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
-  const { showAlert } = useAlertStore()
   const { profile } = useGetProfile()
 
   const [photos, setPhotos] = useState<PhotoInfo[]>([])
@@ -106,10 +104,10 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
       setFiles(filteredImages)
     }
 
-    if (isRecapOpen) {
+    if (photos.length >= 3) {
       generateImages()
     }
-  }, [refs, isRecapOpen])
+  }, [refs, photos.length])
 
   useEffect(() => {
     if (!files.length) return
@@ -178,7 +176,7 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
     }
 
     createVideo()
-  }, [files, showAlert])
+  }, [files])
 
   return (
     <>
