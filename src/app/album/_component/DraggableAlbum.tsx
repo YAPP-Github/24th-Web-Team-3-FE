@@ -27,6 +27,12 @@ const DraggableAlbum = ({ album, index, moveAlbum }: AlbumItemProps) => {
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
+    end: (item: { albumId: string; originalIndex: number }) => {
+      patchAlbumMove({
+        albumId: item.albumId,
+        newDisplayIndex: item.originalIndex,
+      })
+    },
   })
 
   const [, drop] = useDrop({
@@ -36,12 +42,6 @@ const DraggableAlbum = ({ album, index, moveAlbum }: AlbumItemProps) => {
         moveAlbum(draggedItem.originalIndex, index)
         draggedItem.originalIndex = index
       }
-    },
-    drop: (draggedItem: { albumId: string; originalIndex: number }) => {
-      patchAlbumMove({
-        albumId: draggedItem.albumId,
-        newDisplayIndex: index,
-      })
     },
   })
 

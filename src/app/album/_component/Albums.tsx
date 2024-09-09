@@ -7,12 +7,12 @@ import { TouchBackend } from "react-dnd-touch-backend"
 
 import { GetAlbumResponse } from "@/app/api/photo"
 import { useGetAlbums } from "@/app/scanner/hooks/usePhoto"
-import Loading from "@/common/Loading"
 
 import DraggableAlbum from "./DraggableAlbum"
 
 export const Albums = () => {
   const { albums } = useGetAlbums()
+
   const [albumList, setAlbumList] = useState<GetAlbumResponse[]>()
 
   useEffect(() => {
@@ -32,30 +32,30 @@ export const Albums = () => {
   }
 
   const isTouchDevice = () => {
-    return "ontouchstart" in window || navigator.maxTouchPoints > 0
+    if (typeof window !== "undefined") {
+      return "ontouchstart" in window || navigator.maxTouchPoints > 0
+    }
+    return false
   }
-
-  if (!albumList) return <Loading />
-
-  if (!albumList.length)
-    return (
-      <div className="tp-caption1-extralight text-center text-gray-500">
-        앨범이 없습니다
-      </div>
-    )
 
   return (
     <DndProvider backend={isTouchDevice() ? TouchBackend : HTML5Backend}>
-      <div className="flex w-full flex-wrap justify-between gap-y-4 p-6">
-        {albumList.map((album, i) => (
-          <DraggableAlbum
-            key={album.albumId}
-            index={i}
-            album={album}
-            moveAlbum={moveAlbum}
-          />
-        ))}
-      </div>
+      {!albumList || !albumList.length ? (
+        <div className="tp-caption1-extralight text-center text-gray-500">
+          앨범이 없습니다
+        </div>
+      ) : (
+        <div className="flex w-full flex-wrap justify-between gap-y-4 p-6">
+          {albumList.map((album, index) => (
+            <DraggableAlbum
+              key={album.albumId + index}
+              index={index}
+              album={album}
+              moveAlbum={moveAlbum}
+            />
+          ))}
+        </div>
+      )}
     </DndProvider>
   )
 }
