@@ -31,7 +31,7 @@ export const getPhotos = async (
   return data
 }
 
-type GetAlbumResponse = {
+export interface GetAlbumResponse {
   albumId: string
   name: string
   type: "HEART" | "FIRE" | "BASKETBALL" | "BUILDING" | "STARFALL" | "SMILE_FACE"
@@ -88,6 +88,19 @@ export const patchPhotoAlbum = async (
     method: "PATCH",
     body: JSON.stringify({
       albumId,
+    }),
+  })
+  return data
+}
+
+export const patchAlbumMove = async (
+  albumId: string,
+  newDisplayIndex: number
+) => {
+  const data = await myFetch(`/photo/v1/albums/${albumId}/display-index`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      newDisplayIndex,
     }),
   })
   return data
