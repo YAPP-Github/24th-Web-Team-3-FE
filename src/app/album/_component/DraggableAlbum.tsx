@@ -5,6 +5,7 @@ import { useDrag, useDrop } from "react-dnd"
 
 import AlbumItem from "@/common/AlbumItem"
 
+import { usePatchAlbumMove } from "../hooks/useAlbum"
 import { AlbumInfo } from "../types"
 
 interface AlbumItemProps {
@@ -15,11 +16,14 @@ interface AlbumItemProps {
 const ItemType = "ALBUM"
 
 const DraggableAlbum = ({ album, index, moveAlbum }: AlbumItemProps) => {
+  const router = useRouter()
+  const { patchAlbumMove } = usePatchAlbumMove()
+
   const [isSelected, setIsSelected] = useState("")
 
   const [{ isDragging }, ref] = useDrag({
     type: ItemType,
-    item: { index },
+    item: { albumId: album.albumId, originalIndex: index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -27,11 +31,17 @@ const DraggableAlbum = ({ album, index, moveAlbum }: AlbumItemProps) => {
 
   const [, drop] = useDrop({
     accept: ItemType,
-    hover: (draggedItem: { index: number }) => {
-      if (draggedItem.index !== index) {
-        moveAlbum(draggedItem.index, index)
-        draggedItem.index = index
+    hover: (draggedItem: { albumId: string; originalIndex: number }) => {
+      if (draggedItem.originalIndex !== index) {
+        moveAlbum(draggedItem.originalIndex, index)
+        draggedItem.originalIndex = index
       }
+    },
+    drop: (draggedItem: { albumId: string; originalIndex: number }) => {
+      patchAlbumMove({
+        albumId: draggedItem.albumId,
+        newDisplayIndex: index,
+      })
     },
   })
 
@@ -42,7 +52,6 @@ const DraggableAlbum = ({ album, index, moveAlbum }: AlbumItemProps) => {
     drop(node)
   }
 
-  const router = useRouter()
   const value = {
     ...album,
     photoCount: Number(album.photoCount),
