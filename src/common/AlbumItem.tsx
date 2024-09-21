@@ -83,8 +83,9 @@ function AlbumItem({
           <div className={`${cn(photoCountVariants({ type }))}`}>
             사진 {photoCount}장
           </div>
+
           <div
-            className={`absolute left-0 top-0 h-full w-full rounded-2xl border-[3px] border-green-600 opacity-0 ${isSelected && "opacity-100"} group-active:opacity-100`}
+            className={`absolute left-0 top-0 h-full w-full rounded-2xl border-[3px] border-green-600 opacity-0 ${isSelected && "opacity-100"}`}
           />
 
           {isNew && (
