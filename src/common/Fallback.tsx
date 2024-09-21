@@ -31,7 +31,7 @@ const Fallback: ComponentType<FallbackProps> = ({ resetErrorBoundary }) => {
           <SquareButton
             className="bg-green-200 text-green-700"
             onClick={() => {
-              router.replace("/profile")
+              router.replace("/")
               resetErrorBoundary()
             }}>
             홈으로 돌아가기
