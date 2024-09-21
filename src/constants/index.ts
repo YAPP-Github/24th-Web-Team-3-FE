@@ -50,7 +50,6 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
             "아직 지원하는 기능이 아니에요. 다음 업데이트를 기다려주세요 😉"
           )
         },
-        // link: "/",
       },
       {
         label: "1:1 문의",
@@ -58,12 +57,7 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
       },
       {
         label: "서비스 이용약관",
-        action: () => {
-          alert(
-            "아직 지원하는 기능이 아니에요. 다음 업데이트를 기다려주세요 😉"
-          )
-        },
-        // link: "/",
+        link: "https://chisel-promise-9ff.notion.site/7d80231fcdf040158d31e48e7cd570a2",
       },
       {
         label: "마푸를 소개해요",
