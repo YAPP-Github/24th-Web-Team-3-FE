@@ -1,37 +1,26 @@
 "use client"
 
-import { toBlob } from "html-to-image"
-import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import Masonry from "react-responsive-masonry"
 
 import { deletePhoto, getPhotos } from "@/app/api/photo"
-import { useGetProfile } from "@/app/profile/hooks/useProfile"
-import Icon from "@/common/Icon"
-import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
-import { formattedDate } from "@/libs"
 
 import { AlbumInfo, PhotoInfo } from "../../types"
 import { ImageDetail } from "./ImageDetail"
 import { Photo } from "./Photo"
 import { PhotoAddButton } from "./PhotoAddButton"
-import RecapContainer from "./RecapContainer"
 
 interface AlbumPhotosProps {
   albumInfo: AlbumInfo
 }
 
 export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
-  const { profile } = useGetProfile()
-
   const [photos, setPhotos] = useState<PhotoInfo[]>([])
   const [imageDetailShown, setImageDetailShown] = useState(false)
 
   const carouselStartIdx = useRef(0)
 
   //const [isRecapOpen, setIsRecapOpen] = useState(false)
-  const refs = useRef<(HTMLDivElement | null)[]>([])
-  const [files, setFiles] = useState<File[]>([])
   //const [videoUrl, setVideoUrl] = useState<string | null>()
 
   const onPhotoClick = (startIdx: number) => {
@@ -69,37 +58,37 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
     fetchAlbums()
   }, [albumInfo.albumId])
 
-  useEffect(() => {
-    const generateImages = async () => {
-      if (!refs.current) return
-      const newGeneratedImages = await Promise.all(
-        refs.current.map(async (ref) => {
-          if (ref) {
-            try {
-              // HTML을 이미지로 변환할 때 더 높은 해상도를 위해 scale 값을 조정
-              const blob = await toBlob(ref, {
-                quality: 1, // 이미지 품질 설정 (0.1 ~ 1)
-                pixelRatio: 3, // 기본값은 1, 값이 클수록 해상도가 높아짐
-              })
-              return blob
-            } catch (err) {
-              return null
-            }
-          }
-          return null
-        })
-      )
-
-      const filteredImages = newGeneratedImages.filter(
-        (file): file is File => file !== null
-      )
-      setFiles(filteredImages)
-    }
-
-    if (photos.length >= 3) {
-      generateImages()
-    }
-  }, [refs, photos.length])
+  // useEffect(() => {
+  //   const generateImages = async () => {
+  //     if (!refs.current) return
+  //     const newGeneratedImages = await Promise.all(
+  //       refs.current.map(async (ref) => {
+  //         if (ref) {
+  //           try {
+  //             // HTML을 이미지로 변환할 때 더 높은 해상도를 위해 scale 값을 조정
+  //             const blob = await toBlob(ref, {
+  //               quality: 1, // 이미지 품질 설정 (0.1 ~ 1)
+  //               pixelRatio: 3, // 기본값은 1, 값이 클수록 해상도가 높아짐
+  //             })
+  //             return blob
+  //           } catch (err) {
+  //             return null
+  //           }
+  //         }
+  //         return null
+  //       })
+  //     )
+  //
+  //     const filteredImages = newGeneratedImages.filter(
+  //       (file): file is File => file !== null
+  //     )
+  //     setFiles(filteredImages)
+  //   }
+  //
+  //   if (photos.length >= 3) {
+  //     generateImages()
+  //   }
+  // }, [refs, photos.length])
 
   // useEffect(() => {
   //   if (!files.length) return
@@ -205,63 +194,63 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
         {/*)}*/}
       </div>
 
-      <div className="fixed left-0 top-0 -translate-x-full">
-        {photos.map(({ photoUrl, createdAt }, idx) => (
-          <div
-            className="relative inline-block"
-            key={`${photoUrl}-${idx}`}
-            ref={(el) => {
-              refs.current[idx] = el
-            }}>
-            <div className="absolute mb-2 mt-10 flex w-full flex-col items-center justify-center gap-2">
-              <p className="tp-title2-semibold">{profile?.name}님의 Recap</p>
-              <Icon
-                name="mafooLogo"
-                color="white"
-                size={64}
-                className="h-[27px] w-[144px]"></Icon>
-            </div>
-            <RecapContainer type={albumInfo.type} />
-            <Image
-              src={photoUrl}
-              className="absolute left-1/2 top-1/2 mt-[130px] max-h-[433px] transform object-contain"
-              fill
-              alt={`recap_bg_img-${idx}`}
-            />
-            <div className="absolute bottom-[31px] w-full">
-              <div className="flex items-center justify-around">
-                <div
-                  style={{
-                    backgroundColor: `rgba(255, 255, 255, 0.70)`,
-                  }}
-                  className="tp-title2-semibold b flex h-11 w-28 items-center justify-center gap-1 rounded-[100px] px-4 py-2 text-gray-800">
-                  <Icon
-                    name={ICON_NAME[albumInfo.type]}
-                    color={ICON_COLOR_STYLE[albumInfo.type]}
-                    size={28}
-                  />
-                  {albumInfo.name}
-                </div>
-                <span
-                  className="text-right text-[18px] font-normal leading-[130%] tracking-[0.36px]"
-                  style={{
-                    color: `var(--White, #FFF)`,
-                    fontFeatureSettings: `'ss10' on`,
-                    fontFamily: `"SB AggroOTF"`,
-                    fontStyle: `normal`,
-                  }}>
-                  {formattedDate(createdAt)}
-                </span>
-              </div>
-            </div>
-          </div>
-        ))}
+      {/*<div className="fixed left-0 top-0 -translate-x-full">*/}
+      {/*  {photos.map(({ photoUrl, createdAt }, idx) => (*/}
+      {/*    <div*/}
+      {/*      className="relative inline-block"*/}
+      {/*      key={`${photoUrl}-${idx}`}*/}
+      {/*      ref={(el) => {*/}
+      {/*        refs.current[idx] = el*/}
+      {/*      }}>*/}
+      {/*      <div className="absolute mb-2 mt-10 flex w-full flex-col items-center justify-center gap-2">*/}
+      {/*        <p className="tp-title2-semibold">{profile?.name}님의 Recap</p>*/}
+      {/*        <Icon*/}
+      {/*          name="mafooLogo"*/}
+      {/*          color="white"*/}
+      {/*          size={64}*/}
+      {/*          className="h-[27px] w-[144px]"></Icon>*/}
+      {/*      </div>*/}
+      {/*      <RecapContainer type={albumInfo.type} />*/}
+      {/*      <Image*/}
+      {/*        src={photoUrl}*/}
+      {/*        className="absolute left-1/2 top-1/2 mt-[130px] max-h-[433px] transform object-contain"*/}
+      {/*        fill*/}
+      {/*        alt={`recap_bg_img-${idx}`}*/}
+      {/*      />*/}
+      {/*      <div className="absolute bottom-[31px] w-full">*/}
+      {/*        <div className="flex items-center justify-around">*/}
+      {/*          <div*/}
+      {/*            style={{*/}
+      {/*              backgroundColor: `rgba(255, 255, 255, 0.70)`,*/}
+      {/*            }}*/}
+      {/*            className="tp-title2-semibold b flex h-11 w-28 items-center justify-center gap-1 rounded-[100px] px-4 py-2 text-gray-800">*/}
+      {/*            <Icon*/}
+      {/*              name={ICON_NAME[albumInfo.type]}*/}
+      {/*              color={ICON_COLOR_STYLE[albumInfo.type]}*/}
+      {/*              size={28}*/}
+      {/*            />*/}
+      {/*            {albumInfo.name}*/}
+      {/*          </div>*/}
+      {/*          <span*/}
+      {/*            className="text-right text-[18px] font-normal leading-[130%] tracking-[0.36px]"*/}
+      {/*            style={{*/}
+      {/*              color: `var(--White, #FFF)`,*/}
+      {/*              fontFeatureSettings: `'ss10' on`,*/}
+      {/*              fontFamily: `"SB AggroOTF"`,*/}
+      {/*              fontStyle: `normal`,*/}
+      {/*            }}>*/}
+      {/*            {formattedDate(createdAt)}*/}
+      {/*          </span>*/}
+      {/*        </div>*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*  ))}*/}
 
-        {files.map((file, idx) => (
-          // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-          <img src={URL.createObjectURL(file)} key={idx} />
-        ))}
-      </div>
+      {/*  {files.map((file, idx) => (*/}
+      {/*    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text*/}
+      {/*    <img src={URL.createObjectURL(file)} key={idx} />*/}
+      {/*  ))}*/}
+      {/*</div>*/}
 
       {/*{isRecapOpen &&*/}
       {/*  (videoUrl ? (*/}
