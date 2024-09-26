@@ -26,7 +26,7 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <Header albumInfo={albumInfo} />
+      <Header albumInfo={albumInfo} className="sticky top-0 z-10" />
       <AlbumPhotos albumInfo={albumInfo} />
     </>
   )

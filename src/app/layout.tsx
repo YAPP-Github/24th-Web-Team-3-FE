@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description: "마푸를 켜고 QR을 가져다 대면 바로 업로드",
   keywords: MAFOO_KEYWORDS,
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION,
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   openGraph: {
     title: "마푸 - 지금 함께 찍은 네컷사진을 올려보세요",
@@ -26,7 +26,9 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "마푸",
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL as string),
+  metadataBase: new URL(
+    (process.env.NEXT_PUBLIC_URL as string) || "http://localhost:8080"
+  ),
   icons: { icon: "/images/favicon.png" },
 }
 
