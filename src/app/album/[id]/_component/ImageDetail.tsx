@@ -106,7 +106,7 @@ export const ImageDetail = ({
               color="green"
               className="w-full"
               onClick={() => handleDownload(photos[idx].photoUrl)}>
-              <Icon name="insta" size={28} />
+              <Icon name="downloadBold" size={28} color="white" />
               <span className="mr-[6px]">다운로드 받기</span>
             </SquareButton>
           </div>

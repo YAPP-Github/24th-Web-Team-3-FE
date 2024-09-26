@@ -8,6 +8,7 @@ const ProfilePage = () => {
     <div className="relative h-dvh w-full">
       <Header />
       <ListItem />
+      <div className="h-[106px]" />
       <BottomBar variant="profile" />
     </div>
   )
