@@ -40,3 +40,9 @@ export const getMyProfile = async (): Promise<GetMyProfileResponse> => {
 
   return data
 }
+
+export const quit = async () => {
+  await myFetch("user/v1/me", {
+    method: "DELETE",
+  })
+}
