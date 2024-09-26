@@ -26,7 +26,9 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "마푸",
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL as string),
+  metadataBase: new URL(
+    (process.env.NEXT_PUBLIC_URL as string) || "http://localhost:8080"
+  ),
   icons: { icon: "/images/favicon.png" },
 }
 

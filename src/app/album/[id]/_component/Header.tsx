@@ -14,9 +14,10 @@ import { Dialog } from "./Dialog"
 
 interface HeaderProps {
   albumInfo: AlbumInfo
+  className?: string
 }
 
-export const Header = ({ albumInfo }: HeaderProps) => {
+export const Header = ({ albumInfo, className }: HeaderProps) => {
   const [isModalShown, setIsModalShown] = useState(false)
   const router = useRouter()
 
@@ -45,11 +46,11 @@ export const Header = ({ albumInfo }: HeaderProps) => {
   }
 
   return (
-    <header className={cn(headerVariants({ type: albumInfo.type }))}>
+    <header className={cn(headerVariants({ type: albumInfo.type }), className)}>
       <button onClick={() => router.back()}>
         <Icon name="altArrowLeftOutline" size={28} />
       </button>
-      <div className="tp-title2-semibold flex gap-1 text-gray-800">
+      <div className="tp-title2-semibold flex items-center gap-1 text-gray-800">
         <Icon
           name={ICON_NAME[albumInfo.type]}
           color={ICON_COLOR_STYLE[albumInfo.type]}
