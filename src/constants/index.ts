@@ -1,5 +1,6 @@
 import { signOut } from "next-auth/react"
 
+import { quit } from "@/app/api/signIn"
 import { ListItemProps } from "@/app/profile/_components/ListItem"
 
 export const ICON_NAME = {
@@ -33,9 +34,15 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
       {
         label: "탈퇴하기",
         action: () => {
-          alert(
-            "아직 지원하는 기능이 아니에요. 다음 업데이트를 기다려주세요 😉"
-          )
+          confirm("정말 탈퇴하시겠어요?") &&
+            quit().then(
+              () => {
+                signOut()
+              },
+              () => {
+                alert("회원 탈퇴에 실패했어요 😉")
+              }
+            )
         },
       },
     ],

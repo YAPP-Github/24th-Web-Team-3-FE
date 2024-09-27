@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useState } from "react"
+import PinchZoomPan from "react-responsive-pinch-zoom-pan"
 import Slider from "react-slick"
 
 import { myFetch } from "@/app/api/myfetch"
@@ -27,6 +28,7 @@ export const ImageDetail = ({
 }: ImageDetailProps) => {
   const [idx, setIdx] = useState(startIdx)
   const [deleteModalShown, setDeleteModalShown] = useState(false)
+  const [isZoomed, setIsZoomed] = useState(false) // 확대 상태 관리
   const sliderSettings = {
     infinite: true,
     arrows: false,
@@ -70,6 +72,16 @@ export const ImageDetail = ({
     onConfirm: handleDelete,
   }
 
+  // 확대 모드에서 빠져나오는 핸들러
+  const handleZoomOut = () => {
+    setIsZoomed(false)
+  }
+
+  // 이미지 클릭 시 확대 모드로 들어가는 핸들러
+  const handleImageClick = () => {
+    setIsZoomed(true)
+  }
+
   return (
     <>
       <div className="fixed left-0 top-0 z-10 flex h-dvh w-dvw justify-center bg-gray-900">
@@ -90,7 +102,9 @@ export const ImageDetail = ({
               {photos.map((photo) => (
                 <div
                   className="relative flex h-full w-full items-center justify-center"
-                  key={photo.photoId}>
+                  key={photo.photoId}
+                  onClick={handleImageClick} // 이미지 클릭 시 확대 모드 진입
+                >
                   <Image
                     src={photo.photoUrl}
                     alt={`mafoo_${photo.photoId}`}
@@ -112,6 +126,27 @@ export const ImageDetail = ({
           </div>
         </div>
       </div>
+
+      {isZoomed && ( // 확대 모드일 때만 모달 표시
+        <div className="fixed inset-0 z-20 flex flex-col items-center justify-center bg-black bg-opacity-80">
+          <div
+            className="absolute inset-0 z-10 cursor-pointer"
+            onClick={handleZoomOut}
+          />
+          <div className="relative z-0 h-full max-h-[90%] w-full max-w-[90%]">
+            <PinchZoomPan zoomButtons={false}>
+              <Image
+                src={photos[idx].photoUrl}
+                alt={`zoomed_${photos[idx].photoId}`}
+                fill
+                className="object-contain"
+              />
+            </PinchZoomPan>
+          </div>
+          ㅋㅋ{" "}
+        </div>
+      )}
+
       {deleteModalShown && <Dialog {...dialogProps} />}
     </>
   )
