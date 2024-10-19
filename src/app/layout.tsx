@@ -1,5 +1,6 @@
 import "@/styles/main.css"
 
+import { GoogleAnalytics } from "@next/third-parties/google"
 import type { Metadata } from "next"
 import { cookies } from "next/headers"
 
@@ -52,6 +53,7 @@ export default function RootLayout({
           </QueryProviders>
         </NextAuthProvider>
       </body>
+      <GoogleAnalytics gaId="G-JPQ6BL9TGL" />
     </html>
   )
 }
