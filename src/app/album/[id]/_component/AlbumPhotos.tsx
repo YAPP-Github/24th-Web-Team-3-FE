@@ -32,6 +32,13 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
     setImageDetailShown(false)
   }
 
+  const fetchAlbums = async () => {
+    const data = await getPhotos(albumInfo.albumId)
+    if (data.length) {
+      setPhotos(data)
+    }
+  }
+
   const handleDelete = async (photoIdx: number) => {
     await deletePhoto(photos[photoIdx].photoId)
 
@@ -43,18 +50,15 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
     }
   }
 
+  const onImageUploaded = () => {
+    fetchAlbums()
+  }
+
   /*  const handleCloseRecap = () => {
     setIsRecapOpen(false)
   }*/
 
   useEffect(() => {
-    const fetchAlbums = async () => {
-      const data = await getPhotos(albumInfo.albumId)
-      if (data.length) {
-        setPhotos(data)
-      }
-    }
-
     fetchAlbums()
   }, [albumInfo.albumId])
 
@@ -163,7 +167,10 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
     <>
       <div className="flex w-full flex-wrap p-4 px-6">
         <Masonry columnsCount={2} gutter="12px">
-          <PhotoAddButton albumId={albumInfo.albumId} />
+          <PhotoAddButton
+            albumId={albumInfo.albumId}
+            onImageUploaded={onImageUploaded}
+          />
           {photos.map((photo, idx) => (
             <div key={photo.photoId} onClick={() => onPhotoClick(idx)}>
               <Photo photo={photo} />

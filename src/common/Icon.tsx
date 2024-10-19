@@ -26,6 +26,8 @@ export type IconTypes =
   | "insta"
   | "appleLogo"
   | "mafooLogo"
+  | "galleryIcon"
+  | "qrIcon"
 
 export interface IconProps extends ComponentProps<"svg"> {
   name: IconTypes

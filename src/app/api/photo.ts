@@ -105,3 +105,41 @@ export const patchAlbumMove = async (
   })
   return data
 }
+
+export const generatePreSignedUrls = async (
+  fileNames: string[]
+): Promise<{ urls: string[] }> => {
+  const data = await myFetch(`/photo/v1/object-storage`, {
+    method: "POST",
+    body: JSON.stringify({
+      fileNames: fileNames,
+    }),
+  })
+  return data
+}
+
+export const uploadPhotosWithUrls = async (
+  fileUrls: string[]
+): Promise<GetPhotosResponse> => {
+  const data = await myFetch(`/photo/v1/photos/file-urls`, {
+    method: "POST",
+    body: JSON.stringify({
+      fileUrls: fileUrls,
+    }),
+  })
+  return data
+}
+
+export const updatePhotoAlbumBulk = async (
+  albumId: string,
+  photoIds: string[]
+) => {
+  const data = await myFetch(`/photo/v1/photos/bulk/album`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      albumId,
+      photoIds,
+    }),
+  })
+  return data
+}
