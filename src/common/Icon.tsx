@@ -28,10 +28,11 @@ export type IconTypes =
   | "mafooLogo"
   | "galleryIcon"
   | "qrIcon"
+  | "uploadMafoo"
 
 export interface IconProps extends ComponentProps<"svg"> {
   name: IconTypes
-  size: 16 | 20 | 24 | 28 | 36 | 44 | 56 | 64
+  size: 16 | 20 | 24 | 28 | 36 | 44 | 56 | 64 | 120
   color?: string
 }
 
