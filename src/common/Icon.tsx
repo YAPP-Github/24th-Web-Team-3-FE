@@ -29,6 +29,7 @@ export type IconTypes =
   | "galleryIcon"
   | "qrIcon"
   | "uploadMafoo"
+  | "sadMafoo"
 
 export interface IconProps extends ComponentProps<"svg"> {
   name: IconTypes

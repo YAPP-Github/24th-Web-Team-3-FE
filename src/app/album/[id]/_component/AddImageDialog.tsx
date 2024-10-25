@@ -28,6 +28,7 @@ export const AddImageDialog = ({
   const [progress, setProgress] = useState(0)
   const [currentUploaded, setCurrentUploaded] = useState(0)
   const [totalFiles, setTotalFiles] = useState(0)
+  const [isError, setError] = useState(false)
   const [tasks, setTasks] = useState<
     { run: () => Promise<unknown>; cancel: () => void }[]
   >([])
@@ -38,6 +39,9 @@ export const AddImageDialog = ({
   const onTapCancel = () => {
     tasks.forEach((task) => task.cancel())
     setUploading(false)
+  }
+  const onTapCloseError = () => {
+    setError(false)
   }
   const handleImageChange = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -88,6 +92,7 @@ export const AddImageDialog = ({
         setProgress(100)
         onImageUploaded()
       } catch (error) {
+        setError(true)
         console.error("Upload failed:", error)
       } finally {
         setUploading(false)
@@ -172,6 +177,35 @@ export const AddImageDialog = ({
                   theme="red"
                   onClick={onTapCancel}>
                   업로드 그만두기
+                </SquareButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {isError && (
+        <div
+          className="fixed left-0 top-0 z-10 flex h-dvh w-dvw items-center justify-center bg-gray-800/50 px-5 transition-all duration-500"
+          onClick={onTapBackdrop}>
+          <div className="w-full rounded-2xl bg-white p-6 px-8">
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex flex-col items-center gap-1">
+                <span className="tp-header2-semibold text-gray-900">
+                  앗, 다시 시도해주세요
+                </span>
+                <span className="tp-body1-regular text-gray-500">
+                  네트워크가 잘 연결되었는지 확인해주세요
+                </span>
+              </div>
+              <Icon name="sadMafoo" size={120} color="gray-500" />
+              <div className="flex w-full">
+                <SquareButton
+                  className="flex-1"
+                  variant="weak"
+                  size="medium"
+                  theme="gray"
+                  onClick={onTapCloseError}>
+                  닫기
                 </SquareButton>
               </div>
             </div>
