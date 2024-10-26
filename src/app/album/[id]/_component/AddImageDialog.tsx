@@ -92,6 +92,7 @@ export const AddImageDialog = ({
         setProgress(100)
         onImageUploaded()
       } catch (error) {
+        if (error instanceof Error && error?.message === "CanceledError") return
         setError(true)
         console.error("Upload failed:", error)
       } finally {
