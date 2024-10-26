@@ -1,10 +1,6 @@
 import { ChangeEvent, useCallback, useRef, useState } from "react"
 
-import {
-  generatePreSignedUrls,
-  updatePhotoAlbumBulk,
-  uploadPhotosWithUrls,
-} from "@/app/api/photo"
+import { generatePreSignedUrls, uploadPhotosWithUrls } from "@/app/api/photo"
 import Icon from "@/common/Icon"
 import SquareButton from "@/common/SquareButton"
 import { buildCancelableTask } from "@/utils"
@@ -83,12 +79,7 @@ export const AddImageDialog = ({
         )
 
         const actualFileUrls = preSignedUrls.map((url) => url.split("?")[0])
-        const results = await uploadPhotosWithUrls(actualFileUrls)
-        setProgress(95)
-        await updatePhotoAlbumBulk(
-          currentAlbumId,
-          results.map((result) => result.photoId)
-        )
+        await uploadPhotosWithUrls(actualFileUrls, currentAlbumId)
         setProgress(100)
         onImageUploaded()
       } catch (error) {

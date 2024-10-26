@@ -119,12 +119,14 @@ export const generatePreSignedUrls = async (
 }
 
 export const uploadPhotosWithUrls = async (
-  fileUrls: string[]
+  fileUrls: string[],
+  albumId: string
 ): Promise<GetPhotosResponse> => {
   const data = await myFetch(`/photo/v1/photos/file-urls`, {
     method: "POST",
     body: JSON.stringify({
       fileUrls: fileUrls,
+      albumId: albumId,
     }),
   })
   return data
