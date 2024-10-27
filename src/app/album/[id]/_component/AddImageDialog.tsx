@@ -25,6 +25,7 @@ export const AddImageDialog = ({
   const [currentUploaded, setCurrentUploaded] = useState(0)
   const [totalFiles, setTotalFiles] = useState(0)
   const [isError, setError] = useState(false)
+  const [isOverLimit, setOverLimit] = useState(false)
   const [tasks, setTasks] = useState<
     { run: () => Promise<unknown>; cancel: () => void }[]
   >([])
@@ -39,10 +40,17 @@ export const AddImageDialog = ({
   const onTapCloseError = () => {
     setError(false)
   }
+  const onTapCloseOverLimit = () => {
+    setOverLimit(false)
+  }
   const handleImageChange = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files
       if (!files || files.length == 0) return
+      if (files.length > 30) {
+        setOverLimit(true)
+        return
+      }
 
       setProgress(0)
       setCurrentUploaded(0)
@@ -197,6 +205,33 @@ export const AddImageDialog = ({
                   size="medium"
                   theme="gray"
                   onClick={onTapCloseError}>
+                  닫기
+                </SquareButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {isOverLimit && (
+        <div className="fixed left-0 top-0 z-10 flex h-dvh w-dvw items-center justify-center bg-gray-800/50 px-5 transition-all duration-500">
+          <div className="w-full rounded-2xl bg-white p-6 px-8">
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex flex-col items-center gap-1">
+                <span className="tp-header2-semibold text-gray-900">
+                  앗, 30장이 넘었어요!
+                </span>
+                <span className="tp-body1-regular text-gray-500">
+                  한 번에 30장까지만 올릴 수 있어요
+                </span>
+              </div>
+              <Icon name="sadMafoo" size={120} color="gray-500" />
+              <div className="flex w-full">
+                <SquareButton
+                  className="flex-1"
+                  variant="weak"
+                  size="medium"
+                  theme="gray"
+                  onClick={onTapCloseOverLimit}>
                   닫기
                 </SquareButton>
               </div>
