@@ -3,7 +3,13 @@
 import { useEffect, useRef, useState } from "react"
 import Masonry from "react-responsive-masonry"
 
+import VideoLoading from "@/app/album/[id]/_component/VideoLoading"
+import VideoRecap from "@/app/album/[id]/_component/VideoRecap"
 import { deletePhoto, getPhotos } from "@/app/api/photo"
+import Button from "@/common/Button"
+import Icon from "@/common/Icon"
+import { recapColorVariants } from "@/styles/variants"
+import { cn } from "@/utils"
 
 import { AlbumInfo, PhotoInfo } from "../../types"
 import { ImageDetail } from "./ImageDetail"
@@ -20,8 +26,8 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
 
   const carouselStartIdx = useRef(0)
 
-  //const [isRecapOpen, setIsRecapOpen] = useState(false)
-  //const [videoUrl, setVideoUrl] = useState<string | null>()
+  const [isRecapOpen, setIsRecapOpen] = useState(false)
+  const [videoUrl, setVideoUrl] = useState<string | null>()
 
   const onPhotoClick = (startIdx: number) => {
     carouselStartIdx.current = startIdx
@@ -54,114 +60,23 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
     fetchAlbums()
   }
 
-  /*  const handleCloseRecap = () => {
+  const handleCloseRecap = () => {
     setIsRecapOpen(false)
-  }*/
+  }
 
   useEffect(() => {
     fetchAlbums()
   }, [albumInfo.albumId])
 
-  // useEffect(() => {
-  //   const generateImages = async () => {
-  //     if (!refs.current) return
-  //     const newGeneratedImages = await Promise.all(
-  //       refs.current.map(async (ref) => {
-  //         if (ref) {
-  //           try {
-  //             // HTML을 이미지로 변환할 때 더 높은 해상도를 위해 scale 값을 조정
-  //             const blob = await toBlob(ref, {
-  //               quality: 1, // 이미지 품질 설정 (0.1 ~ 1)
-  //               pixelRatio: 3, // 기본값은 1, 값이 클수록 해상도가 높아짐
-  //             })
-  //             return blob
-  //           } catch (err) {
-  //             return null
-  //           }
-  //         }
-  //         return null
-  //       })
-  //     )
-  //
-  //     const filteredImages = newGeneratedImages.filter(
-  //       (file): file is File => file !== null
-  //     )
-  //     setFiles(filteredImages)
-  //   }
-  //
-  //   if (photos.length >= 3) {
-  //     generateImages()
-  //   }
-  // }, [refs, photos.length])
-
-  // useEffect(() => {
-  //   if (!files.length) return
-  //
-  //   const createVideo = async () => {
-  //     if (!ffmpeg.isLoaded()) {
-  //       await ffmpeg.load()
-  //     }
-  //
-  //     // 이미지 파일들을 FFmpeg 가상 파일 시스템에 작성
-  //     for (let index = 0; index < files.length; index++) {
-  //       const file = files[index]
-  //       ffmpeg.FS("writeFile", `image${index}.png`, await fetchFile(file))
-  //     }
-  //
-  //     try {
-  //       for (let index = 0; index < files.length; index++) {
-  //         await ffmpeg.run(
-  //           "-loop",
-  //           "1",
-  //           "-i",
-  //           `image${index}.png`,
-  //           "-t",
-  //           "1", // 각 이미지를 1초 동안 표시
-  //           "-vf",
-  //           `scale=1170:2040:force_original_aspect_ratio=increase,crop=1170:2040,pad=1170:2040:(ow-iw)/2:(oh-ih)/2,format=yuv420p`, //3배수로 해상도 조정
-  //           "-c:v",
-  //           "libx264", // H.264 코덱 사용
-  //           "-crf",
-  //           "18", // 낮은 값을 사용할수록 품질이 높고 파일 크기가 커짐
-  //           "-preset",
-  //           "slow", // 고품질 인코딩을 위한 slow 프리셋
-  //           "-y",
-  //           `video${index}.mp4`
-  //         )
-  //       }
-  //
-  //       // 생성된 비디오 파일들을 concat 필터로 연결
-  //       const inputArgs = files
-  //         .map((_, index) => `-i video${index}.mp4`)
-  //         .join(" ")
-  //       const concatFilter = `concat=n=${files.length}:v=1:a=0[outv]`
-  //
-  //       const args = [
-  //         ...inputArgs.split(" "),
-  //         "-filter_complex",
-  //         concatFilter,
-  //         "-map",
-  //         "[outv]",
-  //         "-y",
-  //         "output.mp4",
-  //       ]
-  //
-  //       await ffmpeg.run(...args)
-  //
-  //       // 파일 시스템에서 output.mp4 읽기
-  //       const data = ffmpeg.FS("readFile", "output.mp4")
-  //       const video = URL.createObjectURL(
-  //         new Blob([data.buffer], { type: "video/mp4" })
-  //       )
-  //       //setVideoUrl(video)
-  //     } catch (error) {
-  //       // eslint-disable-next-line no-console
-  //       console.error("FFmpeg error:", error)
-  //     }
-  //   }
-  //
-  //   createVideo()
-  // }, [files])
+  useEffect(() => {
+    if (isRecapOpen) {
+      setTimeout(() => {
+        setVideoUrl(
+          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        )
+      }, 2000)
+    }
+  }, [isRecapOpen])
 
   return (
     <>
@@ -186,19 +101,21 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
           />
         )}
 
-        {/*{photos.length >= 3 && (*/}
-        {/*  <Button*/}
-        {/*    className={cn(*/}
-        {/*      recapColorVariants({ type: albumInfo.type }),*/}
-        {/*      "m-auto rounded-[100px] p-14 px-[22px] py-[16px]"*/}
-        {/*    )}*/}
-        {/*    onClick={() => setIsRecapOpen(true)}>*/}
-        {/*    <div className="flex gap-1 align-middle">*/}
-        {/*      <p>리캡 만들기</p>*/}
-        {/*      <Icon name="reelOutline" size={24} color="white" />*/}
-        {/*    </div>*/}
-        {/*  </Button>*/}
-        {/*)}*/}
+        {photos.length >= 3 && (
+          <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
+            <Button
+              className={cn(
+                recapColorVariants({ type: albumInfo.type }),
+                "m-auto rounded-[100px] p-14 px-[22px] py-[16px]"
+              )}
+              onClick={() => setIsRecapOpen(true)}>
+              <div className="flex gap-1 align-middle">
+                <p>리캡 만들기</p>
+                <Icon name="reelOutline" size={24} color="white" />
+              </div>
+            </Button>
+          </div>
+        )}
       </div>
 
       {/*<div className="fixed left-0 top-0 -translate-x-full">*/}
@@ -259,12 +176,12 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
       {/*  ))}*/}
       {/*</div>*/}
 
-      {/*{isRecapOpen &&*/}
-      {/*  (videoUrl ? (*/}
-      {/*    <VideoRecap url={videoUrl} closeModal={handleCloseRecap} />*/}
-      {/*  ) : (*/}
-      {/*    <VideoLoading type={albumInfo.type} />*/}
-      {/*  ))}*/}
+      {isRecapOpen &&
+        (videoUrl ? (
+          <VideoRecap url={videoUrl} closeModal={handleCloseRecap} />
+        ) : (
+          <VideoLoading type={albumInfo.type} />
+        ))}
     </>
   )
 }

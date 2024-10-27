@@ -2,6 +2,7 @@
 
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
+import SquareButton from "@/common/SquareButton"
 // import SquareButton from "@/common/SquareButton"
 // import { useAlertStore } from "@/store/alert"
 import { fullDateStr } from "@/utils"
@@ -53,25 +54,27 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
           />
           <video src={url} width="390" height="680" autoPlay controls></video>
         </div>
-        <div className="mb-5 flex gap-3">
+        <div className="mx-5 mb-5 flex gap-3">
           <Button
             onClick={handleDownload}
             color="white"
             className="flex h-14 w-full items-center justify-center gap-[6px] rounded-[100px] bg-gray-800 px-6 text-white">
             <Icon name="downloadBold" size={28} color="white" />
-            <span className="mr-[6px]">다운로드 받기</span>
+            <span className="mr-[6px]">다운로드</span>
           </Button>
 
-          {/* <SquareButton
-            onClick={handleShare}
-            className="w-full rounded-[100px] bg-gray-800 bg-gradient-to-br from-yellow-500 via-pink-500 to-blue-500"
-            style={{
-              background:
-                "linear-gradient(275deg, #FFD735 -13%, #FF6C5A 19.01%, #E848C8 52.09%, #4A8CF0 93.31%), #F0F2F4",
-            }}>
-            <Icon name="insta" size={28} color="white" />
-            <span className="mr-[6px]">인스타 공유</span>
-          </SquareButton> */}
+          {
+            <SquareButton
+              onClick={() => {}}
+              className="w-full rounded-[100px] bg-gray-800 bg-gradient-to-br from-yellow-500 via-pink-500 to-blue-500"
+              style={{
+                background:
+                  "linear-gradient(275deg, #FFD735 -13%, #FF6C5A 19.01%, #E848C8 52.09%, #4A8CF0 93.31%), #F0F2F4",
+              }}>
+              <Icon name="insta" size={28} color="white" />
+              <span className="mr-[6px]">인스타 공유</span>
+            </SquareButton>
+          }
         </div>
       </div>
     </div>
