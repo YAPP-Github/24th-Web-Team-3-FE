@@ -11,3 +11,24 @@
 header > button:active {
   opacity: 70%;
 }
+
+.Toastify__toast {
+  border-radius: 100px;
+  box-shadow: 0px 16px 20px 0px rgba(101, 125, 159, 0.12), 0px 0px 8px 0px rgba(88, 100, 117, 0.08);
+  min-height: 0;
+  padding: 12px 18px 12px 16px;
+}
+
+.Toastify__toast-container {
+  width: inherit;
+}
+.Toastify__toast-body {
+  padding: 0;
+  color: #444E5C;
+  font-feature-settings: 'ss10' on;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.32px;
+}

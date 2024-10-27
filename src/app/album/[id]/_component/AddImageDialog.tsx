@@ -1,4 +1,5 @@
 import { ChangeEvent, useCallback, useRef, useState } from "react"
+import { toast } from "react-toastify"
 
 import { generatePreSignedUrls, uploadPhotosWithUrls } from "@/app/api/photo"
 import Icon from "@/common/Icon"
@@ -36,6 +37,7 @@ export const AddImageDialog = ({
   const onTapCancel = () => {
     tasks.forEach((task) => task.cancel())
     setUploading(false)
+    toast.error("업로드 진행이 취소됐어요")
   }
   const onTapCloseError = () => {
     setError(false)
