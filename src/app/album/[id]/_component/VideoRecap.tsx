@@ -54,11 +54,13 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
             onClick={closeModal}
           />
           <ReactPlayer
+            className="absolute"
             url={url}
             playing={true}
             loop={true}
             controls={false}
             width="100%"
+            height="100%"
             config={{
               file: {
                 attributes: { crossOrigin: "anonymous" },
