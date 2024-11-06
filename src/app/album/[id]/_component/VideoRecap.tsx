@@ -52,7 +52,13 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
             size={56}
             onClick={closeModal}
           />
-          <video src={url} width="390" height="680" autoPlay controls></video>
+          <video
+            src={url}
+            width="390"
+            height="680"
+            crossOrigin="anonymous"
+            autoPlay
+            controls></video>
         </div>
         <div className="mx-5 mb-5 flex gap-3">
           <Button

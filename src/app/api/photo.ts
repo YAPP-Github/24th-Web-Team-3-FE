@@ -8,6 +8,10 @@ export interface PostQrCodeResponse {
   brand: string
 }
 
+export interface GenerateRecapResponse {
+  recapUrl: string
+}
+
 export const postQrCode = async (
   qrUrl: string
 ): Promise<PostQrCodeResponse> => {
@@ -141,6 +145,18 @@ export const updatePhotoAlbumBulk = async (
     body: JSON.stringify({
       albumId,
       photoIds,
+    }),
+  })
+  return data
+}
+
+export const generateRecap = async (
+  albumId: string
+): Promise<GenerateRecapResponse> => {
+  const data = await myFetch(`/photo/v1/recaps`, {
+    method: "POST",
+    body: JSON.stringify({
+      albumId,
     }),
   })
   return data

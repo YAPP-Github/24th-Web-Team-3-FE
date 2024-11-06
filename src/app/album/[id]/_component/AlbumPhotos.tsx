@@ -5,7 +5,7 @@ import Masonry from "react-responsive-masonry"
 
 import VideoLoading from "@/app/album/[id]/_component/VideoLoading"
 import VideoRecap from "@/app/album/[id]/_component/VideoRecap"
-import { deletePhoto, getPhotos } from "@/app/api/photo"
+import { deletePhoto, generateRecap, getPhotos } from "@/app/api/photo"
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import { recapColorVariants } from "@/styles/variants"
@@ -70,11 +70,16 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
 
   useEffect(() => {
     if (isRecapOpen) {
-      setTimeout(() => {
-        setVideoUrl(
-          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-        )
-      }, 2000)
+      generateRecap(albumInfo.albumId).then(
+        (data) => {
+          console.log(data.recapUrl)
+          setVideoUrl(data.recapUrl)
+        },
+        (error) => {
+          console.error(error)
+          setIsRecapOpen(false)
+        }
+      )
     }
   }, [isRecapOpen])
 
