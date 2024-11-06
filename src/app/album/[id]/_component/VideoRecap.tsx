@@ -57,7 +57,7 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
             url={url}
             playing={true}
             loop={true}
-            controls={true}
+            controls={false}
             width="100%"
             config={{
               file: {
