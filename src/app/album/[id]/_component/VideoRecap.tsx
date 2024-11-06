@@ -1,5 +1,7 @@
 "use client"
 
+import ReactPlayer from "react-player"
+
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import SquareButton from "@/common/SquareButton"
@@ -14,7 +16,6 @@ interface VideoRecapProps {
 
 const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
   // const { showAlert } = useAlertStore()
-
   const handleDownload = () => {
     const a = document.createElement("a")
     a.href = url
@@ -52,13 +53,25 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
             size={56}
             onClick={closeModal}
           />
-          <video
-            src={url}
-            width="390"
-            height="680"
-            crossOrigin="anonymous"
-            autoPlay
-            controls></video>
+          <ReactPlayer
+            url={url}
+            playing={true}
+            loop={true}
+            controls={true}
+            width="100%"
+            config={{
+              file: {
+                attributes: { crossOrigin: "anonymous" },
+              },
+            }}
+          />
+          {/*<video*/}
+          {/*  src={url}*/}
+          {/*  width="390"*/}
+          {/*  height="680"*/}
+          {/*  crossOrigin="anonymous"*/}
+          {/*  autoPlay*/}
+          {/*  controls></video>*/}
         </div>
         <div className="mx-5 mb-5 flex gap-3">
           <Button
