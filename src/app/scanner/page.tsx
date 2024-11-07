@@ -53,10 +53,6 @@ const ScannerPage = () => {
       const { rawValue } = result[0]
 
       if (!isUrlIncluded(rawValue)) {
-        if (confirm("지원하지 않는 QR코드입니다. 웹사이트를 열어드릴까요?")) {
-          window.open(rawValue, "_blank")
-        }
-
         return
       }
 
@@ -69,6 +65,8 @@ const ScannerPage = () => {
     if (!scanInfo) return
 
     const { photoId } = scanInfo
+
+    console.log("photoId: " + photoId)
 
     // 만든 앨범이 하나도 없다면 앨범 생성 페이지로 바로 이동
     if (!albumLength) {

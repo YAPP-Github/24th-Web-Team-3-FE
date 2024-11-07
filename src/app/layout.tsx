@@ -1,8 +1,10 @@
 import "@/styles/main.css"
+import "react-toastify/dist/ReactToastify.css"
 
 import { GoogleAnalytics } from "@next/third-parties/google"
 import type { Metadata } from "next"
 import { cookies } from "next/headers"
+import { ToastContainer } from "react-toastify"
 
 import ErrorHandlingWrapper from "@/common/ErrorHandlingWrapper"
 import NextAuthProvider from "@/common/NextAuthProvider"
@@ -52,6 +54,19 @@ export default function RootLayout({
             </ErrorHandlingWrapper>
           </QueryProviders>
         </NextAuthProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={true}
+          closeOnClick={false}
+          closeButton={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </body>
       <GoogleAnalytics gaId="G-JPQ6BL9TGL" />
     </html>

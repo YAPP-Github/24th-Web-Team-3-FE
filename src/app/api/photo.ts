@@ -8,6 +8,10 @@ export interface PostQrCodeResponse {
   brand: string
 }
 
+export interface GenerateRecapResponse {
+  recapUrl: string
+}
+
 export const postQrCode = async (
   qrUrl: string
 ): Promise<PostQrCodeResponse> => {
@@ -101,6 +105,58 @@ export const patchAlbumMove = async (
     method: "PATCH",
     body: JSON.stringify({
       newDisplayIndex,
+    }),
+  })
+  return data
+}
+
+export const generatePreSignedUrls = async (
+  fileNames: string[]
+): Promise<{ urls: string[] }> => {
+  const data = await myFetch(`/photo/v1/object-storage`, {
+    method: "POST",
+    body: JSON.stringify({
+      fileNames: fileNames,
+    }),
+  })
+  return data
+}
+
+export const uploadPhotosWithUrls = async (
+  fileUrls: string[],
+  albumId: string
+): Promise<GetPhotosResponse> => {
+  const data = await myFetch(`/photo/v1/photos/file-urls`, {
+    method: "POST",
+    body: JSON.stringify({
+      fileUrls: fileUrls,
+      albumId: albumId,
+    }),
+  })
+  return data
+}
+
+export const updatePhotoAlbumBulk = async (
+  albumId: string,
+  photoIds: string[]
+) => {
+  const data = await myFetch(`/photo/v1/photos/bulk/album`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      albumId,
+      photoIds,
+    }),
+  })
+  return data
+}
+
+export const generateRecap = async (
+  albumId: string
+): Promise<GenerateRecapResponse> => {
+  const data = await myFetch(`/photo/v1/recaps`, {
+    method: "POST",
+    body: JSON.stringify({
+      albumId,
     }),
   })
   return data
