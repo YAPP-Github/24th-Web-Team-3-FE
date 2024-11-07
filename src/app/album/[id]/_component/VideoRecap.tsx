@@ -7,7 +7,6 @@ import Icon from "@/common/Icon"
 import SquareButton from "@/common/SquareButton"
 // import SquareButton from "@/common/SquareButton"
 // import { useAlertStore } from "@/store/alert"
-import { fullDateStr } from "@/utils"
 
 interface VideoRecapProps {
   url: string
@@ -16,14 +15,23 @@ interface VideoRecapProps {
 
 const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
   // const { showAlert } = useAlertStore()
-  const handleDownload = () => {
-    const a = document.createElement("a")
-    a.href = url
-    a.download = `mafoo_${fullDateStr()}.mp4`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url) // Object URL 해제
+  const handleDownload = async () => {
+    // window.navigator.share({
+    //   title: "마푸 리캡",
+    //   url,
+    // })
+
+    const video = await fetch(url)
+    const blob = await video.blob()
+    const file = new File([blob], "recap.mp4", { type: "video/mp4" })
+    navigator.share({ text: "마푸 리캡", files: [file] } as ShareData)
+    // const a = document.createElement("a")
+    // a.href = url
+    // a.download = `mafoo_${fullDateStr()}.mp4`
+    // document.body.appendChild(a)
+    // a.click()
+    // document.body.removeChild(a)
+    // URL.revokeObjectURL(url) // Object URL 해제
   }
 
   // const handleShare = async () => {

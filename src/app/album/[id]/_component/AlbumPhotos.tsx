@@ -92,7 +92,10 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
             onImageUploaded={onImageUploaded}
           />
           {photos.map((photo, idx) => (
-            <div key={photo.photoId} onClick={() => onPhotoClick(idx)}>
+            <div
+              key={photo.photoId}
+              className="h-fit w-full"
+              onClick={() => onPhotoClick(idx)}>
               <Photo photo={photo} />
             </div>
           ))}
@@ -106,7 +109,7 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
           />
         )}
 
-        {photos.length >= 99999 && (
+        {photos.length >= 3 && (
           <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
             <Button
               className={cn(
