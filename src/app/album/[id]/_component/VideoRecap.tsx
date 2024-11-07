@@ -43,8 +43,8 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
   // }
 
   return (
-    <div className="fixed left-0 top-0 z-10 h-dvh w-dvw justify-center overflow-auto bg-gray-900">
-      <div className="m-auto flex h-dvh w-full max-w-[390px] flex-col justify-between">
+    <div className="fixed left-0 top-0 z-10 h-svh w-dvw justify-center overflow-auto bg-gray-900">
+      <div className="m-auto flex h-svh w-full max-w-[390px] flex-col justify-between">
         <div className="flex h-full flex-col">
           <Icon
             className="absolute z-10 ml-2 mt-2"
@@ -54,7 +54,7 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
             onClick={closeModal}
           />
           <ReactPlayer
-            className="grow"
+            className="mt-5 grow"
             url={url}
             playing={true}
             muted={true}
@@ -67,7 +67,7 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
               },
             }}
           />
-          <div className="mx-5 mb-5 flex flex-row gap-3">
+          <div className="mx-5 my-5 flex flex-row gap-3">
             <Button
               onClick={handleDownload}
               color="white"
