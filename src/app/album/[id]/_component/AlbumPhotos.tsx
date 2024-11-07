@@ -92,7 +92,10 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
             onImageUploaded={onImageUploaded}
           />
           {photos.map((photo, idx) => (
-            <div key={photo.photoId} onClick={() => onPhotoClick(idx)}>
+            <div
+              key={photo.photoId}
+              className="h-fit w-full"
+              onClick={() => onPhotoClick(idx)}>
               <Photo photo={photo} />
             </div>
           ))}
