@@ -15,11 +15,16 @@ interface VideoRecapProps {
 
 const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
   // const { showAlert } = useAlertStore()
-  const handleDownload = () => {
-    window.navigator.share({
-      title: "마푸 리캡",
-      url,
-    })
+  const handleDownload = async () => {
+    // window.navigator.share({
+    //   title: "마푸 리캡",
+    //   url,
+    // })
+
+    const video = await fetch(url)
+    const blob = await video.blob()
+    const file = new File([blob], "recap.mp4", { type: "video/mp4" })
+    navigator.share({ text: "마푸 리캡", files: [file] } as ShareData)
     // const a = document.createElement("a")
     // a.href = url
     // a.download = `mafoo_${fullDateStr()}.mp4`
