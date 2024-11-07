@@ -106,7 +106,7 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
           />
         )}
 
-        {photos.length >= 3 && (
+        {photos.length >= 99999 && (
           <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
             <Button
               className={cn(
