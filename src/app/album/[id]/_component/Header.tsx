@@ -1,5 +1,6 @@
 "use client"
 
+import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
@@ -20,6 +21,7 @@ interface HeaderProps {
 export const Header = ({ albumInfo, className }: HeaderProps) => {
   const [isModalShown, setIsModalShown] = useState(false)
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   const onDialogOpenClick = () => {
     setIsModalShown(() => true)
@@ -30,6 +32,7 @@ export const Header = ({ albumInfo, className }: HeaderProps) => {
 
   const handleDeleteAlbum = async () => {
     await deleteAlbum(albumInfo.albumId)
+    await queryClient.invalidateQueries({ queryKey: ["getAlbums"] })
     router.push("/album")
   }
 

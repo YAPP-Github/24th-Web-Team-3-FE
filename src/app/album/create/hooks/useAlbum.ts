@@ -35,7 +35,7 @@ export const usePostAlbum = () => {
         patchPhotoAlbum({ photoId, defaultAlbumId: albumId })
       }
 
-      router.push(`/album/${albumId}`)
+      router.replace(`/album/${albumId}`)
     },
     throwOnError: true,
   })
