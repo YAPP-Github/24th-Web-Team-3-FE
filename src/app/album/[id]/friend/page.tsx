@@ -70,7 +70,7 @@ const SharedFriendPage = ({ params }: { params: { id: string } }) => {
     <div className="relative h-dvh w-full bg-white">
       <Header friendCount={sharedMembers.length} />
       <SharePermissionDialog
-        isOwnerMigrateVisible={true}
+        isOwnerMigrateVisible={selectedMember?.shareStatus != "PENDING"}
         defaultPermissionLevel={
           selectedMember?.permissionLevel || PermissionLevel.FULL_ACCESS
         }
