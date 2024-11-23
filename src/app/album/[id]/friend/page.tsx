@@ -9,15 +9,20 @@ import {
   deleteSharedMember,
   getAlbum,
   GetSharedAlbumResponse,
+  PermissionLevel,
   SharedMember,
+  updateShareMemberPermissionLevel,
 } from "@/app/api/photo"
 import { useGetProfile } from "@/app/profile/hooks/useProfile"
 import Icon from "@/common/Icon"
+import { SharePermissionDialog } from "@/common/SharePermissionDialog"
 
 const SharedFriendPage = ({ params }: { params: { id: string } }) => {
   const { id } = params
   const [albumInfo, setAlbumInfo] = useState<GetSharedAlbumResponse>()
   const profile = useGetProfile()
+  const [isEditPermissionDialogVisible, setIsEditPermissionDialogVisible] =
+    useState(false)
   const [isEditDialogVisible, setIsEditDialogVisible] = useState(false)
   const [selectedMember, setSelectedMember] = useState<SharedMember>()
   const initAlbum = async () => {
@@ -36,7 +41,20 @@ const SharedFriendPage = ({ params }: { params: { id: string } }) => {
     }
   }
 
-  const onTapEditPermission = () => {}
+  const saveMemberPermission = (permission: PermissionLevel) => {
+    if (selectedMember) {
+      setIsEditPermissionDialogVisible(false)
+      updateShareMemberPermissionLevel(
+        selectedMember.sharedMemberId,
+        permission
+      ).then(() => initAlbum())
+    }
+  }
+
+  const onTapEditPermission = () => {
+    setIsEditDialogVisible(false)
+    setIsEditPermissionDialogVisible(true)
+  }
 
   if (!albumInfo) return
   const isOwner = (albumInfo.ownerMemberId || "") == profile?.profile?.memberId
@@ -46,6 +64,16 @@ const SharedFriendPage = ({ params }: { params: { id: string } }) => {
   return (
     <div className="relative h-dvh w-full bg-white">
       <Header friendCount={sharedMembers.length} />
+      <SharePermissionDialog
+        defaultPermissionLevel={
+          selectedMember?.permissionLevel || PermissionLevel.FULL_ACCESS
+        }
+        imageUrl={selectedMember?.profileImageUrl || ""}
+        name={selectedMember?.name || ""}
+        isVisible={isEditPermissionDialogVisible}
+        onExit={() => setIsEditPermissionDialogVisible(false)}
+        onTapSave={saveMemberPermission}
+      />
       <div className="flex flex-col gap-4 px-6 pb-6 pt-4">
         <div className="flex flex-row items-center gap-1 py-2">
           <span className="tp-body2-regular text-gray-500">앨범장</span>

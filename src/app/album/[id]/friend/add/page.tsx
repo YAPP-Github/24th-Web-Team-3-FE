@@ -11,12 +11,15 @@ import {
 } from "@/app/api/photo"
 import { MemberSearchResult, searchMembers } from "@/app/api/user"
 import { IconImage } from "@/common/Icon"
+import { SharePermissionDialog } from "@/common/SharePermissionDialog"
 
 import { Header } from "./_component/Header"
 
 const AddFriendPage = ({ params }: { params: { id: string } }) => {
   const { id } = params
   const [searchParam, setSearchParam] = useState("")
+  const [addDialogVisible, setAddDialogVisible] = useState(false)
+  const [editingMember, setEditingMember] = useState<MemberSearchResult>()
   const [searchResults, setSearchResults] = useState<Array<MemberSearchResult>>(
     []
   )
@@ -41,19 +44,35 @@ const AddFriendPage = ({ params }: { params: { id: string } }) => {
         updateSearchResults(searchParam)
       })
     } else {
-      createSharedMember(id, friend.memberId, PermissionLevel.FULL_ACCESS).then(
-        () => {
-          updateSearchResults(searchParam)
-        }
-      )
+      setEditingMember(friend)
+      setAddDialogVisible(true)
     }
   }
+  const onSavePermissionLevel = (level: PermissionLevel) => {
+    setAddDialogVisible(false)
+    if (!editingMember) return
+    const friend = editingMember
+    createSharedMember(id, friend.memberId, level).then(() => {
+      updateSearchResults(searchParam)
+    })
+  }
+
   useEffect(() => {
     debounced(searchParam)
   }, [searchParam])
   return (
     <div className="relative h-dvh w-full bg-purple-200">
       <Header />
+      <SharePermissionDialog
+        defaultPermissionLevel={PermissionLevel.FULL_ACCESS}
+        name={editingMember?.name ?? ""}
+        imageUrl={editingMember?.profileImageUrl ?? ""}
+        isVisible={addDialogVisible}
+        onExit={() => {
+          setAddDialogVisible(false)
+        }}
+        onTapSave={onSavePermissionLevel}
+      />
       <div className="flex flex-col gap-4 px-6 pb-6 pt-4">
         <div className="tp-header2-semibold text-gray-800">
           <p>

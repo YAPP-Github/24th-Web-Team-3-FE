@@ -3,6 +3,8 @@ import { myFetch } from "./myfetch"
 
 export enum PermissionLevel {
   FULL_ACCESS = "FULL_ACCESS",
+  DOWNLOAD_ACCESS = "DOWNLOAD_ACCESS",
+  VIEW_ACCESS = "VIEW_ACCESS",
 }
 
 export enum ShareStatus {
@@ -26,7 +28,7 @@ export interface SharedMember {
   sharedMemberId: string
   memberId: string
   albumId: string
-  permissionLevel: string
+  permissionLevel: PermissionLevel
   shareStatus: string
   name: string
   profileImageUrl: string
@@ -251,6 +253,18 @@ export const updateSharedMemberStatus = async (
     method: "PATCH",
     body: JSON.stringify({
       shareStatus,
+    }),
+  })
+}
+
+export const updateShareMemberPermissionLevel = async (
+  sharedMemberId: string,
+  permissionLevel: PermissionLevel
+) => {
+  await myFetch(`/photo/v1/shared-members/${sharedMemberId}/permission`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      permissionLevel,
     }),
   })
 }
