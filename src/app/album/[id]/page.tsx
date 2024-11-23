@@ -4,7 +4,12 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-import { getAlbum, GetSharedAlbumResponse, SharedMember } from "@/app/api/photo"
+import {
+  getAlbum,
+  GetSharedAlbumResponse,
+  PermissionLevel,
+  SharedMember,
+} from "@/app/api/photo"
 import Icon from "@/common/Icon"
 import SquareButton from "@/common/SquareButton"
 import { albumDetailStickyHeaderVariants as headerVariants } from "@/styles/variants"
@@ -31,8 +36,18 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
   if (!albumInfo) return
 
   const sharedMembers = albumInfo?.sharedMembers || []
+  const meShared: SharedMember = {
+    sharedMemberId: albumInfo.ownerMemberId ?? "",
+    memberId: albumInfo.ownerMemberId ?? "",
+    albumId: albumInfo.albumId ?? "",
+    profileImageUrl: albumInfo.ownerProfileImageUrl ?? "",
+    permissionLevel: PermissionLevel.OWNER,
+    shareStatus: "SHARED",
+    name: albumInfo.ownerName ?? "",
+    serialNumber: "0000",
+  }
 
-  const sharedMembersPreview = sharedMembers.slice(0, 5)
+  const sharedMembersPreview = [meShared, ...sharedMembers.slice(0, 5)]
 
   return (
     <>
@@ -90,7 +105,7 @@ const ShareBar = ({
   return (
     <div className="tp-title2-semibold flex flex-row items-center justify-between rounded-2xl bg-white p-4 py-[11px] text-gray-700">
       <div className="flex flex-row items-center gap-1.5">
-        {previewMembers.length == 0 ? (
+        {previewMembers.length == 1 ? (
           <div className="my-1 flex flex-row items-center gap-1.5">
             <Icon name="message" size={28} />
             <div>친구랑 앨범 공유하기</div>
@@ -115,7 +130,7 @@ const ShareBar = ({
       </div>
 
       <div className="flex flex-row gap-2">
-        {previewMembers.length > 0 && (
+        {previewMembers.length > 1 && (
           <SquareButton
             className="tp-caption1-semibold rounded-[8px] bg-gray-100 px-[12px] py-[8px] text-gray-600"
             size="small"
