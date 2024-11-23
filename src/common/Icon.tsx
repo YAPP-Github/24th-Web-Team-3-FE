@@ -30,6 +30,9 @@ export type IconTypes =
   | "qrIcon"
   | "uploadMafoo"
   | "sadMafoo"
+  | "message"
+  | "info"
+  | "emptyMafoo"
 
 export interface IconProps extends ComponentProps<"svg"> {
   name: IconTypes
@@ -62,3 +65,35 @@ const Icon = ({
 }
 
 export default Icon
+
+export interface ImageIconProps extends ComponentProps<"svg"> {
+  name: IconTypes
+  width: number
+  height: number
+  color?: string
+}
+
+/**
+ *
+ * @param name 아이콘 이름과 타입 ex) heartAngleBold
+ * @param size 아이콘 크기 ex) 16
+ * @param color 아이콘에 적용할 컬러 ex) gray/600 -> gray-600 (기본값)
+ */
+export const IconImage = ({
+  name,
+  width,
+  height,
+  color = "gray-600",
+  className,
+  ...props
+}: ImageIconProps) => {
+  const SvgIcon = require(`@/assets/${name}.svg`).default
+  return (
+    <SvgIcon
+      {...props}
+      width={width}
+      height={height}
+      className={cn(className, color ? `fill-${color}` : "fill-gray-600")}
+    />
+  )
+}

@@ -149,9 +149,9 @@
   }
 }
 
-/* 
+/*
 
-디자인시스템: 타이포그라피 
+디자인시스템: 타이포그라피
 tp 접두어에 폰트 크기와 폰트 두께를 소문자로 전환하여 표기합니다.
 tp-[폰트 크키.lowercase()]-[폰트 두께.lowercase()]
 
@@ -261,4 +261,9 @@ ex) Display1 + Extralight -> tp-display1-extralight
 }
 .tp-caption2-semibold {
   @apply text-caption-2 font-semibold tracking-[.24px];
+}
+
+.text-gradient-purple {
+  color: transparent;
+  background: linear-gradient(114deg, #C680FF 4.37%, #FF82C6 101.46%);
 }
