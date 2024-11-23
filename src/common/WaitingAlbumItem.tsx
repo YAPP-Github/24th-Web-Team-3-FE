@@ -1,6 +1,7 @@
 "use client"
 
 import { VariantProps } from "class-variance-authority"
+import Image from "next/image"
 import { useState } from "react"
 
 import { AlbumValue } from "@/app/album/types"
@@ -58,14 +59,16 @@ function WaitingAlbumItem({
               사진 {photoCount}장
             </div>
           </div>
-          <img
-            crossOrigin="anonymous"
-            src={ownerProfileImageUrl}
-            className="h-[36px] w-[36px] rounded-[50%]"
-            width="36px"
-            height="36px"
-            alt="friend"
-          />
+          {ownerProfileImageUrl && (
+            <Image
+              crossOrigin="anonymous"
+              src={ownerProfileImageUrl ?? ""}
+              className="h-[36px] w-[36px] rounded-[50%]"
+              width={36}
+              height={36}
+              alt="friend"
+            />
+          )}
         </div>
 
         {/*<div*/}

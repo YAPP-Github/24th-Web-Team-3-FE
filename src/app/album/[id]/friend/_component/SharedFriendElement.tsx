@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 interface FriendElementProps {
   imageUrl: string
   name: string
@@ -16,11 +18,11 @@ const SharedFriendElement = ({
   return (
     <div className="flex flex-row items-center justify-between py-2">
       <div className="flex flex-row gap-2">
-        <img
+        <Image
           src={imageUrl}
           className="h-[54px] w-[54px] rounded-[50%] border-2 border-white"
-          width="54px"
-          height="54px"
+          width={54}
+          height={54}
           alt="friend"
         />
         <div className="flex flex-col items-start justify-center">

@@ -82,12 +82,18 @@ export interface GetSharedAlbumResponse {
   albumId: string
   name: string
   type: "HEART" | "FIRE" | "BASKETBALL" | "BUILDING" | "STARFALL" | "SMILE_FACE"
+  ownerProfileImageUrl?: string
+  ownerSerialNumber?: string
+  ownerMemberId?: string
+  ownerName?: string
   photoCount: string
   shareStatus?: string
   sharedMembers?: SharedMember[]
 }
 
-export const getAlbum = async (albumId: string): Promise<GetAlbumResponse> => {
+export const getAlbum = async (
+  albumId: string
+): Promise<GetSharedAlbumResponse> => {
   const data = await myFetch(`/photo/v1/albums/${albumId}`, {
     method: "GET",
   })

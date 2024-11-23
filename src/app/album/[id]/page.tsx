@@ -1,21 +1,21 @@
 "use client"
 
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-import { getAlbum } from "@/app/api/photo"
+import { getAlbum, GetSharedAlbumResponse, SharedMember } from "@/app/api/photo"
 import Icon from "@/common/Icon"
 import SquareButton from "@/common/SquareButton"
 import { albumDetailStickyHeaderVariants as headerVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
-import { AlbumInfo } from "../types"
 import { AlbumPhotos } from "./_component/AlbumPhotos"
 import { Header } from "./_component/Header"
 
 const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
   const { id } = params
-  const [albumInfo, setAlbumInfo] = useState<AlbumInfo>()
+  const [albumInfo, setAlbumInfo] = useState<GetSharedAlbumResponse>()
   const router = useRouter()
 
   useEffect(() => {
@@ -29,6 +29,10 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
   }, [id])
 
   if (!albumInfo) return
+
+  const sharedMembers = albumInfo?.sharedMembers || []
+
+  const sharedMembersPreview = sharedMembers.slice(0, 5)
 
   return (
     <>
@@ -50,19 +54,11 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
             headerVariants({ type: albumInfo.type }),
             "z-10 h-24 w-full px-4"
           )}>
-          <div className="tp-title2-semibold flex flex-row justify-between rounded-2xl bg-white p-4 text-gray-700">
-            <div className="flex flex-row items-center gap-1.5">
-              <Icon name="message" size={28} />
-              <div>친구랑 앨범 공유하기</div>
-            </div>
-
-            <SquareButton
-              className="tp-caption1-semibold rounded-[8px] bg-purple-200 text-purple-700"
-              size="small"
-              onClick={() => router.push(`/album/${id}/friend/add`)}>
-              친구 찾기
-            </SquareButton>
-          </div>
+          <ShareBar
+            onTapFindFriend={() => router.push(`/album/${id}/friend/add`)}
+            onTapViewFriend={() => router.push(`/album/${id}/friend`)}
+            previewMembers={sharedMembersPreview}
+          />
         </div>
         <div
           className="sticky top-14 z-10 flex w-full flex-row justify-between bg-white"
@@ -79,6 +75,60 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
         <AlbumPhotos albumInfo={albumInfo} />
       </div>
     </>
+  )
+}
+
+const ShareBar = ({
+  onTapFindFriend,
+  onTapViewFriend,
+  previewMembers,
+}: {
+  onTapFindFriend: () => void
+  onTapViewFriend?: () => void
+  previewMembers: SharedMember[]
+}) => {
+  return (
+    <div className="tp-title2-semibold flex flex-row items-center justify-between rounded-2xl bg-white p-4 py-[11px] text-gray-700">
+      <div className="flex flex-row items-center gap-1.5">
+        {previewMembers.length == 0 ? (
+          <div className="my-1 flex flex-row items-center gap-1.5">
+            <Icon name="message" size={28} />
+            <div>친구랑 앨범 공유하기</div>
+          </div>
+        ) : (
+          <div className="flex h-[44px] -space-x-4">
+            {previewMembers.map((member, idx) => (
+              <Image
+                style={{ zIndex: (5 - idx) * 10 }}
+                key={member.memberId}
+                width={44}
+                height={44}
+                alt={"hihi"}
+                src={member.profileImageUrl}
+                className={
+                  "h-[44px] w-[44px] rounded-[50%] border border-white"
+                }
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-row gap-2">
+        <SquareButton
+          className="tp-caption1-semibold rounded-[8px] bg-gray-100 px-[12px] py-[8px] text-gray-600"
+          size="small"
+          onClick={onTapViewFriend}>
+          친구들 보기
+        </SquareButton>
+        <SquareButton
+          className="tp-caption1-semibold rounded-[8px] bg-purple-200 px-[12px] py-[8px] text-purple-700"
+          size="small"
+          onClick={onTapFindFriend}>
+          친구 찾기
+        </SquareButton>
+      </div>
+    </div>
   )
 }
 
