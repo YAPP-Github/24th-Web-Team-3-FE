@@ -115,12 +115,14 @@ const ShareBar = ({
       </div>
 
       <div className="flex flex-row gap-2">
-        <SquareButton
-          className="tp-caption1-semibold rounded-[8px] bg-gray-100 px-[12px] py-[8px] text-gray-600"
-          size="small"
-          onClick={onTapViewFriend}>
-          친구들 보기
-        </SquareButton>
+        {previewMembers.length > 0 && (
+          <SquareButton
+            className="tp-caption1-semibold rounded-[8px] bg-gray-100 px-[12px] py-[8px] text-gray-600"
+            size="small"
+            onClick={onTapViewFriend}>
+            친구들 보기
+          </SquareButton>
+        )}
         <SquareButton
           className="tp-caption1-semibold rounded-[8px] bg-purple-200 px-[12px] py-[8px] text-purple-700"
           size="small"

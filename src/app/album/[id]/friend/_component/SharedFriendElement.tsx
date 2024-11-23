@@ -5,6 +5,7 @@ interface FriendElementProps {
   name: string
   tag: string
   isOwner: boolean
+  isManageVisible: boolean
   onTapShare: () => void
 }
 
@@ -13,6 +14,7 @@ const SharedFriendElement = ({
   name,
   tag,
   isOwner,
+  isManageVisible,
   onTapShare,
 }: FriendElementProps) => {
   return (
@@ -30,7 +32,7 @@ const SharedFriendElement = ({
           <p className="tp-body2-regular text-gray-500">{tag}</p>
         </div>
       </div>
-      {!isOwner && <ManageButton onTapShare={onTapShare} />}
+      {!isOwner && isManageVisible && <ManageButton onTapShare={onTapShare} />}
     </div>
   )
 }

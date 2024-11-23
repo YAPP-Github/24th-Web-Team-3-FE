@@ -2,26 +2,44 @@
 
 import { useEffect, useState } from "react"
 
+import { FriendMenuDialog } from "@/app/album/[id]/friend/_component/FriendMenuDialog"
 import { Header } from "@/app/album/[id]/friend/_component/Header"
 import SharedFriendElement from "@/app/album/[id]/friend/_component/SharedFriendElement"
-import { getAlbum, GetSharedAlbumResponse } from "@/app/api/photo"
+import {
+  deleteSharedMember,
+  getAlbum,
+  GetSharedAlbumResponse,
+  SharedMember,
+} from "@/app/api/photo"
+import { useGetProfile } from "@/app/profile/hooks/useProfile"
 import Icon from "@/common/Icon"
 
 const SharedFriendPage = ({ params }: { params: { id: string } }) => {
   const { id } = params
   const [albumInfo, setAlbumInfo] = useState<GetSharedAlbumResponse>()
-
-  useEffect(() => {
-    const initAlbum = async () => {
-      const data = await getAlbum(id)
-      if (data) {
-        setAlbumInfo(data)
-      }
+  const profile = useGetProfile()
+  const [isEditDialogVisible, setIsEditDialogVisible] = useState(false)
+  const [selectedMember, setSelectedMember] = useState<SharedMember>()
+  const initAlbum = async () => {
+    const data = await getAlbum(id)
+    if (data) {
+      setAlbumInfo(data)
     }
+  }
+  useEffect(() => {
     initAlbum()
   }, [id])
 
+  const onTapKickFriend = () => {
+    if (selectedMember) {
+      deleteSharedMember(selectedMember.sharedMemberId).then(() => initAlbum())
+    }
+  }
+
+  const onTapEditPermission = () => {}
+
   if (!albumInfo) return
+  const isOwner = (albumInfo.ownerMemberId || "") == profile?.profile?.memberId
 
   const sharedMembers = albumInfo.sharedMembers || []
 
@@ -38,6 +56,7 @@ const SharedFriendPage = ({ params }: { params: { id: string } }) => {
           name={albumInfo.ownerName ?? ""}
           tag={`#${albumInfo.ownerSerialNumber ?? ""}`}
           isOwner={true}
+          isManageVisible={false}
           onTapShare={() => {}}
         />
       </div>
@@ -50,10 +69,22 @@ const SharedFriendPage = ({ params }: { params: { id: string } }) => {
             name={member.name}
             tag={`#${member.serialNumber}`}
             isOwner={false}
-            onTapShare={() => {}}
+            isManageVisible={isOwner}
+            onTapShare={() => {
+              setSelectedMember(member)
+              setIsEditDialogVisible(true)
+            }}
           />
         ))}
       </div>
+      <FriendMenuDialog
+        isVisible={isEditDialogVisible}
+        onTapBackdrop={() => {
+          setIsEditDialogVisible(false)
+        }}
+        onTapKick={onTapKickFriend}
+        onTapPermission={onTapEditPermission}
+      />
     </div>
   )
 }
