@@ -1,49 +1,22 @@
 "use client"
 
-import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
 
-import { deleteAlbum } from "@/app/api/photo"
 import Icon from "@/common/Icon"
 import { ICON_COLOR_STYLE, ICON_NAME } from "@/constants"
 import { albumDetailHeaderVariants as headerVariants } from "@/styles/variants"
 import { cn } from "@/utils"
 
 import { AlbumInfo } from "../../types"
-import { Dialog } from "./Dialog"
 
 interface HeaderProps {
   albumInfo: AlbumInfo
   className?: string
+  onTapMenu: () => void
 }
 
-export const Header = ({ albumInfo, className }: HeaderProps) => {
-  const [isModalShown, setIsModalShown] = useState(false)
+export const Header = ({ albumInfo, className, onTapMenu }: HeaderProps) => {
   const router = useRouter()
-  const queryClient = useQueryClient()
-
-  const onDialogOpenClick = () => {
-    setIsModalShown(() => true)
-  }
-  const onDialogCloseClick = () => {
-    setIsModalShown(false)
-  }
-
-  const handleDeleteAlbum = async () => {
-    await deleteAlbum(albumInfo.albumId)
-    await queryClient.invalidateQueries({ queryKey: ["getAlbums"] })
-    router.push("/album")
-  }
-
-  const dialogProps = {
-    title: `'${albumInfo.name}' 앨범을 삭제할까요?`,
-    desc: "모든 사진도 함께 삭제되며, 복구할 수 없어요",
-    confirmBtnContext: "앨범 삭제",
-    onClose: onDialogCloseClick,
-    onConfirm: handleDeleteAlbum,
-  }
-
   if (!albumInfo) {
     return <header className={cn(headerVariants())}></header>
   }
@@ -61,12 +34,9 @@ export const Header = ({ albumInfo, className }: HeaderProps) => {
         />
         {albumInfo.name}
       </div>
-      <button
-        className="tp-body1-regular text-red-600"
-        onClick={onDialogOpenClick}>
-        삭제
+      <button className="tp-body1-regular text-gray-800" onClick={onTapMenu}>
+        <Icon name="hamburger" size={28} />
       </button>
-      {isModalShown && <Dialog {...dialogProps} />}
     </header>
   )
 }

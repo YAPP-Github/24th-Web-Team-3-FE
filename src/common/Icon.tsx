@@ -33,6 +33,7 @@ export type IconTypes =
   | "message"
   | "info"
   | "emptyMafoo"
+  | "hamburger"
 
 export interface IconProps extends ComponentProps<"svg"> {
   name: IconTypes

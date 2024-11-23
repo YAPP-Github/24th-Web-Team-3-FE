@@ -16,7 +16,7 @@ export const Dialog = ({
   onConfirm,
 }: DeleteDialogProps) => {
   return (
-    <div className="fixed left-0 top-0 z-10 flex h-dvh w-dvw items-center justify-center bg-gray-800/50">
+    <div className="fixed left-0 top-0 z-[1000] flex h-dvh w-dvw items-center justify-center bg-gray-800/50">
       <div className="w-[350px] rounded-3xl bg-white p-8 px-5">
         <div>
           <p className="tp-title1-semibold text-gray-800">{title}</p>
