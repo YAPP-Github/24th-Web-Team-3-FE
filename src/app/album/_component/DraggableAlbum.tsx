@@ -5,6 +5,7 @@ import { useState } from "react"
 import { useDrag } from "react-dnd"
 
 import {
+  deleteSharedMember,
   GetBulkAlbumResponse,
   ShareStatus,
   updateSharedMemberStatus,
@@ -68,11 +69,9 @@ const DraggableAlbum = ({ album, index }: AlbumItemProps) => {
 
   const onTapReject = () => {
     if (album.sharedMemberId) {
-      updateSharedMemberStatus(album.sharedMemberId, ShareStatus.REJECTED).then(
-        () => {
-          queryClient.invalidateQueries({ queryKey: ["getAlbums"] })
-        }
-      )
+      deleteSharedMember(album.sharedMemberId).then(() => {
+        queryClient.invalidateQueries({ queryKey: ["getAlbums"] })
+      })
     }
   }
 

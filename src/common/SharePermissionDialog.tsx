@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { PermissionLevel } from "@/app/api/photo"
 import SquareButton from "@/common/SquareButton"
@@ -22,6 +22,9 @@ export const SharePermissionDialog = ({
   const [permissionLevel, setPermissionLevel] = useState<PermissionLevel>(
     defaultPermissionLevel
   )
+  useEffect(() => {
+    setPermissionLevel(defaultPermissionLevel)
+  }, [defaultPermissionLevel])
   return (
     <>
       {isVisible && (
