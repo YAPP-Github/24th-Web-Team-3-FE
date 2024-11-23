@@ -269,3 +269,12 @@ export const updateShareMemberPermissionLevel = async (
     }),
   })
 }
+
+export const updateAlbumOwner = async (albumId: string, memberId: string) => {
+  await myFetch(`/photo/v1/albums/${albumId}/ownership`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      newOwnerMemberId: memberId,
+    }),
+  })
+}

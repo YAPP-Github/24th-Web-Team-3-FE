@@ -8,6 +8,7 @@ export const SharePermissionDialog = ({
   imageUrl,
   name,
   isVisible,
+  isOwnerMigrateVisible,
   onExit,
   onTapSave,
   defaultPermissionLevel = PermissionLevel.FULL_ACCESS,
@@ -15,6 +16,7 @@ export const SharePermissionDialog = ({
   imageUrl: string
   name: string
   isVisible: boolean
+  isOwnerMigrateVisible: boolean
   onExit: () => void
   onTapSave: (level: PermissionLevel) => void
   defaultPermissionLevel: PermissionLevel
@@ -88,6 +90,22 @@ export const SharePermissionDialog = ({
                 />
                 <label htmlFor="view">보기만</label>
               </div>
+              {isOwnerMigrateVisible && (
+                <div className="flex flex-row gap-2 py-1">
+                  <input
+                    className="w-[20px]"
+                    type="radio"
+                    name="perm"
+                    id="owner"
+                    onChange={(e) => {
+                      if (e.target.value)
+                        setPermissionLevel(PermissionLevel.OWNER)
+                    }}
+                    checked={permissionLevel === PermissionLevel.OWNER}
+                  />
+                  <label htmlFor="owner">앨범장 넘기기</label>
+                </div>
+              )}
             </div>
             <div className="mt-[20px] flex flex-row justify-between gap-3">
               <SquareButton

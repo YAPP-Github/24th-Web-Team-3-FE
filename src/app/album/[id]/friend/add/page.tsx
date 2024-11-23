@@ -4,11 +4,7 @@ import { useEffect, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
 import FriendElement from "@/app/album/[id]/friend/add/_component/FriendElement"
-import {
-  createSharedMember,
-  deleteSharedMember,
-  PermissionLevel,
-} from "@/app/api/photo"
+import { createSharedMember, PermissionLevel } from "@/app/api/photo"
 import { MemberSearchResult, searchMembers } from "@/app/api/user"
 import { IconImage } from "@/common/Icon"
 import { SharePermissionDialog } from "@/common/SharePermissionDialog"
@@ -39,11 +35,7 @@ const AddFriendPage = ({ params }: { params: { id: string } }) => {
     setSearchParam(e.target.value)
   }
   const onTapShareButton = (friend: MemberSearchResult) => {
-    if (friend.shareStatus) {
-      deleteSharedMember(friend.sharedMemberId).then(() => {
-        updateSearchResults(searchParam)
-      })
-    } else {
+    if (!friend.shareStatus) {
       setEditingMember(friend)
       setAddDialogVisible(true)
     }
@@ -64,6 +56,7 @@ const AddFriendPage = ({ params }: { params: { id: string } }) => {
     <div className="relative h-dvh w-full bg-purple-200">
       <Header />
       <SharePermissionDialog
+        isOwnerMigrateVisible={false}
         defaultPermissionLevel={PermissionLevel.FULL_ACCESS}
         name={editingMember?.name ?? ""}
         imageUrl={editingMember?.profileImageUrl ?? ""}

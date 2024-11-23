@@ -11,6 +11,7 @@ import {
   GetSharedAlbumResponse,
   PermissionLevel,
   SharedMember,
+  updateAlbumOwner,
   updateShareMemberPermissionLevel,
 } from "@/app/api/photo"
 import { useGetProfile } from "@/app/profile/hooks/useProfile"
@@ -44,10 +45,14 @@ const SharedFriendPage = ({ params }: { params: { id: string } }) => {
   const saveMemberPermission = (permission: PermissionLevel) => {
     if (selectedMember) {
       setIsEditPermissionDialogVisible(false)
-      updateShareMemberPermissionLevel(
-        selectedMember.sharedMemberId,
-        permission
-      ).then(() => initAlbum())
+      if (permission == PermissionLevel.OWNER) {
+        updateAlbumOwner(id, selectedMember.memberId).then(() => initAlbum())
+      } else {
+        updateShareMemberPermissionLevel(
+          selectedMember.sharedMemberId,
+          permission
+        ).then(() => initAlbum())
+      }
     }
   }
 
@@ -65,6 +70,7 @@ const SharedFriendPage = ({ params }: { params: { id: string } }) => {
     <div className="relative h-dvh w-full bg-white">
       <Header friendCount={sharedMembers.length} />
       <SharePermissionDialog
+        isOwnerMigrateVisible={true}
         defaultPermissionLevel={
           selectedMember?.permissionLevel || PermissionLevel.FULL_ACCESS
         }
