@@ -4,7 +4,12 @@ import { useEffect, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
 import FriendElement from "@/app/album/[id]/friend/add/_component/FriendElement"
-import { createSharedMember, PermissionLevel } from "@/app/api/photo"
+import {
+  createSharedMember,
+  getAlbum,
+  GetSharedAlbumResponse,
+  PermissionLevel,
+} from "@/app/api/photo"
 import { MemberSearchResult, searchMembers } from "@/app/api/user"
 import { IconImage } from "@/common/Icon"
 import { SharePermissionDialog } from "@/common/SharePermissionDialog"
@@ -13,6 +18,7 @@ import { Header } from "./_component/Header"
 
 const AddFriendPage = ({ params }: { params: { id: string } }) => {
   const { id } = params
+  const [albumInfo, setAlbumInfo] = useState<GetSharedAlbumResponse>()
   const [searchParam, setSearchParam] = useState("")
   const [addDialogVisible, setAddDialogVisible] = useState(false)
   const [editingMember, setEditingMember] = useState<MemberSearchResult>()
@@ -48,10 +54,21 @@ const AddFriendPage = ({ params }: { params: { id: string } }) => {
       updateSearchResults(searchParam)
     })
   }
+  const initAlbum = async () => {
+    const data = await getAlbum(id)
+    if (data) {
+      setAlbumInfo(data)
+    }
+  }
+  useEffect(() => {
+    initAlbum()
+  }, [id])
 
   useEffect(() => {
     debounced(searchParam)
   }, [searchParam])
+
+  const albumName = albumInfo?.name ?? ""
   return (
     <div className="relative h-dvh w-full bg-purple-200">
       <Header />
@@ -69,7 +86,7 @@ const AddFriendPage = ({ params }: { params: { id: string } }) => {
       <div className="flex flex-col gap-4 px-6 pb-6 pt-4">
         <div className="tp-header2-semibold text-gray-800">
           <p>
-            <span className="text-purple-700">기념일</span> 앨범을
+            <span className="text-purple-700">{albumName}</span> 앨범을
           </p>
           <p>공유할 친구를 찾아봐요</p>
         </div>
