@@ -23,7 +23,30 @@ export const ICON_COLOR_STYLE = {
 
 export const LIST_ITEM_INFO: ListItemProps[] = [
   {
-    title: "설정",
+    items: [
+      {
+        label: "1:1 문의",
+        link: "https://forms.gle/kX9j7co6jLvbgWFr7",
+      },
+      {
+        label: "서비스 이용약관",
+        link: "https://chisel-promise-9ff.notion.site/7d80231fcdf040158d31e48e7cd570a2",
+      },
+      {
+        label: "마푸를 소개해요",
+        link: "/profile/introduction",
+      },
+      {
+        label: "개발팀 소개",
+        action: () => {
+          alert(
+            "아직 지원하는 기능이 아니에요. 다음 업데이트를 기다려주세요 😉"
+          )
+        },
+      },
+    ],
+  },
+  {
     items: [
       {
         label: "로그아웃",
@@ -44,31 +67,6 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
               }
             )
         },
-      },
-    ],
-  },
-  {
-    title: "기타",
-    items: [
-      {
-        label: "개발팀 소개",
-        action: () => {
-          alert(
-            "아직 지원하는 기능이 아니에요. 다음 업데이트를 기다려주세요 😉"
-          )
-        },
-      },
-      {
-        label: "1:1 문의",
-        link: "https://forms.gle/kX9j7co6jLvbgWFr7",
-      },
-      {
-        label: "서비스 이용약관",
-        link: "https://chisel-promise-9ff.notion.site/7d80231fcdf040158d31e48e7cd570a2",
-      },
-      {
-        label: "마푸를 소개해요",
-        link: "/profile/introduction",
       },
     ],
   },

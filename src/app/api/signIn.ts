@@ -9,6 +9,7 @@ export interface GetMyProfileResponse {
   memberId: string
   name: string
   profileImageUrl: string
+  serialNumber: string
 }
 
 export const kakaoLogin = async (

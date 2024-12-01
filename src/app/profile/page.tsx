@@ -5,7 +5,7 @@ import ListItem from "./_components/ListItem"
 
 const ProfilePage = () => {
   return (
-    <div className="relative h-dvh w-full">
+    <div className="relative flex h-dvh w-full flex-col bg-gray-100">
       <Header />
       <ListItem />
       <div className="h-[106px]" />
