@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from "react"
 
 import { BottomBar } from "@/common/BottomBar"
 import Loading from "@/common/Loading"
-import { isUrlIncluded } from "@/libs"
 
 import { PhotoModal } from "./_component/PhotoModal"
 import {
@@ -51,11 +50,6 @@ const ScannerPage = () => {
       if (isPhotoModalShown) return
 
       const { rawValue } = result[0]
-
-      if (!isUrlIncluded(rawValue)) {
-        return
-      }
-
       postQrCodeQuery(rawValue)
     },
     [isPhotoModalShown, postQrCodeQuery]
