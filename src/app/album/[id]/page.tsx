@@ -164,7 +164,7 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
           style={{ borderRadius: "24px 24px 0 0" }}>
           <div className="flex flex-col px-6 pb-2 pt-6">
             <span className="tp-body2-regular text-gray-500">
-              함께 칮은 추억
+              함께 찍은 추억
             </span>
             <span className="tp-header1-semibold text-gray-800">
               {albumInfo.photoCount}장
