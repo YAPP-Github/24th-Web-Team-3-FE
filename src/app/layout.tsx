@@ -15,6 +15,8 @@ import { pretendard } from "@/font"
 import { AlertProvider } from "@/store/alert"
 import { AuthProvider } from "@/store/auth"
 
+import { GoogleAdSense } from "./GoogleAdsense"
+
 export const metadata: Metadata = {
   title: "마푸-네컷사진 전용 앨범",
   description: "마푸를 켜고 QR을 가져다 대면 바로 업로드",
@@ -69,6 +71,7 @@ export default function RootLayout({
         />
       </body>
       <GoogleAnalytics gaId="G-JPQ6BL9TGL" />
+      <GoogleAdSense />
     </html>
   )
 }
