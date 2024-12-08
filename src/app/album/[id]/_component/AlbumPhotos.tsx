@@ -85,7 +85,7 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
 
   return (
     <>
-      <div className="flex w-full flex-wrap p-4 px-6 bg-white">
+      <div className="flex w-full flex-wrap bg-white p-4 px-6">
         <Masonry key={photos.length} columnsCount={2} gutter="12px">
           <PhotoAddButton
             albumId={albumInfo.albumId}
@@ -109,7 +109,7 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
           />
         )}
 
-        {photos.length >= 3 && (
+        {photos.length >= 232323 && (
           <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
             <Button
               className={cn(
