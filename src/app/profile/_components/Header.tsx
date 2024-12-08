@@ -11,10 +11,8 @@ const Header = () => {
 
   return (
     <>
-      <h1 className="tp-header2-semibold bg-green-200 p-4 py-[14px] text-gray-800">
-        마이
-      </h1>
-      <div className="flex flex-col items-center justify-center gap-[12px] bg-green-200 px-[24px] py-[24px]">
+      <h1 className="tp-header2-semibold p-4 py-[14px] text-gray-800">마이</h1>
+      <div className="flex flex-col items-center justify-center gap-[12px] px-[24px] py-[24px]">
         <Image
           src={profile.profileImageUrl}
           alt="프로필 이미지"
@@ -23,7 +21,12 @@ const Header = () => {
           className="h-[108px] w-[108px] rounded-full object-cover"
         />
 
-        <p className="tp-header2-semibold text-gray-700">{profile.name}</p>
+        <div className="flex flex-col items-center">
+          <p className="tp-header2-semibold text-gray-700">{profile.name}</p>
+          <p className="tp-title2-semibold text-gray-400">
+            #{profile.serialNumber}
+          </p>
+        </div>
       </div>
     </>
   )

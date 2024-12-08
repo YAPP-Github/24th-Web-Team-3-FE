@@ -15,7 +15,6 @@ interface ItemButtonType {
 }
 
 export interface ListItemProps {
-  title: string
   items: ItemButtonType[]
 }
 
@@ -41,17 +40,13 @@ const ListItem = () => {
   }
 
   return (
-    <section>
-      {LIST_ITEM_INFO.map(({ title, items }, index) => (
-        <ul key={`${title}-${index}`}>
-          <p className="tp-body2-regular px-[24px] pb-[12px] pt-[16px] text-gray-500">
-            {title}
-          </p>
-
+    <section className="grow rounded-t-[32px] bg-white pt-[24px]">
+      {LIST_ITEM_INFO.map(({ items }, index) => (
+        <ul key={`${index}`} className="flex flex-col gap-2">
           {items.map((item, index) => (
             <li key={index}>
               <Button onClick={() => handleClick(item)} className="w-full">
-                <div className="flex h-[54px] w-full items-center justify-between px-6">
+                <div className="flex h-[54px] w-full items-center justify-between pl-[32px] pr-[24px]">
                   <p className="tp-body1-regular text-gray-600">{item.label}</p>
                   <Icon name="arrowRight" size={24} color="gray-500" />
                 </div>

@@ -4,7 +4,6 @@ import ReactPlayer from "react-player"
 
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
-import SquareButton from "@/common/SquareButton"
 // import SquareButton from "@/common/SquareButton"
 // import { useAlertStore } from "@/store/alert"
 
@@ -85,18 +84,18 @@ const VideoRecap = ({ url, closeModal }: VideoRecapProps) => {
               <span className="mr-[6px]">다운로드</span>
             </Button>
 
-            {
-              <SquareButton
-                onClick={() => {}}
-                className="w-full rounded-[100px] bg-gray-800 bg-gradient-to-br from-yellow-500 via-pink-500 to-blue-500"
-                style={{
-                  background:
-                    "linear-gradient(275deg, #FFD735 -13%, #FF6C5A 19.01%, #E848C8 52.09%, #4A8CF0 93.31%), #F0F2F4",
-                }}>
-                <Icon name="insta" size={28} color="white" />
-                <span className="mr-[6px]">인스타 공유</span>
-              </SquareButton>
-            }
+            {/*{*/}
+            {/*  <SquareButton*/}
+            {/*    onClick={() => {}}*/}
+            {/*    className="w-full rounded-[100px] bg-gray-800 bg-gradient-to-br from-yellow-500 via-pink-500 to-blue-500"*/}
+            {/*    style={{*/}
+            {/*      background:*/}
+            {/*        "linear-gradient(275deg, #FFD735 -13%, #FF6C5A 19.01%, #E848C8 52.09%, #4A8CF0 93.31%), #F0F2F4",*/}
+            {/*    }}>*/}
+            {/*    <Icon name="insta" size={28} color="white" />*/}
+            {/*    /!*<span className="mr-[6px]">인스타 공유</span>*!/*/}
+            {/*  </SquareButton>*/}
+            {/*}*/}
           </div>
         </div>
       </div>

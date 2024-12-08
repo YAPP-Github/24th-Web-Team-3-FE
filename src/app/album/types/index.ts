@@ -14,6 +14,11 @@ export interface AlbumValue {
   isNew: boolean
   isSelected: boolean
   isEditable: boolean
+  shareStatus?: string
+  permissionLevel?: string
+  ownerMemberId?: string
+  ownerName?: string
+  ownerProfileImageUrl?: string
 }
 
 export interface PhotoInfo {

@@ -5,7 +5,7 @@ import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { TouchBackend } from "react-dnd-touch-backend"
 
-import { GetAlbumResponse } from "@/app/api/photo"
+import { GetBulkAlbumResponse } from "@/app/api/photo"
 import { useGetAlbums } from "@/app/scanner/hooks/usePhoto"
 
 import DraggableAlbum from "./DraggableAlbum"
@@ -13,7 +13,7 @@ import DraggableAlbum from "./DraggableAlbum"
 export const Albums = () => {
   const { albums } = useGetAlbums()
 
-  const [albumList, setAlbumList] = useState<GetAlbumResponse[]>()
+  const [albumList, setAlbumList] = useState<GetBulkAlbumResponse[]>()
 
   useEffect(() => {
     setAlbumList(albums)

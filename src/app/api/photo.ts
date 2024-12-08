@@ -1,6 +1,19 @@
 import { AlbumInfo, AlbumType, PhotoInfo } from "../album/types"
 import { myFetch } from "./myfetch"
 
+export enum PermissionLevel {
+  FULL_ACCESS = "FULL_ACCESS",
+  DOWNLOAD_ACCESS = "DOWNLOAD_ACCESS",
+  VIEW_ACCESS = "VIEW_ACCESS",
+  OWNER = "OWNER",
+}
+
+export enum ShareStatus {
+  ACCEPTED = "ACCEPTED",
+  PENDING = "PENDING",
+  REJECTED = "REJECTED",
+}
+
 export interface PostQrCodeResponse {
   photoId: string
   photoUrl: string
@@ -10,6 +23,17 @@ export interface PostQrCodeResponse {
 
 export interface GenerateRecapResponse {
   recapUrl: string
+}
+
+export interface SharedMember {
+  sharedMemberId: string
+  memberId: string
+  albumId: string
+  permissionLevel: PermissionLevel
+  shareStatus: string
+  name: string
+  profileImageUrl: string
+  serialNumber: string
 }
 
 export const postQrCode = async (
@@ -35,22 +59,61 @@ export const getPhotos = async (
   return data
 }
 
+export interface GetBulkAlbumResponse {
+  albumId: string
+  name: string
+  type: "HEART" | "FIRE" | "BASKETBALL" | "BUILDING" | "STARFALL" | "SMILE_FACE"
+  photoCount: string
+  shareStatus?: string
+  permissionLevel?: string
+  ownerMemberId?: string
+  ownerName?: string
+  ownerProfileImageUrl?: string
+  sharedMembers?: SharedMember[]
+  sharedMemberId?: string
+}
+
 export interface GetAlbumResponse {
   albumId: string
   name: string
   type: "HEART" | "FIRE" | "BASKETBALL" | "BUILDING" | "STARFALL" | "SMILE_FACE"
   photoCount: string
+  shareStatus?: string
 }
 
-export const getAlbum = async (albumId: string): Promise<GetAlbumResponse> => {
+export interface GetSharedAlbumResponse {
+  albumId: string
+  name: string
+  type: "HEART" | "FIRE" | "BASKETBALL" | "BUILDING" | "STARFALL" | "SMILE_FACE"
+  ownerProfileImageUrl?: string
+  ownerSerialNumber?: string
+  ownerMemberId?: string
+  ownerName?: string
+  photoCount: string
+  shareStatus?: string
+  sharedMembers?: SharedMember[]
+}
+
+export const getAlbum = async (
+  albumId: string
+): Promise<GetSharedAlbumResponse> => {
   const data = await myFetch(`/photo/v1/albums/${albumId}`, {
     method: "GET",
   })
   return data
 }
 
-export const getAlbums = async (): Promise<GetAlbumResponse[]> => {
+export const getAlbums = async (): Promise<GetBulkAlbumResponse[]> => {
   const data = await myFetch(`/photo/v1/albums`, {
+    method: "GET",
+  })
+  return data
+}
+
+export const getSharedAlbum = async (
+  albumId: string
+): Promise<GetSharedAlbumResponse> => {
+  const data = await myFetch(`/photo/v1/shared-albums/${albumId}`, {
     method: "GET",
   })
   return data
@@ -160,4 +223,58 @@ export const generateRecap = async (
     }),
   })
   return data
+}
+
+export const createSharedMember = async (
+  albumId: string,
+  memberId: string,
+  permissionLevel: PermissionLevel
+) => {
+  await myFetch(`/photo/v1/shared-members`, {
+    method: "POST",
+    body: JSON.stringify({
+      albumId,
+      memberId,
+      permissionLevel,
+    }),
+  })
+}
+
+export const deleteSharedMember = async (sharedMemberId: string) => {
+  await myFetch(`/photo/v1/shared-members/${sharedMemberId}`, {
+    method: "DELETE",
+  })
+}
+
+export const updateSharedMemberStatus = async (
+  sharedMemberId: string,
+  shareStatus: ShareStatus
+) => {
+  await myFetch(`/photo/v1/shared-members/${sharedMemberId}/status`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      shareStatus,
+    }),
+  })
+}
+
+export const updateShareMemberPermissionLevel = async (
+  sharedMemberId: string,
+  permissionLevel: PermissionLevel
+) => {
+  await myFetch(`/photo/v1/shared-members/${sharedMemberId}/permission`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      permissionLevel,
+    }),
+  })
+}
+
+export const updateAlbumOwner = async (albumId: string, memberId: string) => {
+  await myFetch(`/photo/v1/albums/${albumId}/ownership`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      newOwnerMemberId: memberId,
+    }),
+  })
 }
