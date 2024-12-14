@@ -21,9 +21,9 @@ const Header = () => {
           className="h-[108px] w-[108px] rounded-full object-cover"
         />
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-[6px]">
           <p className="tp-header2-semibold text-gray-700">{profile.name}</p>
-          <p className="tp-title2-semibold text-gray-400">
+          <p className="tp-title2-regular text-gray-400 mix-blend-multiply">
             #{profile.serialNumber}
           </p>
         </div>

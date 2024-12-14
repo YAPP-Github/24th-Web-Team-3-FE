@@ -115,12 +115,25 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
     }
   }
 
+  const typeToBackgroundColor: Record<string, string> = {
+    HEART: "bg-red-200",
+    FIRE: "bg-butter-200",
+    BASKETBALL: "bg-green-200",
+    BUILDING: "bg-skyblue-200",
+    STARFALL: "bg-purple-200",
+    SMILE_FACE: "bg-pink-200",
+  }
+
+  const backgroundColorClass = albumInfo?.type
+    ? typeToBackgroundColor[albumInfo.type]
+    : "bg-gray-200"
+
   return (
     <>
       <div className={cn(headerVariants({ type: albumInfo.type }))}>
         <Header
           albumInfo={albumInfo}
-          className="sticky top-0 z-10"
+          className={`sticky top-0 z-10 ${backgroundColorClass}`}
           onTapMenu={() => setIsMenuVisible(true)}
         />
         {isDeleteModalShown && <Dialog {...deleteDialogProps} />}
@@ -133,7 +146,7 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
             onTapAction={onTapMenuAction}
           />
         )}
-        <div
+        {/* <div
           className={cn(
             headerVariants({ type: albumInfo.type }),
             "flex flex-row justify-center"
@@ -143,11 +156,11 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
             <br />
             앨범을 공유해보세요
           </span>
-        </div>
+        </div> */}
         <div
           className={cn(
             headerVariants({ type: albumInfo.type }),
-            "z-10 h-24 w-full px-4"
+            "z-10 h-20 w-full px-4"
           )}>
           <ShareBar
             canAddFriend={
@@ -218,7 +231,7 @@ const ShareBar = ({
       <div className="flex flex-row gap-2">
         {previewMembers.length > 1 && (
           <SquareButton
-            className="tp-caption1-semibold rounded-[8px] bg-gray-100 px-[12px] py-[8px] text-gray-600"
+            className="tp-caption1-semibold rounded-[8px] bg-gray-100 px-[12px] py-[8px] text-gray-600 active:bg-gray-200"
             size="small"
             onClick={onTapViewFriend}>
             친구들 보기
@@ -226,7 +239,7 @@ const ShareBar = ({
         )}
         {canAddFriend && (
           <SquareButton
-            className="tp-caption1-semibold rounded-[8px] bg-purple-200 px-[12px] py-[8px] text-purple-700"
+            className="tp-caption1-semibold rounded-[8px] bg-gray-100 px-[12px] py-[8px] text-gray-600 active:bg-gray-200"
             size="small"
             onClick={onTapFindFriend}>
             친구 찾기

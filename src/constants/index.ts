@@ -38,11 +38,7 @@ export const LIST_ITEM_INFO: ListItemProps[] = [
       },
       {
         label: "개발팀 소개",
-        action: () => {
-          alert(
-            "아직 지원하는 기능이 아니에요. 다음 업데이트를 기다려주세요 😉"
-          )
-        },
+        link: "https://chisel-promise-9ff.notion.site/112385a9a75b8094b784e868d6779c1c",
       },
     ],
   },
