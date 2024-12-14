@@ -24,15 +24,15 @@ export const AlbumMenuDialog = ({
         <div
           className="fixed left-0 top-0 z-[1000] flex h-dvh w-dvw items-end justify-center bg-gray-800/50 px-5 pb-5 transition-all duration-500"
           onClick={onTapBackdrop}>
-          <div className="w-full rounded-2xl bg-white p-3 px-5">
+          <div className="w-full rounded-2xl bg-white p-2 px-5">
             <div className="flex flex-col">
               {myPermission == PermissionLevel.OWNER && (
                 <>
                   <div
-                    className="flex shrink grow basis-0 flex-row items-center justify-center gap-2 py-4"
+                    className="flex shrink grow basis-0 flex-row items-center justify-center gap-1 py-4"
                     onClick={() => onTapAction(AlbumMenuAction.DELETE)}>
-                    <Icon name="qrIcon" size={28} color="gray-500" />
-                    <span className="tp-body1-semibold text-gray-600">
+                    <Icon name="trash" size={28} color="red-500" />
+                    <span className="tp-body1-semibold text-red-500">
                       앨범 삭제하기
                     </span>
                   </div>
@@ -42,17 +42,17 @@ export const AlbumMenuDialog = ({
                   />
                 </>
               )}
-              {(myPermission == PermissionLevel.OWNER ||
+              {/* {(myPermission == PermissionLevel.OWNER ||
                 myPermission == PermissionLevel.FULL_ACCESS) && (
                 <div
-                  className="flex shrink grow basis-0 flex-row items-center justify-center gap-2 py-4"
+                  className="flex shrink grow basis-0 flex-row items-center justify-center gap-1 py-4"
                   onClick={() => onTapAction(AlbumMenuAction.EDIT)}>
-                  <Icon name="galleryIcon" size={28} color="gray-500" />
+                  <Icon name="pen" size={24} color="gray-500" />
                   <span className="tp-body1-semibold text-gray-600">
                     앨범 수정하기
                   </span>
                 </div>
-              )}
+              )} */}
               {myPermission != PermissionLevel.OWNER && (
                 <div
                   className="divide-x bg-gray-200"

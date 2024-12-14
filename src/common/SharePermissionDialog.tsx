@@ -64,7 +64,7 @@ export const SharePermissionDialog = ({
               </div>
               <div className="flex flex-row gap-2 py-1">
                 <input
-                  className="w-[20px] border-2 border-purple-600"
+                  className="w-[20px]"
                   type="radio"
                   name="perm"
                   id="download"
@@ -109,12 +109,12 @@ export const SharePermissionDialog = ({
             </div>
             <div className="mt-[20px] flex flex-row justify-between gap-3">
               <SquareButton
-                className="grow basis-1 bg-gray-100 text-gray-600"
+                className="grow basis-1 bg-gray-100 text-gray-600 active:bg-gray-200"
                 onClick={onExit}>
                 닫기
               </SquareButton>
               <SquareButton
-                className="grow basis-1 bg-purple-600 text-white"
+                className="grow basis-1 bg-gray-600 text-white active:bg-gray-700"
                 onClick={() => onTapSave(permissionLevel)}>
                 공유하기
               </SquareButton>

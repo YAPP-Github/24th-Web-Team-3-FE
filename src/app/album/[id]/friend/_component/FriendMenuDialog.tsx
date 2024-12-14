@@ -22,7 +22,7 @@ export const FriendMenuDialog = ({
               <div
                 className="flex shrink grow basis-0 flex-col items-center justify-center gap-2 py-4"
                 onClick={onTapKick}>
-                <Icon name="qrIcon" size={28} color="gray-500" />
+                <Icon name="handShake" size={28} color="gray-500" />
                 <span className="tp-body1-semibold text-gray-600">
                   친구 내보내기
                 </span>
@@ -31,7 +31,7 @@ export const FriendMenuDialog = ({
               <div
                 className="flex shrink grow basis-0 flex-col items-center justify-center gap-2 py-4"
                 onClick={onTapPermission}>
-                <Icon name="galleryIcon" size={28} color="gray-500" />
+                <Icon name="permission" size={28} color="gray-500" />
                 <span className="tp-body1-semibold text-gray-600">
                   권한 수정하기
                 </span>

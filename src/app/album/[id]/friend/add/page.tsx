@@ -69,8 +69,34 @@ const AddFriendPage = ({ params }: { params: { id: string } }) => {
   }, [searchParam])
 
   const albumName = albumInfo?.name ?? ""
+
+  const typeToBackgroundColor: Record<string, string> = {
+    HEART: "bg-red-200",
+    FIRE: "bg-butter-200",
+    BASKETBALL: "bg-green-200",
+    BUILDING: "bg-skyblue-200",
+    STARFALL: "bg-purple-200",
+    SMILE_FACE: "bg-pink-200",
+  }
+
+  const typeToTextColor: Record<string, string> = {
+    HEART: "text-red-700",
+    FIRE: "text-butter-700",
+    BASKETBALL: "text-green-700",
+    BUILDING: "text-skyblue-700",
+    STARFALL: "text-purple-700",
+    SMILE_FACE: "text-pink-700",
+  }
+
+  const backgroundColorClass = albumInfo?.type
+    ? typeToBackgroundColor[albumInfo.type]
+    : "bg-gray-200"
+  const textColorClass = albumInfo?.type
+    ? typeToTextColor[albumInfo.type]
+    : "text-gray-700"
+
   return (
-    <div className="relative h-dvh w-full bg-purple-200">
+    <div className={`relative h-dvh w-full ${backgroundColorClass}`}>
       <Header />
       <SharePermissionDialog
         isOwnerMigrateVisible={false}
@@ -86,12 +112,12 @@ const AddFriendPage = ({ params }: { params: { id: string } }) => {
       <div className="flex flex-col gap-4 px-6 pb-6 pt-4">
         <div className="tp-header2-semibold text-gray-800">
           <p>
-            <span className="text-purple-700">{albumName}</span> 앨범을
+            <span className={`${textColorClass}`}>{albumName}</span> 앨범을
           </p>
           <p>공유할 친구를 찾아봐요</p>
         </div>
         <input
-          className="tp-title2-regular w-full rounded-lg bg-gray-100 py-2.5 pl-3 pr-4 caret-green-600 mix-blend-multiply outline-none"
+          className="tp-title2-regular w-full rounded-lg bg-gray-100 py-2.5 pl-3 pr-4 caret-gray-400 mix-blend-multiply outline-none"
           value={searchParam}
           onChange={handleSearchParam}
           placeholder="이름으로 검색해주세요"

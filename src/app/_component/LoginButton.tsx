@@ -12,11 +12,11 @@ const LoginButton = () => {
       window.ReactNativeWebView.postMessage("kakaoLogin")
       return
     }
-    await signIn("kakao", { callbackUrl: "/scanner" })
+    await signIn("kakao", { callbackUrl: "/album" })
   }
 
   const handleSignInWithApple = async () => {
-    await signIn("apple", { callbackUrl: "/scanner" })
+    await signIn("apple", { callbackUrl: "/album" })
   }
 
   return (

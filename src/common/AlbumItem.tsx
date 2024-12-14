@@ -68,7 +68,7 @@ function AlbumItem({
       {isEditable ? (
         <>
           <input
-            className="tp-header1-semibold w-full rounded-lg bg-gray-100 py-1 pl-3 pr-4 caret-green-600 mix-blend-multiply outline-none"
+            className="tp-header1-semibold w-full rounded-lg bg-gray-100 py-1 pl-3 pr-4 caret-gray-600 mix-blend-multiply outline-none"
             value={name}
             onChange={handleName}
             placeholder="새 앨범"
@@ -85,7 +85,7 @@ function AlbumItem({
           </div>
 
           <div
-            className={`absolute left-0 top-0 h-full w-full rounded-2xl border-[3px] border-green-600 opacity-0 ${isSelected && "opacity-100"}`}
+            className={`absolute left-0 top-0 h-full w-full rounded-2xl opacity-0 ${isSelected && "opacity-100"}`}
           />
 
           {isNew && (
