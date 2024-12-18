@@ -9,15 +9,27 @@ import { GetBulkAlbumResponse } from "@/app/api/photo"
 import { useGetAlbums } from "@/app/scanner/hooks/usePhoto"
 
 import DraggableAlbum from "./DraggableAlbum"
+import EventModal from "./EventModal"
 
 export const Albums = () => {
   const { albums } = useGetAlbums()
 
   const [albumList, setAlbumList] = useState<GetBulkAlbumResponse[]>()
+  const [isEventModalOpen, setIsEventModalOpen] = useState<boolean>(true)
 
   useEffect(() => {
     setAlbumList(albums)
   }, [albums])
+
+  useEffect(() => {
+    const eventStatus = JSON.parse(localStorage.getItem("eventModal") || "true")
+    setIsEventModalOpen(eventStatus)
+  }, [])
+
+  const handleCloseModal = () => {
+    setIsEventModalOpen(false)
+    localStorage.setItem("eventModal", JSON.stringify(false))
+  }
 
   const moveAlbum = (dragIndex: number, hoverIndex: number) => {
     setAlbumList((prevAlbumList) => {
@@ -56,6 +68,7 @@ export const Albums = () => {
           ))}
         </div>
       )}
+      {isEventModalOpen && <EventModal onClose={handleCloseModal} />}
     </DndProvider>
   )
 }

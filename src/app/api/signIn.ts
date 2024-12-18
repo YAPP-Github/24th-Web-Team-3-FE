@@ -34,6 +34,10 @@ export const appleLogin = async (
   return data
 }
 
+export const sumoneLogin = async () => {
+  return true
+}
+
 export const getMyProfile = async (): Promise<GetMyProfileResponse> => {
   const data = await myFetch("user/v1/me", {
     method: "GET",

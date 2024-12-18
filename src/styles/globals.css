@@ -1,5 +1,12 @@
 @tailwind base;
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 @layer base {
   :root {
     max-width: 430px;
@@ -265,5 +272,5 @@ ex) Display1 + Extralight -> tp-display1-extralight
 
 .text-gradient-purple {
   color: transparent;
-  background: linear-gradient(114deg, #C680FF 4.37%, #FF82C6 101.46%);
+  background: linear-gradient(114deg, #c680ff 4.37%, #ff82c6 101.46%);
 }
