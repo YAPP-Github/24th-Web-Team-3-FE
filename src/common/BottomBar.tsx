@@ -30,13 +30,13 @@ const Album = () => {
         <Icon name="albumBold" size={28} color="gray-800" />
         <span className="text-gray-800">내 앨범</span>
       </Button>
-      <Link href="/scanner">
+      {/* <Link href="/scanner">
         <Button className="rounded-full" tabIndex={-1}>
           <div className="flex h-[54px] w-[54px] items-center justify-center rounded-full bg-gray-100">
             <Icon name="scannerOutline" size={28} color="gray-400" />
           </div>
         </Button>
-      </Link>
+      </Link> */}
       <Link href="/profile">
         <Button className="rounded-lg" tabIndex={-1}>
           <div className={TAB_ITEM_CLASSNAME}>
@@ -60,11 +60,11 @@ const Scanner = () => {
           </div>
         </Button>
       </Link>
-      <Button className="rounded-full" disabled>
+      {/* <Button className="rounded-full" disabled>
         <div className="flex h-[54px] w-[54px] items-center justify-center rounded-full bg-white">
           <Icon name="scannerOutline" size={28} color="green-600" />
         </div>
-      </Button>
+      </Button> */}
       <Link href="/profile">
         <Button className="rounded-lg" tabIndex={-1}>
           <div className={TAB_ITEM_CLASSNAME}>

@@ -13,7 +13,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "fix": "eslint --fix ."
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.7",
