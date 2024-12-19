@@ -121,13 +121,15 @@ export const getSharedAlbum = async (
 
 export const postAlbum = async (
   name: string,
-  type: AlbumType
+  type: AlbumType,
+  sumoneInviteCode?: string
 ): Promise<AlbumInfo> => {
   const data = await myFetch(`/photo/v1/albums`, {
     method: "POST",
     body: JSON.stringify({
       name,
       type,
+      sumoneInviteCode,
     }),
   })
   return data

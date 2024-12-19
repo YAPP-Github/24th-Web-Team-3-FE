@@ -10,6 +10,7 @@ export interface GetMyProfileResponse {
   name: string
   profileImageUrl: string
   serialNumber: string
+  isDefaultName: boolean
 }
 
 export const kakaoLogin = async (
@@ -34,13 +35,20 @@ export const appleLogin = async (
   return data
 }
 
-export const sumoneLogin = async () => {
-  return true
-}
-
 export const getMyProfile = async (): Promise<GetMyProfileResponse> => {
   const data = await myFetch("user/v1/me", {
     method: "GET",
+  })
+
+  return data
+}
+
+export const updateName = async (
+  name: string
+): Promise<GetMyProfileResponse> => {
+  const data = await myFetch("user/v1/me/name", {
+    method: "POST",
+    body: JSON.stringify({ name: name }),
   })
 
   return data
