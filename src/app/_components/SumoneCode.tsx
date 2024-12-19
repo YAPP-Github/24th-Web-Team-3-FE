@@ -3,11 +3,16 @@ import Icon from "@/common/Icon"
 
 import LoginButton from "./LoginButton"
 
-const SumoneCodePage = () => {
+const SumoneCodePage = ({ onPrevClick }: { onPrevClick: () => void }) => {
+  const handleBlurInput = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.value === "") return
+    localStorage.setItem("sumoneCode", e.target.value)
+  }
+
   return (
     <div className="flex h-full w-full flex-col">
       <header className="relative flex h-14 w-full items-center justify-center px-4 py-3.5">
-        <span className="absolute left-4">
+        <span className="absolute left-4" onClick={onPrevClick}>
           <Icon name="altArrowLeftOutline" size={28} />
         </span>
         <span className="tp-title2-semibold text-gray-800">
@@ -27,6 +32,7 @@ const SumoneCodePage = () => {
             type="text"
             placeholder="가입코드"
             tabIndex={0}
+            onBlur={handleBlurInput}
           />
         </div>
       </div>

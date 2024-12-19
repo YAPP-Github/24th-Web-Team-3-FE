@@ -38,14 +38,14 @@ const LoginButton = ({ isSumone, setIsSumone }: LoginButtonProps) => {
         {isIOS() && (
           <SquareButton
             onClick={handleSignInWithApple}
-            className={`flex ${isSumone ? "w-full" : "w-1/2"} flex-grow-0 bg-gray-950 text-gray-50 active:bg-gray-1000`}>
+            className={`flex w-full flex-grow-0 bg-gray-950 text-gray-50 active:bg-gray-1000`}>
             <Icon name={"appleLogo"} size={24} color={"gray-50"}></Icon>
             {isSumone ? "애플로 로그인하기" : "애플 로그인"}
           </SquareButton>
         )}
         <SquareButton
           onClick={handleSignInWithKakao}
-          className={`flex ${isSumone ? "w-full" : "w-1/2"} flex-grow-0 bg-kakao-600 text-gray-1000 active:bg-kakao-700`}>
+          className={`flex w-full flex-grow-0 bg-kakao-600 text-gray-1000 active:bg-kakao-700`}>
           <Icon name={"kakaoLogo"} size={28}></Icon>
           {isSumone ? "카카오로 3초만에 로그인하기" : "카카오 로그인"}
         </SquareButton>

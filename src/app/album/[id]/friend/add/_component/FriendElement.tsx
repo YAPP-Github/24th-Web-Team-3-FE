@@ -17,13 +17,13 @@ const FriendElement = ({
 }: FriendElementProps) => {
   return (
     <div className="flex flex-row items-center justify-between py-2">
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-3">
         <Image
           crossOrigin="anonymous"
           src={imageUrl}
-          className="h-[54px] w-[54px] rounded-[50%] border-2 border-white"
-          width={54}
-          height={54}
+          className="h-[48px] w-[48px] rounded-[50%]"
+          width={48}
+          height={48}
           alt="friend"
         />
         <div className="flex flex-col items-start justify-center">
@@ -44,8 +44,8 @@ const SharedButton = ({
   onTapShare: () => void
 }) => {
   const buttonProps = isShared
-    ? "rounded-[100px] bg-purple-300 px-4 py-1.5 flex justify-center items-center text-purple-600"
-    : "rounded-[100px] bg-white px-4 py-1.5 flex justify-center items-center text-purple-600"
+    ? "rounded-[100px] bg-gray-100 px-4 py-1.5 flex justify-center items-center text-gray-400 mix-blend-multiply"
+    : "rounded-[100px] bg-white px-4 py-1.5 flex justify-center items-center text-gray-700 tp-body2-regular"
   return (
     <button className={buttonProps} onClick={onTapShare}>
       {isShared ? "공유됨" : "공유하기"}
