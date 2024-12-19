@@ -88,13 +88,13 @@ const Profile = () => {
           </div>
         </Button>
       </Link>
-      <Link href="/scanner">
+      {/* <Link href="/scanner">
         <Button className="rounded-full" tabIndex={-1}>
           <div className="flex h-[54px] w-[54px] items-center justify-center rounded-full bg-gray-100">
             <Icon name="scannerOutline" size={28} color="gray-400" />
           </div>
         </Button>
-      </Link>
+      </Link> */}
       <Button className="rounded-lg" disabled>
         <div className={TAB_ITEM_CLASSNAME}>
           <Icon name="userCircleBold" size={28} color="gray-800" />
