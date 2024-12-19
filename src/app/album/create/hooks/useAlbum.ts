@@ -21,6 +21,7 @@ export const usePostAlbum = () => {
       name: string
       type: AlbumType
       photoId?: string | null
+      sumoneInviteCode?: string
     }) => postAlbum(name, type),
     mutationKey: ["postAlbum"],
     onError: (error) => {
