@@ -82,7 +82,7 @@ const Home = () => {
           </div>
         </>
       ) : (
-        <SumoneCodePage />
+        <SumoneCodePage onPrevClick={() => setIsSumone(false)} />
       )}
     </div>
   )
