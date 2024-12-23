@@ -133,7 +133,7 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
       <div className={cn(headerVariants({ type: albumInfo.type }))}>
         <Header
           albumInfo={albumInfo}
-          className={`sticky top-0 z-10 ${backgroundColorClass}`}
+          className={`sticky top-0 z-20 ${backgroundColorClass}`}
           onTapMenu={() => setIsMenuVisible(true)}
         />
         {isDeleteModalShown && <Dialog {...deleteDialogProps} />}
@@ -184,7 +184,7 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
             </span>
           </div>
         </div>
-        <AlbumPhotos albumInfo={albumInfo} />
+        <AlbumPhotos albumInfo={albumInfo} myPermission={myPermission} />
       </div>
     </>
   )
@@ -213,7 +213,7 @@ const ShareBar = ({
           <div className="flex h-[44px] -space-x-4">
             {previewMembers.map((member, idx) => (
               <Image
-                style={{ zIndex: (5 - idx) * 10 }}
+                style={{ zIndex: 10 + (5 - idx) }}
                 key={member.memberId}
                 width={44}
                 height={44}
