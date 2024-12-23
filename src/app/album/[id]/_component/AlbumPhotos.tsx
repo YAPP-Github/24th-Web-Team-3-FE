@@ -5,7 +5,12 @@ import Masonry from "react-responsive-masonry"
 
 import VideoLoading from "@/app/album/[id]/_component/VideoLoading"
 import VideoRecap from "@/app/album/[id]/_component/VideoRecap"
-import { deletePhoto, generateRecap, getPhotos } from "@/app/api/photo"
+import {
+  deletePhoto,
+  generateRecap,
+  getPhotos,
+  PermissionLevel,
+} from "@/app/api/photo"
 import Button from "@/common/Button"
 import Icon from "@/common/Icon"
 import { recapColorVariants } from "@/styles/variants"
@@ -18,9 +23,10 @@ import { PhotoAddButton } from "./PhotoAddButton"
 
 interface AlbumPhotosProps {
   albumInfo: AlbumInfo
+  myPermission: PermissionLevel
 }
 
-export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
+export const AlbumPhotos = ({ albumInfo, myPermission }: AlbumPhotosProps) => {
   const [photos, setPhotos] = useState<PhotoInfo[]>([])
   const [imageDetailShown, setImageDetailShown] = useState(false)
 
@@ -87,10 +93,13 @@ export const AlbumPhotos = ({ albumInfo }: AlbumPhotosProps) => {
     <>
       <div className="flex w-full flex-wrap bg-white p-4 px-6">
         <Masonry key={photos.length} columnsCount={2} gutter="12px">
-          <PhotoAddButton
-            albumId={albumInfo.albumId}
-            onImageUploaded={onImageUploaded}
-          />
+          {myPermission === PermissionLevel.OWNER ||
+            (myPermission === PermissionLevel.FULL_ACCESS && (
+              <PhotoAddButton
+                albumId={albumInfo.albumId}
+                onImageUploaded={onImageUploaded}
+              />
+            ))}
           {photos.map((photo, idx) => (
             <div
               key={photo.photoId}
