@@ -23,7 +23,7 @@ import { PhotoAddButton } from "./PhotoAddButton"
 
 interface AlbumPhotosProps {
   albumInfo: AlbumInfo
-  myPermission: PermissionLevel
+  myPermission: PermissionLevel | undefined
 }
 
 export const AlbumPhotos = ({ albumInfo, myPermission }: AlbumPhotosProps) => {
@@ -93,13 +93,13 @@ export const AlbumPhotos = ({ albumInfo, myPermission }: AlbumPhotosProps) => {
     <>
       <div className="flex w-full flex-wrap bg-white p-4 px-6">
         <Masonry key={photos.length} columnsCount={2} gutter="12px">
-          {myPermission === PermissionLevel.OWNER ||
-            (myPermission === PermissionLevel.FULL_ACCESS && (
-              <PhotoAddButton
-                albumId={albumInfo.albumId}
-                onImageUploaded={onImageUploaded}
-              />
-            ))}
+          {(myPermission === PermissionLevel.OWNER ||
+            myPermission === PermissionLevel.FULL_ACCESS) && (
+            <PhotoAddButton
+              albumId={albumInfo.albumId}
+              onImageUploaded={onImageUploaded}
+            />
+          )}
           {photos.map((photo, idx) => (
             <div
               key={photo.photoId}

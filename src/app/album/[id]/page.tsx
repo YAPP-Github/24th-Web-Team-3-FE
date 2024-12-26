@@ -63,9 +63,9 @@ const AlbumDetailPage = ({ params }: { params: { id: string } }) => {
   const isOwner = albumInfo.ownerMemberId === profile.profile?.memberId
   const me = sharedMembers.find(
     (member) => member.memberId === profile.profile?.memberId
-  )!
+  )
 
-  const myPermission = isOwner ? PermissionLevel.OWNER : me.permissionLevel
+  const myPermission = isOwner ? PermissionLevel.OWNER : me?.permissionLevel
 
   const sharedMembersPreview = [ownerShared, ...sharedMembers.slice(0, 5)]
 
