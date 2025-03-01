@@ -9,5 +9,5 @@ export default withAuth({
 })
 
 export const config = {
-  matcher: "/((?!api|static|.*\\..*|_next).*)",
+  matcher: "/((?!api|static|.*\\..*|_next|exportAlbum).*)",
 }

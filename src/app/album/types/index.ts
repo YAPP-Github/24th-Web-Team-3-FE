@@ -26,7 +26,7 @@ export interface PhotoInfo {
   photoUrl: string
   albumId: string
   brand: string
-  createdAt: string
+  createdAt?: string
 }
 
 export interface AlbumInfo {

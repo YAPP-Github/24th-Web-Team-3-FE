@@ -66,7 +66,11 @@ const Icon = ({
       {...props}
       width={size}
       height={size}
-      className={cn(className, color ? `fill-${color}` : "fill-gray-600")}
+      className={cn(
+        className,
+        "overflow-visible",
+        color ? `fill-${color}` : "fill-gray-600"
+      )}
     />
   )
 }
